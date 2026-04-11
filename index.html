@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script src="editor.js" defer><\/script>
 </head>
 <body>
 
@@ -17,7 +18,8 @@
     <div class="container header-inner">
       <a href="index.html" class="logo-link">
         <img src="https://media.infotravel.com.br/image/upload/A60662FD7A54D4C331DE3B0082A79B0E.png"
-             alt="321 GO! Agência de Viagens" class="logo-img" />
+             alt="321 GO! Agência de Viagens" class="logo-img"
+             data-eid="logo" data-elabel="Logo" />
       </a>
       <nav class="nav" id="nav">
         <a href="#inicio" class="nav-link">Início</a>
@@ -38,12 +40,12 @@
     <div class="hero-overlay"></div>
     <div class="container hero-content">
       <div class="hero-badge">✈ Agência de Viagens · Rio de Janeiro</div>
-      <h1 class="hero-title">
+      <h1 class="hero-title" data-eid="hero-title" data-elabel="Título Hero">
         Sua próxima aventura<br />começa <span class="hero-accent">aqui</span>
       </h1>
-      <p class="hero-sub">Pacotes nacionais, internacionais e a Copa 2026 com toda a facilidade que você merece. Atendimento personalizado com Patrícia e Tatiana.</p>
+      <p class="hero-sub" data-eid="hero-sub" data-elabel="Subtítulo Hero">Pacotes nacionais, internacionais e a Copa 2026 com toda a facilidade que você merece. Atendimento personalizado com Patrícia e Tatiana.</p>
       <div class="hero-actions">
-        <a href="https://wa.me/5521966501302?text=Olá%2C+gostaria+de+saber+mais+sobre+os+pacotes+da+321+GO!" class="btn btn-primary" target="_blank" rel="noopener">
+        <a href="https://wa.me/5521966501302?text=Olá%2C+gostaria+de+saber+mais+sobre+os+pacotes+da+321+GO!" class="btn btn-primary" target="_blank" rel="noopener" data-eid="hero-cta-wa" data-elabel="Botão WhatsApp Hero">
           💬 WhatsApp Agora
         </a>
         <a href="#pacotes" class="btn btn-outline">Ver Pacotes</a>
@@ -72,7 +74,8 @@
         <article class="card" id="card-bc" onclick="location.href='pacote.html?id=balneario'" style="cursor:pointer">
           <div class="card-img-wrap">
             <img src="imagens/balneario_camboriu.png"
-                 alt="Balneário Camboriú – Praia e cidade litorânea de SC" class="card-img" loading="lazy" />
+                 alt="Balneário Camboriú – Praia e cidade litorânea de SC" class="card-img" loading="lazy"
+                 data-eid="img-balneario" data-elabel="Foto – Balneário Camboriú" />
             <div class="card-badge card-badge--hot">🔥 Oferta</div>
           </div>
           <div class="card-body">
@@ -98,7 +101,8 @@
         <article class="card" id="card-maceio" onclick="location.href='pacote.html?id=maceio'" style="cursor:pointer">
           <div class="card-img-wrap">
             <img src="imagens/maceio.png"
-                 alt="Maceió – Piscinas naturais paradisíacas de Alagoas" class="card-img" loading="lazy" />
+                 alt="Maceió – Piscinas naturais paradisíacas de Alagoas" class="card-img" loading="lazy"
+                 data-eid="img-maceio" data-elabel="Foto – Maceió" />
             <div class="card-badge card-badge--popular">⭐ Popular</div>
           </div>
           <div class="card-body">
@@ -124,7 +128,8 @@
         <article class="card" id="card-cwb" onclick="location.href='pacote.html?id=curitiba'" style="cursor:pointer">
           <div class="card-img-wrap">
             <img src="imagens/curitiba.png"
-                 alt="Curitiba – Jardim Botânico, capital ecológica do Paraná" class="card-img" loading="lazy" />
+                 alt="Curitiba – Jardim Botânico, capital ecológica do Paraná" class="card-img" loading="lazy"
+                 data-eid="img-curitiba" data-elabel="Foto – Curitiba" />
             <div class="card-badge card-badge--hot">🔥 Oferta</div>
           </div>
           <div class="card-body">
@@ -150,7 +155,8 @@
         <article class="card" id="card-gramado" onclick="location.href='pacote.html?id=gramado'" style="cursor:pointer">
           <div class="card-img-wrap">
             <img src="imagens/gramado.png"
-                 alt="Gramado – Charme europeu na Serra Gaúcha do RS" class="card-img" loading="lazy" />
+                 alt="Gramado – Charme europeu na Serra Gaúcha do RS" class="card-img" loading="lazy"
+                 data-eid="img-gramado" data-elabel="Foto – Gramado" />
             <div class="card-badge card-badge--popular">⭐ Popular</div>
           </div>
           <div class="card-body">
@@ -176,7 +182,8 @@
         <article class="card" id="card-bariloche" onclick="location.href='pacote.html?id=bariloche'" style="cursor:pointer">
           <div class="card-img-wrap">
             <img src="imagens/bariloche.png"
-                 alt="Bariloche – Montanhas dos Andes e lagos na Patagônia Argentina" class="card-img" loading="lazy" />
+                 alt="Bariloche – Montanhas dos Andes e lagos na Patagônia Argentina" class="card-img" loading="lazy"
+                 data-eid="img-bariloche" data-elabel="Foto – Bariloche" />
             <div class="card-badge card-badge--premium">💎 Premium</div>
           </div>
           <div class="card-body">
@@ -202,7 +209,8 @@
         <article class="card" id="card-porto" onclick="location.href='pacote.html?id=porto'" style="cursor:pointer">
           <div class="card-img-wrap">
             <img src="imagens/porto_seguro.png"
-                 alt="Porto Seguro – Praias e falésias coloridas da Bahia" class="card-img" loading="lazy" />
+                 alt="Porto Seguro – Praias e falésias coloridas da Bahia" class="card-img" loading="lazy"
+                 data-eid="img-porto" data-elabel="Foto – Porto Seguro" />
             <div class="card-badge card-badge--hot">🔥 Oferta</div>
           </div>
           <div class="card-body">
@@ -498,5 +506,7 @@
   </a>
 
   <script src="main.js"></script>
+  <!-- Link admin -->
+  <!-- Acesse /admin/login.html para entrar no painel de edição -->
 </body>
 </html>
