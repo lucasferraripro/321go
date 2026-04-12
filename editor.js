@@ -281,7 +281,7 @@
             const p = this.panel_('✏️ Editar Texto — ' + (el.dataset.elabel || ''));
             p.innerHTML += `<div class="go-pb">
                 <div class="go-f"><label>Conteúdo</label>
-                    <div class="go-rich" contenteditable="true" id="gor">${el.innerHTML}</div>
+                    <div class="go-rich" contenteditable="true" id="gor" style="background:#4a5568;color:#ffffff;border:2px solid #718096;min-height:70px;padding:9px 11px;border-radius:8px;font-size:13px;line-height:1.5;">${el.innerHTML}</div>
                     <div class="go-fmts">
                         <button onmousedown="event.preventDefault();document.execCommand('bold')"><b>N</b></button>
                         <button onmousedown="event.preventDefault();document.execCommand('italic')"><i>I</i></button>
