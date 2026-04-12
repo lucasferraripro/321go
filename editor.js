@@ -188,7 +188,7 @@
             bar.id = 'go-bar';
             const lastPub = localStorage.getItem('321go_last_pub') || '';
             bar.innerHTML = `
-            <div class="go-brand"><span class="go-logo-text">321 GO!</span><span class="go-dot"></span></div>
+            <div class="go-brand"><span class="go-logo-text">321 GO! v6</span><span class="go-dot"></span></div>
             <span class="go-hint">👆 Clique em qualquer elemento para editar</span>
             <div class="go-spacer"></div>
             ${lastPub ? `<span class="go-last-pub">Pub: ${lastPub}</span><div class="go-sep"></div>` : ''}
