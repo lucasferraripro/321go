@@ -42,6 +42,8 @@
     }
 
     async function fetchContent() {
+        // Localmente (file://) não há servidor — retorna vazio sem erro
+        if (location.protocol === 'file:') return {};
         try {
             const r = await fetch(CONTENT_URL + '?_=' + Date.now());
             return r.ok ? await r.json() : {};

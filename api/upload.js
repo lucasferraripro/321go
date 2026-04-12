@@ -71,8 +71,8 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: err.message || 'Erro no upload' });
         }
 
-        // URL pública via jsDelivr (CDN rápida para GitHub)
-        const publicUrl = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/${path}`;
+        // URL pública via raw.githubusercontent.com (sem cache — aparece imediatamente)
+        const publicUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
         return res.status(200).json({ url: publicUrl });
 
     } catch (err) {
