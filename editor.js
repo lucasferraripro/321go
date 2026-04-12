@@ -280,9 +280,14 @@
             const cs = getComputedStyle(el);
             let colorChanged = false, sizeChanged = false;
             const p = this.panel_('✏️ Editar Texto — ' + (el.dataset.elabel || ''));
+            /* strip inline color/background from content so editor shows dark text on white */
+            const _tmp = document.createElement('div');
+            _tmp.innerHTML = el.innerHTML;
+            _tmp.querySelectorAll('*').forEach(n => { n.style.color = ''; n.style.background = ''; n.style.backgroundColor = ''; });
+            const _clean = _tmp.innerHTML;
             p.innerHTML += `<div class="go-pb">
                 <div class="go-f"><label>Conteúdo</label>
-                    <div class="go-rich" contenteditable="true" id="gor" style="background:#ffffff;color:#1a1a1a;border:2px solid #718096;min-height:70px;padding:9px 11px;border-radius:8px;font-size:13px;line-height:1.5;">${el.innerHTML}</div>
+                    <div class="go-rich" contenteditable="true" id="gor" style="background:#ffffff;color:#1a1a1a;border:2px solid #718096;min-height:70px;padding:9px 11px;border-radius:8px;font-size:13px;line-height:1.5;">${_clean}</div>
                     <div class="go-fmts">
                         <button onmousedown="event.preventDefault();document.execCommand('bold')"><b>N</b></button>
                         <button onmousedown="event.preventDefault();document.execCommand('italic')"><i>I</i></button>
