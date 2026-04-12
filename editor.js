@@ -105,17 +105,17 @@
         body.go-on [data-eid]:hover::after{content:attr(data-elabel);position:absolute;top:-26px;left:0;background:#E05220;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;z-index:99997;pointer-events:none;font-family:-apple-system,sans-serif;}
         body.go-on [data-eid].go-sel{outline:2px solid #22A8C9!important;outline-offset:3px;}
 
-        .go-panel{position:fixed;top:64px;right:18px;width:320px;background:#fff;color:#111;border-radius:16px;z-index:99998;box-shadow:0 20px 60px rgba(0,0,0,.25);font-family:'Poppins',-apple-system,sans-serif;overflow:hidden;}
+        .go-panel{position:fixed;top:64px;right:18px;width:320px;background:#fff!important;color:#111!important;border-radius:16px;z-index:99998;box-shadow:0 20px 60px rgba(0,0,0,.25);font-family:'Poppins',-apple-system,sans-serif;overflow:hidden;}
         .go-ph{background:#0f1623;color:#fff;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:move;user-select:none;border-bottom:2px solid #E05220;}
         .go-ph h3{font-size:13px;font-weight:700;margin:0;}
         .go-px{background:none;border:none;color:rgba(255,255,255,.55);font-size:18px;cursor:pointer;padding:0 2px;line-height:1;}
         .go-px:hover{color:#fff;}
-        .go-pb{padding:16px;max-height:calc(100vh - 130px);overflow-y:auto;background:#fff;color:#111;}
+        .go-pb{padding:16px;max-height:calc(100vh - 130px);overflow-y:auto;background:#fff!important;color:#111!important;}
         .go-f{margin-bottom:13px;}
         .go-f label{display:block;font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;}
-        .go-f input[type=text],.go-f input[type=url],.go-f input[type=password],.go-f textarea,.go-f select{width:100%;padding:8px 11px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit;resize:vertical;transition:border .15s;background:#fff;color:#111;}
+        .go-f input[type=text],.go-f input[type=url],.go-f input[type=password],.go-f textarea,.go-f select{width:100%;padding:8px 11px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit;resize:vertical;transition:border .15s;background:#fff!important;color:#111!important;}
         .go-f input:focus,.go-f textarea:focus,.go-f select:focus{border-color:#E05220;}
-        .go-rich{min-height:70px;padding:9px 11px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;transition:border .15s;line-height:1.5;background:#fff;color:#111;}
+        .go-rich{min-height:70px;padding:9px 11px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;transition:border .15s;line-height:1.5;background:#fff!important;color:#111!important;}
         .go-rich:focus{border-color:#E05220;}
         .go-fmts{display:flex;gap:5px;margin-top:6px;}
         .go-fmts button{padding:4px 11px;border:1.5px solid #E5E7EB;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;font-weight:700;transition:background .1s;}
@@ -192,6 +192,8 @@
             <span class="go-hint">👆 Clique em qualquer elemento para editar</span>
             <div class="go-spacer"></div>
             ${lastPub ? `<span class="go-last-pub">Pub: ${lastPub}</span><div class="go-sep"></div>` : ''}
+            <button class="go-btn" id="go-pages">📄 <span class="go-btn-lbl">Páginas</span></button>
+            <div class="go-sep"></div>
             <button class="go-btn orange" id="go-colors">🎨 <span class="go-btn-lbl">Cores</span></button>
             <div class="go-sep"></div>
             <button class="go-btn green" id="go-pub">🚀 <span class="go-btn-lbl">Publicar</span></button>
@@ -199,6 +201,7 @@
             <button class="go-btn" id="go-revert" title="Descartar rascunho">↩ <span class="go-btn-lbl">Reverter</span></button>
             <button class="go-btn red" id="go-exit">✕ <span class="go-btn-lbl">Sair</span></button>`;
             document.body.prepend(bar);
+            document.getElementById('go-pages').onclick  = () => this.pPages();
             document.getElementById('go-colors').onclick = () => this.pColors();
             document.getElementById('go-pub').onclick    = () => this.publish();
             document.getElementById('go-revert').onclick = () => this.revert();
@@ -240,6 +243,33 @@
             nav.innerHTML = `<span style="font-size:12px;color:#374151;">Quer ir para a página?</span>
                 <a href="${url}" style="font-size:12px;font-weight:700;color:#E05220;white-space:nowrap;">Abrir pacote →</a>`;
             pb.prepend(nav);
+        },
+
+        /* ── PÁGINAS DO SITE ── */
+        pPages() {
+            const pages = [
+                { label: '🏠 Home',          url: 'index.html' },
+                { label: '🧭 Quem Somos',    url: 'sobre.html' },
+                { label: '⭐ Clientes',       url: 'clientes.html' },
+                { label: '🏖 Balneário',      url: 'pacote.html?id=balneario' },
+                { label: '⚽ Copa do Mundo',  url: 'pacote.html?id=copa-canada' },
+                { label: '🇲🇽 México',        url: 'pacote.html?id=copa-mexico' },
+                { label: '🇺🇸 EUA',           url: 'pacote.html?id=copa-eua' },
+                { label: '🌎 América do Sul', url: 'pacote.html?id=copa-amsul' },
+            ];
+            const p = this.panel_('📄 Navegação — Páginas do Site');
+            const links = pages.map(pg => {
+                const isActive = location.pathname.endsWith(pg.url.split('?')[0]) &&
+                                 location.search === (pg.url.includes('?') ? '?' + pg.url.split('?')[1] : '');
+                return `<a href="${pg.url}" style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:${isActive?'#FFF7ED':'#F9FAFB'};border:1px solid ${isActive?'#FED7AA':'#E5E7EB'};border-radius:8px;margin-bottom:8px;font-size:13px;font-weight:600;color:${isActive?'#C2410C':'#1F2937'};text-decoration:none;">
+                    <span>${pg.label}</span>
+                    <span style="font-size:11px;color:#9CA3AF;">${isActive ? '← atual' : 'abrir →'}</span>
+                </a>`;
+            }).join('');
+            p.innerHTML += `<div class="go-pb">
+                <div style="font-size:11px;color:#6B7280;margin-bottom:12px;">O modo editor continua ativo ao navegar entre páginas.</div>
+                ${links}
+            </div>`;
         },
 
         /* ── TEXTO ── */
