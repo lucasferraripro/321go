@@ -111,6 +111,11 @@
         .go-px{background:none;border:none;color:rgba(255,255,255,.55);font-size:18px;cursor:pointer;padding:0 2px;line-height:1;}
         .go-px:hover{color:#fff;}
         .go-pb{padding:16px;max-height:calc(100vh - 130px);overflow-y:auto;background:#fff!important;color:#111!important;}
+        .go-pb *{color:inherit;}
+        .go-pb label,.go-f label{color:#374151!important;}
+        .go-pb p,.go-pb span,.go-pb div{color:#111!important;}
+        .go-hint-txt{color:#9CA3AF!important;}
+        .go-info{color:#6B7280!important;}
         .go-f{margin-bottom:13px;}
         .go-f label{display:block;font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;}
         .go-f input[type=text],.go-f input[type=url],.go-f input[type=password],.go-f textarea,.go-f select{width:100%;padding:8px 11px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit;resize:vertical;transition:border .15s;background:#fff!important;color:#111!important;}
@@ -656,6 +661,7 @@
             this.closePanel();
             const p = document.createElement('div');
             p.className = 'go-panel';
+            p.style.cssText = 'color:#111;background:#fff;';
             p.innerHTML = `<div class="go-ph"><h3>${title}</h3><button class="go-px" title="Fechar">✕</button></div>`;
             document.body.appendChild(p);
             p.querySelector('.go-px').onclick = () => this.closePanel();
