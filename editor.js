@@ -16,8 +16,11 @@
     const SECRET_KEY  = '321go_secret';     // DEVE ser igual ao login.html
     const CONTENT_URL = '/api/content';
 
-    /* ─── AUTH ─────────────────────────────────────────────────  */
-    const auth     = JSON.parse(sessionStorage.getItem(AUTH_KEY) || 'null');
+    /* ─── AUTH ─────────────────────────────────────────────────
+       Usa localStorage (não sessionStorage) para que o token persista
+       entre páginas quando testando via file:// no Chrome — cada arquivo
+       tem origem diferente e sessionStorage não atravessa origens. */
+    const auth     = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
     const isAdmin  = auth && auth.expires > Date.now();
     const params   = new URLSearchParams(location.search);
     const editMode = isAdmin && (params.get('editor') === '1' || sessionStorage.getItem('editor_active') === '1');
@@ -328,7 +331,7 @@
                         status.style.color = '#6B7280';
                         try {
                             const b64 = dataUrl.split(',')[1];
-                            const secret = sessionStorage.getItem(SECRET_KEY) || '';
+                            const secret = localStorage.getItem(SECRET_KEY) || '';
                             const res = await fetch('/api/upload', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
@@ -531,7 +534,7 @@
             if (hasCols) items += `<li>Cores globais do site</li>`;
             if (hasWA)   items += `<li>WhatsApp: ${this.cms.whatsapp}</li>`;
 
-            const hasSavedSecret = !!sessionStorage.getItem(SECRET_KEY);
+            const hasSavedSecret = !!localStorage.getItem(SECRET_KEY);
             const p = this.panel_('🚀 Publicar Alterações');
             p.innerHTML += `<div class="go-pb">
                 <div class="go-info" style="background:#EFF6FF;border:1px solid #BFDBFE;color:#1E40AF;border-radius:10px;padding:14px;margin-bottom:14px;line-height:1.8;">
@@ -549,11 +552,11 @@
             p.querySelector('#goc').onclick = () => this.closePanel();
             p.querySelector('#goa').onclick = async () => {
                 const pwdEl = p.querySelector('#gopwd');
-                let secret = sessionStorage.getItem(SECRET_KEY) || '';
+                let secret = localStorage.getItem(SECRET_KEY) || '';
                 if (pwdEl) {
                     if (!pwdEl.value) { pwdEl.focus(); pwdEl.style.borderColor='#DC2626'; return; }
                     secret = pwdEl.value;
-                    sessionStorage.setItem(SECRET_KEY, secret);
+                    localStorage.setItem(SECRET_KEY, secret);
                 }
                 p.querySelector('.go-pb').innerHTML = `<div class="go-loading"><span class="go-spin">⏳</span>Publicando alterações…</div>`;
                 try {
@@ -594,6 +597,8 @@
             try { hasDraft = Object.keys(JSON.parse(localStorage.getItem(CMS_KEY) || '{}')).length > 0; } catch (_) {}
             if (hasDraft && !confirm('Sair do editor? Você tem alterações não publicadas (rascunho salvo).')) return;
             sessionStorage.removeItem('editor_active');
+            localStorage.removeItem(AUTH_KEY);
+            localStorage.removeItem(SECRET_KEY);
             const u = new URL(location.href);
             u.searchParams.delete('editor');
             location.replace(u.toString());

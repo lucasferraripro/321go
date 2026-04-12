@@ -166,13 +166,15 @@
                  || location.hostname === 'localhost'
                  || location.hostname === '127.0.0.1';
 
-    /* Se já autenticado e sessão válida → redireciona direto */
+    /* Se já autenticado e sessão válida → redireciona direto
+       Usa localStorage porque file:// no Chrome trata cada pasta como origem
+       diferente, fazendo sessionStorage não persistir entre páginas. */
     try {
-        const saved = JSON.parse(sessionStorage.getItem(ADMIN_KEY) || 'null');
+        const saved = JSON.parse(localStorage.getItem(ADMIN_KEY) || 'null');
         if (saved && saved.expires > Date.now()) {
             window.location.href = '../index.html?editor=1';
         }
-    } catch (_) { sessionStorage.removeItem(ADMIN_KEY); }
+    } catch (_) { localStorage.removeItem(ADMIN_KEY); }
 
     /* ── SUBMIT ── */
     document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -200,12 +202,12 @@
         if (isLocal) {
             await new Promise(r => setTimeout(r, 600)); // simula latência
             if (senha === LOCAL_SECRET) {
-                sessionStorage.setItem(ADMIN_KEY, JSON.stringify({
+                localStorage.setItem(ADMIN_KEY, JSON.stringify({
                     email,
                     ts:      Date.now(),
                     expires: Date.now() + 8 * 60 * 60 * 1000
                 }));
-                sessionStorage.setItem(SECRET_KEY, senha);
+                localStorage.setItem(SECRET_KEY, senha);
                 window.location.href = '../index.html?editor=1';
             } else {
                 errTxt.textContent = 'Senha incorreta. Tente novamente.';
@@ -226,12 +228,12 @@
             const data = await res.json();
 
             if (data.ok) {
-                sessionStorage.setItem(ADMIN_KEY, JSON.stringify({
+                localStorage.setItem(ADMIN_KEY, JSON.stringify({
                     email,
                     ts:      Date.now(),
                     expires: Date.now() + 8 * 60 * 60 * 1000
                 }));
-                sessionStorage.setItem(SECRET_KEY, senha);
+                localStorage.setItem(SECRET_KEY, senha);
                 window.location.href = '/index.html?editor=1';
             } else {
                 errTxt.textContent = 'Senha incorreta. Tente novamente.';
