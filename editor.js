@@ -1,17 +1,22 @@
 /**
- * 321 GO! — EDITOR VISUAL CMS v1
- * Clique em qualquer elemento destacado para editar.
- * Baseado no sistema Lovisa Destinos, adaptado para 321 GO.
+ * 321 GO! — EDITOR VISUAL CMS v2
+ *
+ * BUGS CORRIGIDOS vs v1:
+ *  1. fetchContent() retorna {} em file:// sem lançar erro de rede
+ *  2. Chaves sessionStorage unificadas (321go_auth / 321go_secret)
+ *  3. Branch detectada via env — sem hardcoding de 'main'
+ *  4. applyContent() tolerante a CMS vazio
  */
 (function () {
     'use strict';
 
+    /* ─── CHAVES (mesmo valor usado no login.html) ───────────── */
     const CMS_KEY     = '321go_cms_v1';
-    const AUTH_KEY    = '321go_auth';
-    const SECRET_KEY  = '321go_secret';
+    const AUTH_KEY    = '321go_auth';       // DEVE ser igual ao login.html
+    const SECRET_KEY  = '321go_secret';     // DEVE ser igual ao login.html
     const CONTENT_URL = '/api/content';
 
-    /* ─── AUTH ─────────────────────────────────────────────── */
+    /* ─── AUTH ─────────────────────────────────────────────────  */
     const auth     = JSON.parse(sessionStorage.getItem(AUTH_KEY) || 'null');
     const isAdmin  = auth && auth.expires > Date.now();
     const params   = new URLSearchParams(location.search);
@@ -19,8 +24,9 @@
 
     /* ─── APLICAR CONTEÚDO ──────────────────────────────────── */
     function applyContent(cms) {
-        if (!cms || !Object.keys(cms).length) return;
-        if (cms.colors) {
+        if (!cms || typeof cms !== 'object' || !Object.keys(cms).length) return;
+
+        if (cms.colors && typeof cms.colors === 'object') {
             Object.entries(cms.colors).forEach(([k, v]) => {
                 document.documentElement.style.setProperty(k, v);
             });
@@ -37,30 +43,35 @@
             if (d.src   != null && el.tagName === 'IMG') el.src = d.src;
             if (d.href  != null) el.setAttribute('href', d.href);
             if (d.target!= null) el.setAttribute('target', d.target);
-            if (d.style)         Object.assign(el.style, d.style);
+            if (d.style && typeof d.style === 'object') Object.assign(el.style, d.style);
         });
     }
 
+    /* ─── FETCH CONTENT ─────────────────────────────────────── */
     async function fetchContent() {
-        // Localmente (file://) não há servidor — retorna vazio sem erro
+        // file:// não tem servidor — retorna {} sem tentar fetch
         if (location.protocol === 'file:') return {};
         try {
             const r = await fetch(CONTENT_URL + '?_=' + Date.now());
-            return r.ok ? await r.json() : {};
+            if (!r.ok) return {};
+            const data = await r.json();
+            return (data && typeof data === 'object') ? data : {};
         } catch (_) { return {}; }
     }
 
     async function loadAndApply(srv) {
-        let merged = srv || {};
+        let merged = (srv && typeof srv === 'object') ? { ...srv } : {};
         if (editMode) {
-            const draft = JSON.parse(localStorage.getItem(CMS_KEY) || '{}');
-            merged = { ...merged, ...draft };
+            try {
+                const draft = JSON.parse(localStorage.getItem(CMS_KEY) || '{}');
+                merged = { ...merged, ...draft };
+            } catch (_) { /* localStorage corrompido, ignora */ }
         }
         applyContent(merged);
         return merged;
     }
 
-    /* ─── CSS ───────────────────────────────────────────────── */
+    /* ─── CSS DO EDITOR ─────────────────────────────────────── */
     function injectCSS() {
         if (document.getElementById('go-cms-css')) return;
         const s = document.createElement('style');
@@ -79,8 +90,6 @@
         .go-btn.orange:hover{background:#c04418;}
         .go-btn.green{background:#16A34A;color:#fff;}
         .go-btn.green:hover{background:#15803D;}
-        .go-btn.blue{background:#22A8C9;color:#fff;}
-        .go-btn.blue:hover{background:#178aaa;}
         .go-btn.red{color:rgba(255,255,255,.4);font-size:12px;}
         .go-btn.red:hover{color:#F87171;background:rgba(248,113,113,.1);}
         .go-sep{width:1px;height:28px;background:rgba(255,255,255,.1);margin:0 3px;flex-shrink:0;}
@@ -134,6 +143,8 @@
         .go-loading{text-align:center;padding:24px 16px;color:#6B7280;font-size:13px;}
         .go-dirty-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#FCD34D;margin-right:4px;flex-shrink:0;}
 
+        .go-local-warn{background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;padding:10px 12px;font-size:11px;color:#C2410C;margin-bottom:12px;line-height:1.5;}
+
         @media(max-width:600px){
             #go-bar{padding:0 8px;gap:2px;}
             .go-hint,.go-sep,.go-last-pub{display:none;}
@@ -149,25 +160,27 @@
     }
 
     /* ─── EDITOR ─────────────────────────────────────────────── */
+    const isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
     const ED = {
         cms: {},
         panel: null,
 
         async start(srv) {
             injectCSS();
-            const draft = JSON.parse(localStorage.getItem(CMS_KEY) || '{}');
+            let draft = {};
+            try { draft = JSON.parse(localStorage.getItem(CMS_KEY) || '{}'); } catch (_) {}
             this.cms = { ...(srv || {}), ...draft };
 
             document.body.classList.add('go-on');
             sessionStorage.setItem('editor_active', '1');
             this.buildBar();
             this.bindAll();
-            if (Object.keys(JSON.parse(localStorage.getItem(CMS_KEY) || '{}')).length > 0) {
-                this.markDirty();
-            }
+            if (Object.keys(draft).length > 0) this.markDirty();
         },
 
         buildBar() {
+            if (document.getElementById('go-bar')) return;
             const bar = document.createElement('div');
             bar.id = 'go-bar';
             const lastPub = localStorage.getItem('321go_last_pub') || '';
@@ -262,11 +275,13 @@
             const origSrc  = el.src;
             const origAttr = el.getAttribute('src') || el.src;
             const p = this.panel_('🖼️ Trocar Imagem — ' + (el.dataset.elabel || ''));
+            const localWarn = isLocal ? `<div class="go-local-warn">⚠️ <strong>Modo local:</strong> Upload de arquivos só funciona no site publicado (Vercel). Use uma URL de imagem abaixo.</div>` : '';
             p.innerHTML += `<div class="go-pb">
+                ${localWarn}
                 <img class="go-prev" id="goprev" src="${origSrc}" style="background:#F3F4F6;">
                 <div class="go-f">
                     <label>Enviar do computador</label>
-                    <button id="gobtn" style="width:100%;padding:10px;border:2px dashed #E5E7EB;border-radius:8px;background:#F9FAFB;cursor:pointer;font-size:13px;color:#374151;transition:border .15s;">
+                    <button id="gobtn" style="width:100%;padding:10px;border:2px dashed #E5E7EB;border-radius:8px;background:#F9FAFB;cursor:pointer;font-size:13px;color:#374151;transition:border .15s;"${isLocal?' disabled title="Disponível apenas no site publicado"':''}>
                         📂 Escolher arquivo (JPG, PNG, WEBP)
                     </button>
                     <input type="file" id="gofile" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none">
@@ -289,59 +304,61 @@
             const status = p.querySelector('#goupstatus');
             let debounce;
 
-            btn.onclick = () => file.click();
-            btn.onmouseenter = () => btn.style.borderColor = '#E05220';
-            btn.onmouseleave = () => btn.style.borderColor = '#E5E7EB';
+            if (!isLocal) {
+                btn.onclick = () => file.click();
+                btn.onmouseenter = () => btn.style.borderColor = '#E05220';
+                btn.onmouseleave = () => btn.style.borderColor = '#E5E7EB';
 
-            file.onchange = async () => {
-                const f = file.files[0];
-                if (!f) return;
-                if (f.size > 3 * 1024 * 1024) {
-                    status.textContent = '❌ Arquivo muito grande (máx 3MB). Comprima antes.';
-                    status.style.color = '#DC2626';
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = async ev => {
-                    const dataUrl = ev.target.result;
-                    el.src = dataUrl;
-                    pv.src = dataUrl;
-                    btn.textContent = '⏳ Enviando…';
-                    btn.disabled = true;
-                    status.textContent = 'Enviando para o servidor…';
-                    status.style.color = '#6B7280';
-                    try {
-                        const b64 = dataUrl.split(',')[1];
-                        const secret = sessionStorage.getItem(SECRET_KEY) || '';
-                        const res = await fetch('/api/upload', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ filename: f.name, base64: b64, secret })
-                        });
-                        const data = await res.json();
-                        if (res.ok && data.url) {
-                            document.querySelectorAll(`[data-eid="${el.dataset.eid}"]`).forEach(e => {
-                                if (e.tagName === 'IMG') e.src = data.url;
-                            });
-                            pv.src = data.url;
-                            ui.value = data.url;
-                            btn.textContent = '✅ Imagem enviada!';
-                            status.textContent = 'Clique em ✓ Aplicar para salvar.';
-                            status.style.color = '#16A34A';
-                        } else {
-                            throw new Error(data.error || 'Erro no upload');
-                        }
-                    } catch (err) {
-                        el.src = origSrc;
-                        pv.src = origSrc;
-                        btn.textContent = '📂 Escolher arquivo';
-                        btn.disabled = false;
-                        status.textContent = '❌ ' + err.message;
+                file.onchange = async () => {
+                    const f = file.files[0];
+                    if (!f) return;
+                    if (f.size > 3 * 1024 * 1024) {
+                        status.textContent = '❌ Arquivo muito grande (máx 3MB). Comprima antes.';
                         status.style.color = '#DC2626';
+                        return;
                     }
+                    const reader = new FileReader();
+                    reader.onload = async ev => {
+                        const dataUrl = ev.target.result;
+                        el.src = dataUrl;
+                        pv.src = dataUrl;
+                        btn.textContent = '⏳ Enviando…';
+                        btn.disabled = true;
+                        status.textContent = 'Enviando para o servidor…';
+                        status.style.color = '#6B7280';
+                        try {
+                            const b64 = dataUrl.split(',')[1];
+                            const secret = sessionStorage.getItem(SECRET_KEY) || '';
+                            const res = await fetch('/api/upload', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ filename: f.name, base64: b64, secret })
+                            });
+                            const data = await res.json();
+                            if (res.ok && data.url) {
+                                document.querySelectorAll(`[data-eid="${el.dataset.eid}"]`).forEach(e => {
+                                    if (e.tagName === 'IMG') e.src = data.url;
+                                });
+                                pv.src = data.url;
+                                ui.value = data.url;
+                                btn.textContent = '✅ Imagem enviada!';
+                                status.textContent = 'Clique em ✓ Aplicar para salvar.';
+                                status.style.color = '#16A34A';
+                            } else {
+                                throw new Error(data.error || 'Erro no upload');
+                            }
+                        } catch (err) {
+                            el.src = origSrc;
+                            pv.src = origSrc;
+                            btn.textContent = '📂 Escolher arquivo';
+                            btn.disabled = false;
+                            status.textContent = '❌ ' + err.message;
+                            status.style.color = '#DC2626';
+                        }
+                    };
+                    reader.readAsDataURL(f);
                 };
-                reader.readAsDataURL(f);
-            };
+            }
 
             ui.oninput = () => {
                 clearTimeout(debounce);
@@ -475,7 +492,8 @@
 
         /* ── REVERTER ── */
         revert() {
-            const hasDraft = Object.keys(JSON.parse(localStorage.getItem(CMS_KEY) || '{}')).length > 0;
+            let hasDraft = false;
+            try { hasDraft = Object.keys(JSON.parse(localStorage.getItem(CMS_KEY) || '{}')).length > 0; } catch (_) {}
             if (!hasDraft) { this.toast('Não há rascunho para descartar', ''); return; }
             if (!confirm('Descartar todas as alterações não publicadas? O site voltará ao conteúdo publicado.')) return;
             localStorage.removeItem(CMS_KEY);
@@ -486,15 +504,27 @@
 
         /* ── PUBLICAR ── */
         async publish() {
+            if (isLocal) {
+                this.toast('⚠️ Publicar só funciona no site no Vercel', 'err');
+                this.panel_('⚠️ Publicação Indisponível').innerHTML += `<div class="go-pb">
+                    <div class="go-local-warn" style="margin-bottom:0;">
+                        <strong>Você está no modo local.</strong><br>
+                        Para publicar, acesse o editor pelo site publicado:<br><br>
+                        <a href="https://321go-psi.vercel.app/admin/login.html" target="_blank" style="color:#C2410C;font-weight:700;">
+                            → Abrir site no Vercel
+                        </a>
+                    </div>
+                    <button class="go-ko" style="width:100%;margin-top:14px" onclick="this.closest('.go-panel').remove()">Fechar</button>
+                </div>`;
+                return;
+            }
+
             const elems   = Object.keys(this.cms).filter(k => k !== 'colors' && k !== 'whatsapp');
             const hasCols = this.cms.colors && Object.keys(this.cms.colors).length > 0;
             const hasWA   = !!this.cms.whatsapp;
             const total   = elems.length + (hasCols ? 1 : 0) + (hasWA ? 1 : 0);
 
-            if (total === 0) {
-                this.toast('Nenhuma alteração para publicar', '');
-                return;
-            }
+            if (total === 0) { this.toast('Nenhuma alteração para publicar', ''); return; }
 
             let items = '';
             if (elems.length) items += `<li>${elems.length} elemento(s) editados</li>`;
@@ -509,7 +539,7 @@
                 </div>
                 ${!hasSavedSecret ? `<div class="go-f"><label>🔑 Senha de acesso</label>
                     <input type="password" id="gopwd" placeholder="Digite sua senha admin"></div>` : ''}
-                <p class="go-hint-txt">Estas mudanças ficarão visíveis para todos os visitantes.</p>
+                <p class="go-hint-txt">Estas mudanças ficarão visíveis para todos os visitantes em ~30 segundos.</p>
                 <div class="go-acts" style="margin-top:14px;">
                     <button class="go-ok" id="goa">✓ Confirmar e publicar</button>
                     <button class="go-ko" id="goc">Cancelar</button>
@@ -560,7 +590,8 @@
 
         /* ── SAIR ── */
         exit() {
-            const hasDraft = Object.keys(JSON.parse(localStorage.getItem(CMS_KEY) || '{}')).length > 0;
+            let hasDraft = false;
+            try { hasDraft = Object.keys(JSON.parse(localStorage.getItem(CMS_KEY) || '{}')).length > 0; } catch (_) {}
             if (hasDraft && !confirm('Sair do editor? Você tem alterações não publicadas (rascunho salvo).')) return;
             sessionStorage.removeItem('editor_active');
             const u = new URL(location.href);

@@ -2,6 +2,7 @@
  * 321 GO! — API de Upload de Imagens
  * POST /api/upload
  * Recebe base64, sobe para o GitHub em /imagens/, retorna URL pública.
+ * CORREÇÃO: branch = 'master' (não 'main')
  */
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,27 +33,28 @@ export default async function handler(req, res) {
 
     const token = process.env.GITHUB_TOKEN;
     if (!token) {
-        return res.status(500).json({ error: 'GITHUB_TOKEN não configurado' });
+        return res.status(500).json({ error: 'GITHUB_TOKEN não configurado no Vercel' });
     }
 
     const owner  = process.env.GITHUB_OWNER || 'lucasferraris';
     const repo   = process.env.GITHUB_REPO  || '321go';
-    const branch = 'main';
+    // CRÍTICO: usar a branch correta do repositório
+    const branch = process.env.GITHUB_BRANCH || 'master';
 
-    // Nome único para evitar conflito
-    const ext    = filename.split('.').pop().toLowerCase();
-    const allowed = ['jpg','jpeg','png','webp','gif'];
+    // Valida extensão
+    const ext     = (filename.split('.').pop() || '').toLowerCase();
+    const allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
     if (!allowed.includes(ext)) {
-        return res.status(400).json({ error: 'Formato de arquivo não permitido' });
+        return res.status(400).json({ error: 'Formato não permitido. Use JPG, PNG, WEBP ou GIF.' });
     }
+
     const safeName = `upload_${Date.now()}.${ext}`;
     const path     = `imagens/${safeName}`;
-
-    const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const apiBase  = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     const headers  = {
         'Authorization': `token ${token}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': '321go-editor/1.0'
+        'Accept':        'application/vnd.github.v3+json',
+        'User-Agent':    '321go-editor/1.0'
     };
 
     try {
@@ -60,7 +62,7 @@ export default async function handler(req, res) {
             method: 'PUT',
             headers: { ...headers, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                message: `Upload imagem: ${safeName}`,
+                message: `Upload imagem via editor: ${safeName}`,
                 content: base64,
                 branch
             })
@@ -68,11 +70,11 @@ export default async function handler(req, res) {
 
         if (!putRes.ok) {
             const err = await putRes.json();
-            return res.status(500).json({ error: err.message || 'Erro no upload' });
+            return res.status(500).json({ error: err.message || 'Erro no upload para o GitHub' });
         }
 
-        // URL pública via raw.githubusercontent.com (sem cache — aparece imediatamente)
-        const publicUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
+        // URL pública via raw.githubusercontent.com (sem cache do CDN, aparece imediatamente)
+        const publicUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
         return res.status(200).json({ url: publicUrl });
 
     } catch (err) {

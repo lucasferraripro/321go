@@ -153,21 +153,28 @@
 </div>
 
 <script>
-    const AUTH_EMAIL  = 'admin@321go.com.br';
-    const ADMIN_KEY   = '321go_auth';
-    const SECRET_KEY  = '321go_secret';
+    /* ── CONSTANTES (DEVEM SER IDÊNTICAS AO editor.js) ── */
+    const AUTH_EMAIL = 'admin@321go.com.br';
+    const ADMIN_KEY  = '321go_auth';   // IDÊNTICO ao editor.js
+    const SECRET_KEY = '321go_secret'; // IDÊNTICO ao editor.js
 
-    // Se já logado, redireciona
-    const auth = JSON.parse(sessionStorage.getItem(ADMIN_KEY) || 'null');
-    if (auth && auth.expires > Date.now()) {
-        window.location.href = '../index.html?editor=1';
-    }
-
-    // Senha local padrão (mesma do api/auth.js — fallback sem servidor)
+    /* Senha de fallback local (mesma do api/auth.js) */
     const LOCAL_SECRET = '321Go@2026';
-    // Detecta se está rodando localmente (file:// ou localhost)
-    const isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
+    /* Detecta ambiente local (file:// ou localhost) */
+    const isLocal = location.protocol === 'file:'
+                 || location.hostname === 'localhost'
+                 || location.hostname === '127.0.0.1';
+
+    /* Se já autenticado e sessão válida → redireciona direto */
+    try {
+        const saved = JSON.parse(sessionStorage.getItem(ADMIN_KEY) || 'null');
+        if (saved && saved.expires > Date.now()) {
+            window.location.href = '../index.html?editor=1';
+        }
+    } catch (_) { sessionStorage.removeItem(ADMIN_KEY); }
+
+    /* ── SUBMIT ── */
     document.getElementById('login-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const email  = document.getElementById('email').value.trim().toLowerCase();
@@ -180,6 +187,7 @@
         btn.disabled  = true;
         errEl.style.display = 'none';
 
+        /* Valida e-mail antes de tudo */
         if (email !== AUTH_EMAIL) {
             errTxt.textContent = 'Email não reconhecido.';
             errEl.style.display = 'flex';
@@ -188,12 +196,14 @@
             return;
         }
 
-        // ── Modo LOCAL (sem servidor) ──────────────────────────
+        /* ── Modo LOCAL: valida direto no cliente ─────────────── */
         if (isLocal) {
+            await new Promise(r => setTimeout(r, 600)); // simula latência
             if (senha === LOCAL_SECRET) {
                 sessionStorage.setItem(ADMIN_KEY, JSON.stringify({
-                    email, ts: Date.now(),
-                    expires: Date.now() + (8 * 60 * 60 * 1000)
+                    email,
+                    ts:      Date.now(),
+                    expires: Date.now() + 8 * 60 * 60 * 1000
                 }));
                 sessionStorage.setItem(SECRET_KEY, senha);
                 window.location.href = '../index.html?editor=1';
@@ -201,35 +211,36 @@
                 errTxt.textContent = 'Senha incorreta. Tente novamente.';
                 errEl.style.display = 'flex';
                 btn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Entrar no Editor';
-                btn.disabled  = false;
+                btn.disabled = false;
             }
             return;
         }
 
-        // ── Modo VERCEL (com API) ──────────────────────────────
+        /* ── Modo VERCEL: valida via API /api/auth ────────────── */
         try {
-            const res  = await fetch('../api/auth', {
-                method: 'POST',
+            const res  = await fetch('/api/auth', {
+                method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ secret: senha })
+                body:    JSON.stringify({ secret: senha })
             });
             const data = await res.json();
 
             if (data.ok) {
                 sessionStorage.setItem(ADMIN_KEY, JSON.stringify({
-                    email, ts: Date.now(),
-                    expires: Date.now() + (8 * 60 * 60 * 1000)
+                    email,
+                    ts:      Date.now(),
+                    expires: Date.now() + 8 * 60 * 60 * 1000
                 }));
                 sessionStorage.setItem(SECRET_KEY, senha);
-                window.location.href = '../index.html?editor=1';
+                window.location.href = '/index.html?editor=1';
             } else {
                 errTxt.textContent = 'Senha incorreta. Tente novamente.';
                 errEl.style.display = 'flex';
                 btn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Entrar no Editor';
                 btn.disabled  = false;
             }
-        } catch {
-            errTxt.textContent = 'Erro de conexão. Verifique sua internet.';
+        } catch (err) {
+            errTxt.textContent = 'Erro de conexão: ' + (err.message || 'verifique sua internet.');
             errEl.style.display = 'flex';
             btn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Entrar no Editor';
             btn.disabled  = false;
