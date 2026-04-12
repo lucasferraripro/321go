@@ -223,6 +223,23 @@
             if (el.tagName === 'IMG')    this.pImage(el);
             else if (el.tagName === 'A') this.pLink(el);
             else                         this.pText(el);
+            this.addNavLink(el);
+        },
+
+        /* ── Botão de navegação para cards com onclick ── */
+        addNavLink(el) {
+            const article = el.closest('article[onclick]');
+            if (!article) return;
+            const match = article.getAttribute('onclick').match(/href='([^']+)'/);
+            if (!match) return;
+            const url = match[1];
+            const pb = this.panel && this.panel.querySelector('.go-pb');
+            if (!pb) return;
+            const nav = document.createElement('div');
+            nav.style.cssText = 'margin-bottom:12px;padding:10px 14px;background:#f0f4fa;border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:8px;';
+            nav.innerHTML = `<span style="font-size:12px;color:#374151;">Quer ir para a página?</span>
+                <a href="${url}" style="font-size:12px;font-weight:700;color:#E05220;white-space:nowrap;">Abrir pacote →</a>`;
+            pb.prepend(nav);
         },
 
         /* ── TEXTO ── */
