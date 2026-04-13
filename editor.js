@@ -117,7 +117,7 @@
         .go-f input:focus,.go-f textarea:focus,.go-f select:focus{border-color:#E05220;}
         .go-rich{min-height:70px;padding:9px 11px;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;font-size:13px;outline:none;transition:border .15s;line-height:1.5;background:#0f1623 !important;color:#e8edf5 !important;}
         .go-rich:focus{border-color:#E05220;}
-        #gor,#gor *{background:#ffffff !important;color:#1a1a1a !important;}
+        #gor,#gor *{background:#e2e2e2 !important;color:#1a1a1a !important;}
         .go-fmts{display:flex;gap:5px;margin-top:6px;}
         .go-fmts button{padding:4px 11px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:#243048 !important;color:#e8edf5 !important;cursor:pointer;font-size:13px;font-weight:700;transition:background .1s;}
         .go-fmts button:hover{background:#3a4a65 !important;}
@@ -287,7 +287,7 @@
             const _clean = _tmp.innerHTML;
             p.innerHTML += `<div class="go-pb">
                 <div class="go-f"><label>Conteúdo</label>
-                    <div class="go-rich" contenteditable="true" id="gor" style="background:#ffffff;color:#1a1a1a;border:2px solid #718096;min-height:70px;padding:9px 11px;border-radius:8px;font-size:13px;line-height:1.5;">${_clean}</div>
+                    <div class="go-rich" contenteditable="true" id="gor" style="background:#e2e2e2;color:#1a1a1a;border:2px solid #718096;min-height:70px;padding:9px 11px;border-radius:8px;font-size:13px;line-height:1.5;">${_clean}</div>
                     <div class="go-fmts">
                         <button onmousedown="event.preventDefault();document.execCommand('bold')"><b>N</b></button>
                         <button onmousedown="event.preventDefault();document.execCommand('italic')"><i>I</i></button>
