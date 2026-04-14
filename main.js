@@ -21,12 +21,6 @@ if (hamburger && nav) {
   });
 }
 
-const header = document.getElementById('header');
-if (header) {
-  window.addEventListener('scroll', () => {
-    header.style.background = window.scrollY > 60 ? 'rgba(15,22,35,.97)' : 'rgba(15,22,35,.85)';
-  });
-}
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
