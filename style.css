@@ -49,7 +49,7 @@ ul { list-style: none; }
 .nav-cta { background: linear-gradient(135deg, var(--orange) 0%, #f06030 100%); color: #fff; padding: 10px 20px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 12px rgba(224,82,32,.28); }
 .nav-cta:hover { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(224,82,32,.38); }
 .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; background: none; border: none; cursor: pointer; }
-.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+.hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: var(--transition); }
 
 /* ---------- HERO ---------- */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
