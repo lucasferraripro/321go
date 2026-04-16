@@ -1,5 +1,20 @@
 {
   "hero-title": {
     "html": "\n        Sua próxima aventura<br>começa <span class=\"hero-accent\">aqui</span>"
+  },
+  "pkg-price": {
+    "html": "<span style=\"font-family: Poppins, &quot;Poppins Fallback&quot;; font-size: medium;\">R$ 3543,03</span>"
+  },
+  "pkg-price-cartao": {
+    "html": "No cartão: <strong>R$ 3729,51</strong>"
+  },
+  "pkg-parcelas": {
+    "html": "ou <strong>10x de R$ 372,95 sem juros</strong>"
+  },
+  "pix-balneario": {
+    "html": "Pix: <strong>R$ 3543,03</strong>"
+  },
+  "parcel-balneario": {
+    "html": "ou 10x de <strong>R$ 371,93</strong>&nbsp;s/juros"
   }
 }
