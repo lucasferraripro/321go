@@ -34,5 +34,11 @@
   },
   "pix-maceio": {
     "html": "Pix: <strong>R$ 6.207,30</strong>"
+  },
+  "pix-curitiba": {
+    "html": "<div><br></div>10 X&nbsp;<strong>R$ 358,81</strong>&nbsp;/ pessoa"
+  },
+  "parcel-curitiba": {
+    "html": "<br>"
   }
 }
