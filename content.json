@@ -12,7 +12,7 @@
     "html": "ou <strong>10x de R$ 653,40&nbsp;</strong>sem juros&nbsp;"
   },
   "pix-balneario": {
-    "html": "Pix: <strong>R$ 3543,03</strong>"
+    "html": "Pix: <strong>R$ 3543,53</strong>"
   },
   "parcel-balneario": {
     "html": "ou 10x de <strong>R$ 372,95</strong>&nbsp;s/juros"
@@ -40,5 +40,57 @@
   },
   "parcel-curitiba": {
     "html": "<br>"
-  }
+  },
+  "incluso-balneario": {
+    "html": "\n              <li>✈ Voo direto GIG → NVT (Gol)</li>\n              <li>🏨 4 noites – Sagres Praia Hotel (café da manhã)</li>\n              <li>🎡 Bilhete Roda Gigante FG Big Wheel</li>\n              <li>🚐 Transfer In/Out + Beto Carrero</li>\n              <li>🔒 Seguro viagem incluído</li>\n            ",
+    "style": {
+      "color": "#050505",
+      "fontSize": "17px"
+    }
+  },
+  "pix-bariloche": {
+    "html": "A partir de <strong>R$ 892,20</strong> / pessoa"
+  },
+  "__new_packages": {
+    "teste": {
+      "title": "teste",
+      "subtitle": "teste",
+      "location": "",
+      "duration": "",
+      "price": "",
+      "priceCartao": "",
+      "parcelas": "",
+      "flag": "",
+      "badge": "",
+      "images": [
+        "imagens/balneario_camboriu.png"
+      ],
+      "desc": "",
+      "incluso": [],
+      "nao_incluso": [],
+      "roteiro": []
+    },
+    "teste_a": {
+      "title": "teste A",
+      "subtitle": "teste A",
+      "location": "teste A",
+      "duration": "teste A",
+      "price": "",
+      "priceCartao": "",
+      "parcelas": "",
+      "flag": "",
+      "badge": "",
+      "images": [
+        "imagens/balneario_camboriu.png"
+      ],
+      "desc": "",
+      "incluso": [],
+      "nao_incluso": [],
+      "roteiro": []
+    }
+  },
+  "__removed_cards": [
+    "card-new-teste",
+    "card-new-teste_a"
+  ]
 }
