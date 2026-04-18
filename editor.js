@@ -50,6 +50,11 @@
             if (d.style && typeof d.style === 'object') Object.assign(el.style, d.style);
         });
 
+        // Mesclar pacotes novos publicados no DB (para visitantes sem rascunho)
+        if (cms.__new_packages && typeof cms.__new_packages === 'object' && typeof DB !== 'undefined') {
+            Object.assign(DB, cms.__new_packages);
+        }
+
         // Remover cards marcados para remoção
         if (Array.isArray(cms.__removed_cards)) {
             cms.__removed_cards.forEach(id => {
@@ -73,6 +78,8 @@
 
     async function loadAndApply(srv) {
         let merged = (srv && typeof srv === 'object') ? { ...srv } : {};
+        // Expor CMS do servidor globalmente para que pacote.html possa mesclar __new_packages publicados
+        if (srv && srv.__new_packages) window.__321GO_SRV_CMS = srv;
         if (editMode) {
             try {
                 const draft = JSON.parse(localStorage.getItem(CMS_KEY) || '{}');

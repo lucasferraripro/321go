@@ -399,6 +399,22 @@
             ]
         }
     };
+
+    // ── Mesclar pacotes novos criados pelo editor ──
+    // Executa imediatamente após o DB ser definido, antes de qualquer evento
+    (function() {
+        try {
+            const draft = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+            if (draft.__new_packages && typeof draft.__new_packages === 'object') {
+                Object.assign(DB, draft.__new_packages);
+            }
+            // Também tenta carregar do content.json já aplicado (pacotes publicados)
+            const srv = window.__321GO_SRV_CMS;
+            if (srv && srv.__new_packages && typeof srv.__new_packages === 'object') {
+                Object.assign(DB, srv.__new_packages);
+            }
+        } catch (_) {}
+    })();
     </script>
 
     <style>
@@ -810,16 +826,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Obter pacote ──
     const id  = new URLSearchParams(location.search).get('id') || 'balneario';
 
-    // Mesclar pacotes novos criados pelo editor (salvos em __new_packages no CMS)
-    (function mergeNewPackages() {
-        try {
-            const draft = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
-            if (draft.__new_packages && typeof draft.__new_packages === 'object') {
-                Object.assign(DB, draft.__new_packages);
-            }
-        } catch (_) {}
-    })();
+    // Se o pacote não existe no DB ainda (pode ser novo pacote publicado),
+    // aguarda o editor.js carregar o CMS e tenta novamente
+    if (!DB[id]) {
+        // Tenta buscar do content.json diretamente
+        fetch('/api/content?_=' + Date.now())
+            .then(r => r.ok ? r.json() : {})
+            .then(srv => {
+                if (srv && srv.__new_packages && srv.__new_packages[id]) {
+                    Object.assign(DB, srv.__new_packages);
+                    renderPacote(id);
+                } else {
+                    renderPacote(id); // fallback para balneario
+                }
+            })
+            .catch(() => renderPacote(id));
+        return;
+    }
 
+    renderPacote(id);
+});
+
+function renderPacote(id) {
     const pkg = DB[id] || DB.balneario;
 
     // ── Prefixar eids com ID do pacote (evita que edição de um pacote afete outros) ──
@@ -983,7 +1011,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
         cardsEl.appendChild(card);
     });
-});
+} // fim renderPacote
 
 // ── Mobile menu ──
 const burger = document.getElementById('burger');
