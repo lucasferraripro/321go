@@ -62,6 +62,39 @@
                 if (el) el.remove();
             });
         }
+
+        // Injetar cards de novos pacotes na home (index.html)
+        if (cms.__new_packages && typeof cms.__new_packages === 'object') {
+            const grid = document.querySelector('.cards-grid');
+            if (grid) {
+                Object.entries(cms.__new_packages).forEach(([pkgId, pkg]) => {
+                    if (document.getElementById('card-new-' + pkgId)) return; // já existe
+                    const article = document.createElement('article');
+                    article.className = 'card';
+                    article.id = 'card-new-' + pkgId;
+                    article.setAttribute('onclick', "location.href='pacote.html?id=" + pkgId + "'");
+                    article.style.cursor = 'pointer';
+                    const img = pkg.images && pkg.images[0] ? pkg.images[0] : 'imagens/balneario_camboriu.png';
+                    const badgeClass = (pkg.badge||'').includes('Popular') ? 'card-badge--popular' : (pkg.badge||'').includes('Premium') ? 'card-badge--premium' : 'card-badge--hot';
+                    article.innerHTML = `
+                        <div class="card-img-wrap">
+                            <img src="${img}" alt="${pkg.title}" class="card-img" loading="lazy">
+                            <div class="card-badge ${badgeClass}">${pkg.badge || '🆕 Novo'}</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-dest">${pkg.location || ''}</div>
+                            <h3 class="card-title">${pkg.title}</h3>
+                            <div class="card-dates">${pkg.duration || ''}</div>
+                            <div class="card-price-block">
+                                <div class="card-pix">Pix: <strong>R$ ${pkg.price || '—'}</strong></div>
+                                <div class="card-parcel">${pkg.parcelas || ''}</div>
+                            </div>
+                            <a href="pacote.html?id=${pkgId}" class="btn btn-card">Ver detalhes completos →</a>
+                        </div>`;
+                    grid.appendChild(article);
+                });
+            }
+        }
     }
 
     /* ─── FETCH CONTENT ─────────────────────────────────────── */

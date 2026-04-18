@@ -826,22 +826,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Obter pacote ──
     const id  = new URLSearchParams(location.search).get('id') || 'balneario';
 
-    // Se o pacote não existe no DB ainda (pode ser novo pacote publicado),
-    // aguarda o editor.js carregar o CMS e tenta novamente
+    // Se o pacote não existe no DB ainda, tenta todas as fontes disponíveis
     if (!DB[id]) {
-        // Tenta buscar do content.json diretamente
-        fetch('/api/content?_=' + Date.now())
-            .then(r => r.ok ? r.json() : {})
-            .then(srv => {
-                if (srv && srv.__new_packages && srv.__new_packages[id]) {
-                    Object.assign(DB, srv.__new_packages);
+        // 1. Tenta localStorage (rascunho do editor)
+        try {
+            const draft = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+            if (draft.__new_packages && draft.__new_packages[id]) {
+                Object.assign(DB, draft.__new_packages);
+            }
+        } catch (_) {}
+
+        // 2. Se ainda não encontrou, busca do servidor (pacote publicado)
+        if (!DB[id]) {
+            fetch('/api/content?_=' + Date.now())
+                .then(r => r.ok ? r.json() : {})
+                .then(srv => {
+                    if (srv && srv.__new_packages && typeof srv.__new_packages === 'object') {
+                        Object.assign(DB, srv.__new_packages);
+                    }
                     renderPacote(id);
-                } else {
-                    renderPacote(id); // fallback para balneario
-                }
-            })
-            .catch(() => renderPacote(id));
-        return;
+                })
+                .catch(() => renderPacote(id));
+            return;
+        }
     }
 
     renderPacote(id);
