@@ -714,9 +714,9 @@
                 <div class="price-meta">
                     <div class="pm-row"><i class="fa-solid fa-location-dot"></i><span id="sb-loc">—</span></div>
                     <div class="pm-row"><i class="fa-solid fa-moon"></i><span id="sb-dur">—</span></div>
-                    <div class="pm-row"><i class="fa-solid fa-credit-card"></i><span>Até 10x sem juros</span></div>
-                    <div class="pm-row"><i class="fa-solid fa-tag"></i><span>5% OFF no PIX</span></div>
-                    <div class="pm-row"><i class="fa-solid fa-headset"></i><span>Patrícia e Tatiana — RJ</span></div>
+                    <div class="pm-row"><i class="fa-solid fa-credit-card"></i><span data-eid="pkg-parcelamento" data-elabel="Info Parcelamento">Até 10x sem juros</span></div>
+                    <div class="pm-row"><i class="fa-solid fa-tag"></i><span data-eid="pkg-desconto" data-elabel="Desconto / Oferta">5% OFF no PIX</span></div>
+                    <div class="pm-row"><i class="fa-solid fa-headset"></i><span data-eid="pkg-atendimento" data-elabel="Atendimento">Patrícia e Tatiana — RJ</span></div>
                 </div>
                 <a href="#" id="btn-wa" class="btn btn-wa" style="font-size:.95rem;height:50px;margin-bottom:10px;" data-eid="pkg-btn-wa" data-elabel="Botão WhatsApp – Reserva">
                     <i class="fab fa-whatsapp"></i> Reservar pelo WhatsApp
@@ -810,6 +810,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Obter pacote ──
     const id  = new URLSearchParams(location.search).get('id') || 'balneario';
     const pkg = DB[id] || DB.balneario;
+
+    // ── Prefixar eids com ID do pacote (evita que edição de um pacote afete outros) ──
+    // Ex: 'pkg-price' vira 'balneario-pkg-price', 'maceio-pkg-price', etc.
+    ['pkg-badge','pkg-title','pkg-subtitle','pkg-desc',
+     'pkg-price','pkg-price-cartao','pkg-parcelas','pkg-btn-wa',
+     'pkg-parcelamento','pkg-desconto','pkg-atendimento'].forEach(function(eid) {
+        const el = document.querySelector('[data-eid="' + eid + '"]');
+        if (el) el.dataset.eid = id + '-' + eid;
+    });
 
     // ── Meta ──
     document.title = pkg.title + ' — 321 GO! Agência de Viagens';
