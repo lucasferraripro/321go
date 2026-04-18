@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh pr create --title 'fix: texto invisível no editor de conteúdo' --body ':*)",
+      "Bash(gh pr:*)",
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:321go-psi.vercel.app)",
+      "Bash(npx vercel:*)",
+      "Bash(gh api:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3999/)",
+      "Bash(npx serve:*)",
+      "Bash(curl -s \"https://321go-psi.vercel.app/index.html\")",
+      "Bash(cp \"/c/Users/win 10/Desktop/vendas-de-sites/321go/index.html\" \"/c/Users/win 10/Desktop/vendas-de-sites/321go/.claude/worktrees/inspiring-ramanujan/index.html\")",
+      "Bash(cp \"/c/Users/win 10/Desktop/vendas-de-sites/321go/style.css\" \"/c/Users/win 10/Desktop/vendas-de-sites/321go/.claude/worktrees/inspiring-ramanujan/style.css\")"
+    ]
+  }
+}

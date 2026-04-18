@@ -112,6 +112,22 @@ ul { list-style: none; }
 .section-sub { font-size: 1.05rem; color: var(--text-2); font-weight: 400; max-width: 600px; margin: 0 auto; }
 .section-sub--light { color: var(--text-2); }
 
+/* ---- ABAS DE CATEGORIA ---- */
+.pkg-tabs { display: flex; gap: 10px; margin-bottom: 36px; justify-content: center; flex-wrap: wrap; }
+.pkg-tab {
+  padding: 11px 28px;
+  border-radius: 50px;
+  border: 2px solid rgba(0,0,0,.10);
+  background: transparent;
+  color: var(--text-2);
+  font-family: 'Poppins', sans-serif;
+  font-size: .9rem; font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.pkg-tab:hover { border-color: var(--orange); color: var(--orange); background: rgba(224,82,32,.04); }
+.pkg-tab.active { background: linear-gradient(135deg, var(--orange) 0%, #f06030 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 16px rgba(224,82,32,.28); }
+
 /* ---------- PACOTES SECTION ---------- */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
 .card {

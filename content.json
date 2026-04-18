@@ -12,10 +12,25 @@
     "html": "ou <strong>10x de R$ 653,40&nbsp;</strong>sem juros&nbsp;"
   },
   "pix-balneario": {
-    "html": "Pix: <strong>R$ 3543,53</strong>"
+    "html": "No cartão: <strong>R$ 2.605,80</strong>"
   },
   "parcel-balneario": {
-    "html": "ou 10x de <strong>R$ 372,95</strong>&nbsp;s/juros"
+    "html": "ou 10x de <strong>R$ 260,58</strong> sem juros"
+  },
+  "parcel-maceio": {
+    "html": "ou 10x de <strong>R$ 450,27</strong> sem juros"
+  },
+  "parcel-curitiba": {
+    "html": "ou 10x de <strong>R$ 188,25</strong> sem juros"
+  },
+  "parcel-gramado": {
+    "html": "ou 10x de <strong>R$ 255,00</strong> sem juros"
+  },
+  "parcel-bariloche": {
+    "html": "ou 12x de <strong>R$ 892,00</strong> sem juros"
+  },
+  "parcel-porto": {
+    "html": "ou 10x de <strong>R$ 239,97</strong> sem juros"
   },
   "copa-mexico-obs": {
     "html": "<br>"
@@ -29,17 +44,20 @@
   "curitiba-pkg-img-1": {
     "src": "imagens/curitiba_trem.png"
   },
-  "parcel-maceio": {
-    "html": "ou 10x de <strong>R$ 653,40</strong>&nbsp;s/juros"
-  },
   "pix-maceio": {
-    "html": "Pix: <strong>R$ 6.877,90</strong>"
+    "html": "No cartão: <strong>R$ 4.502,69</strong>"
   },
   "pix-curitiba": {
-    "html": "<div><br></div>10 X&nbsp;<strong>R$ 377,69&nbsp;</strong>/ pessoa"
+    "html": "No cartão: <strong>R$ 1.882,50</strong> / pessoa"
   },
-  "parcel-curitiba": {
-    "html": "<br>"
+  "pix-gramado": {
+    "html": "No cartão: <strong>R$ 2.550,00</strong>"
+  },
+  "pix-bariloche": {
+    "html": "No cartão: <strong>R$ 10.704,00</strong> / pessoa"
+  },
+  "pix-porto": {
+    "html": "No cartão: <strong>R$ 2.399,72</strong>"
   },
   "incluso-balneario": {
     "html": "\n              <li>✈ Voo direto GIG → NVT (Gol)</li>\n              <li>🏨 4 noites – Sagres Praia Hotel (café da manhã)</li>\n              <li>🎡 Bilhete Roda Gigante FG Big Wheel</li>\n              <li>🚐 Transfer In/Out + Beto Carrero</li>\n              <li>🔒 Seguro viagem incluído</li>\n            ",
@@ -47,9 +65,6 @@
       "color": "#050505",
       "fontSize": "17px"
     }
-  },
-  "pix-bariloche": {
-    "html": "A partir de <strong>R$ 892,20</strong> / pessoa"
   },
   "__new_packages": {
     "teste": {

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>321 GO! Agência de Viagens | Patrícia e Tatiana | Rio de Janeiro</title>
+  <meta name="description" content="321 GO! Agência de Viagens no Rio de Janeiro. Pacotes nacionais e internacionais, Copa 2026 e muito mais. Entre em contato com Patrícia e Tatiana." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="editor.js?v=8" defer></script>
+</head>
+<body>
+
+  <!-- HEADER / NAV -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="https://media.infotravel.com.br/image/upload/A60662FD7A54D4C331DE3B0082A79B0E.png"
+             alt="321 GO! Agência de Viagens" class="logo-img"
+             data-eid="logo" data-elabel="Logo" />
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#inicio" class="nav-link">Início</a>
+        <a href="#pacotes" class="nav-link">Pacotes</a>
+        <a href="#copa2026" class="nav-link">Copa 2026&nbsp;🏆</a>
+        <a href="#sobre" class="nav-link">Sobre</a>
+        <a href="#contato" class="nav-link nav-cta" id="nav-cta-btn">Fale Conosco</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-badge" data-eid="hero-badge" data-elabel="Badge Hero">✈ Agência de Viagens · Rio de Janeiro</div>
+      <h1 class="hero-title" data-eid="hero-title" data-elabel="Título Hero">
+        Sua próxima aventura<br />começa <span class="hero-accent">aqui</span>
+      </h1>
+      <p class="hero-sub" data-eid="hero-sub" data-elabel="Subtítulo Hero">Pacotes nacionais, internacionais e a Copa 2026 com toda a facilidade que você merece. Atendimento personalizado com Patrícia e Tatiana.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/5521966501302?text=Olá%2C+gostaria+de+saber+mais+sobre+os+pacotes+da+321+GO!" class="btn btn-primary" target="_blank" rel="noopener" data-eid="hero-cta-wa" data-elabel="Botão WhatsApp Hero">
+          💬 WhatsApp Agora
+        </a>
+        <a href="#pacotes" class="btn btn-outline" data-eid="hero-cta-pacotes" data-elabel="Botão Ver Pacotes">Ver Pacotes</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-eid="hero-stat1-icon" data-elabel="Stat 1 – Ícone">🌍</span>
+          <span class="stat-label" data-eid="hero-stat1-txt" data-elabel="Stat 1 – Texto">Destinos no mundo todo</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-eid="hero-stat2-icon" data-elabel="Stat 2 – Ícone">✈</span>
+          <span class="stat-label" data-eid="hero-stat2-txt" data-elabel="Stat 2 – Texto">Voos nacionais e internacionais</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-eid="hero-stat3-icon" data-elabel="Stat 3 – Ícone">🏆</span>
+          <span class="stat-label" data-eid="hero-stat3-txt" data-elabel="Stat 3 – Texto">Copa 2026 – EUA/CA/MX</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll"><span class="scroll-dot"></span></div>
+  </section>
+
+  <!-- PACOTES NACIONAIS -->
+  <section class="section pacotes-section" id="pacotes">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-eid="pacotes-tag" data-elabel="Tag Seção Pacotes">✈ Pacotes em Destaque</span>
+        <h2 class="section-title" data-eid="pacotes-titulo" data-elabel="Título Seção Pacotes">Explore o Brasil e o Mundo</h2>
+        <p class="section-sub" data-eid="pacotes-sub" data-elabel="Subtítulo Seção Pacotes">Pacotes completos com aéreo, hotel, transfers e passeios. Parcele em até 10x sem juros.</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <!-- Card 1: Balneário Camboriú -->
+        <article class="card" id="card-bc" onclick="location.href='pacote.html?id=balneario'" style="cursor:pointer">
+          <div class="card-img-wrap">
+            <img src="imagens/balneario_camboriu.png"
+                 alt="Balneário Camboriú" class="card-img" loading="lazy"
+                 data-eid="img-balneario" data-elabel="Foto – Balneário Camboriú" />
+            <div class="card-badge card-badge--hot" data-eid="badge-balneario" data-elabel="Badge – Balneário">🔥 Oferta</div>
+          </div>
+          <div class="card-body">
+            <div class="card-dest" data-eid="dest-balneario" data-elabel="Destino – Balneário">Balneário Camboriú · SC</div>
+            <h3 class="card-title" data-eid="titulo-balneario" data-elabel="Título – Balneário">BC + Beto Carrero World</h3>
+            <ul class="card-includes" data-eid="incluso-balneario" data-elabel="Inclusos – Balneário">
+              <li>✈ Voo direto GIG → NVT (Gol)</li>
+              <li>🏨 4 noites – Sagres Praia Hotel (café da manhã)</li>
+              <li>🎡 Bilhete Roda Gigante FG Big Wheel</li>
+              <li>🚐 Transfer In/Out + Beto Carrero</li>
+              <li>🔒 Seguro viagem incluído</li>
+            </ul>
+            <div class="card-dates" data-eid="data-balneario" data-elabel="Datas – Balneário">📅 11/07 – 15/07/2026 · 1 pessoa</div>
+            <div class="card-price-block">
+              <div class="card-pix" data-eid="pix-balneario" data-elabel="Preço Pix – Balneário">Pix: <strong>R$ 2.486,13</strong></div>
+              <div class="card-parcel" data-eid="parcel-balneario" data-elabel="Parcela – Balneário">ou 10x de <strong>R$ 260,58</strong> s/juros</div>
+            </div>
+            <a href="pacote.html?id=balneario" class="btn btn-card">Ver detalhes completos →</a>
+          </div>
+        </article>
+
+        <!-- Card 2: Maceió -->
+        <article class="card" id="card-maceio" onclick="location.href='pacote.html?id=maceio'" style="cursor:pointer">
+          <div class="card-img-wrap">
+            <img src="imagens/maceio.png"
+                 alt="Maceió" class="card-img" loading="lazy"
+                 data-eid="img-maceio" data-elabel="Foto – Maceió" />
+            <div class="card-badge card-badge--popular" data-eid="badge-maceio" data-elabel="Badge – Maceió">⭐ Popular</div>
+          </div>
+          <div class="card-body">
+            <div class="card-dest" data-eid="dest-maceio" data-elabel="Destino – Maceió">Maceió · AL</div>
+            <h3 class="card-title" data-eid="titulo-maceio" data-elabel="Título – Maceió">Maceió – Praias Paradisíacas</h3>
+            <ul class="card-includes" data-eid="incluso-maceio" data-elabel="Inclusos – Maceió">
+              <li>✈ Voo direto GIG → MCZ (Azul)</li>
+              <li>🏨 7 noites – Palms Ponta Verde by Tropicalis (4★)</li>
+              <li>🏖 City Tour + Praia do Francês</li>
+              <li>🚐 Transfer In/Out</li>
+              <li>🔒 Seguro viagem incluído</li>
+            </ul>
+            <div class="card-dates" data-eid="data-maceio" data-elabel="Datas – Maceió">📅 09/07 – 16/07/2026 · 1 pessoa</div>
+            <div class="card-price-block">
+              <div class="card-pix" data-eid="pix-maceio" data-elabel="Preço Pix – Maceió">Pix: <strong>R$ 4.281,83</strong></div>
+              <div class="card-parcel" data-eid="parcel-maceio" data-elabel="Parcela – Maceió">ou 10x de <strong>R$ 450,27</strong> s/juros</div>
+            </div>
+            <a href="pacote.html?id=maceio" class="btn btn-card">Ver detalhes completos →</a>
+          </div>
+        </article>
+
+        <!-- Card 3: Curitiba -->
+        <article class="card" id="card-cwb" onclick="location.href='pacote.html?id=curitiba'" style="cursor:pointer">
+          <div class="card-img-wrap">
+            <img src="imagens/curitiba.png"
+                 alt="Curitiba" class="card-img" loading="lazy"
+                 data-eid="img-curitiba" data-elabel="Foto – Curitiba" />
+            <div class="card-badge card-badge--hot" data-eid="badge-curitiba" data-elabel="Badge – Curitiba">🔥 Oferta</div>
+          </div>
+          <div class="card-body">
+            <div class="card-dest" data-eid="dest-curitiba" data-elabel="Destino – Curitiba">Curitiba · PR</div>
+            <h3 class="card-title" data-eid="titulo-curitiba" data-elabel="Título – Curitiba">Curitiba + Trem Morretes</h3>
+            <ul class="card-includes" data-eid="incluso-curitiba" data-elabel="Inclusos – Curitiba">
+              <li>✈ Aéreo incluído</li>
+              <li>🏨 Hotel incluso com café da manhã</li>
+              <li>🚂 City Tour + Trem Morretes</li>
+              <li>🚐 Transfer de chegada</li>
+              <li>📅 14/07 a 17/07/2026</li>
+            </ul>
+            <div class="card-dates" data-eid="data-curitiba" data-elabel="Datas – Curitiba">📅 Para 2 pessoas · Quarto Standard Casal</div>
+            <div class="card-price-block">
+              <div class="card-pix" data-eid="pix-curitiba" data-elabel="Preço Pix – Curitiba">A partir de <strong>R$ 304,00</strong> / pessoa</div>
+              <div class="card-parcel" data-eid="parcel-curitiba" data-elabel="Parcela – Curitiba">ou 10x sem juros</div>
+            </div>
+            <a href="pacote.html?id=curitiba" class="btn btn-card">Ver detalhes completos →</a>
+          </div>
+        </article>
+
+        <!-- Card 4: Gramado -->
+        <article class="card" id="card-gramado" onclick="location.href='pacote.html?id=gramado'" style="cursor:pointer">
+          <div class="card-img-wrap">
+            <img src="imagens/gramado.png"
+                 alt="Gramado" class="card-img" loading="lazy"
+                 data-eid="img-gramado" data-elabel="Foto – Gramado" />
+            <div class="card-badge card-badge--popular" data-eid="badge-gramado" data-elabel="Badge – Gramado">⭐ Popular</div>
+          </div>
+          <div class="card-body">
+            <div class="card-dest" data-eid="dest-gramado" data-elabel="Destino – Gramado">Gramado · RS</div>
+            <h3 class="card-title" data-eid="titulo-gramado" data-elabel="Título – Gramado">Gramado + Noite Gaúcha</h3>
+            <ul class="card-includes" data-eid="incluso-gramado" data-elabel="Inclusos – Gramado">
+              <li>✈ Aéreo incluído</li>
+              <li>🏨 Hotel incluso com café da manhã</li>
+              <li>🎭 City Tour + Noite Gaúcha</li>
+              <li>🍷 Vale dos Vinhedos</li>
+              <li>📅 20/08 a 26/08/2026</li>
+            </ul>
+            <div class="card-dates" data-eid="data-gramado" data-elabel="Datas – Gramado">📅 6 noites</div>
+            <div class="card-price-block">
+              <div class="card-pix" data-eid="pix-gramado" data-elabel="Preço Pix – Gramado">A partir de <strong>R$ 255,00</strong> / pessoa</div>
+              <div class="card-parcel" data-eid="parcel-gramado" data-elabel="Parcela – Gramado">ou 10x sem juros</div>
+            </div>
+            <a href="pacote.html?id=gramado" class="btn btn-card">Ver detalhes completos →</a>
+          </div>
+        </article>
+
+        <!-- Card 5: Bariloche -->
+        <article class="card" id="card-bariloche" onclick="location.href='pacote.html?id=bariloche'" style="cursor:pointer">
+          <div class="card-img-wrap">
+            <img src="imagens/bariloche.png"
+                 alt="Bariloche" class="card-img" loading="lazy"
+                 data-eid="img-bariloche" data-elabel="Foto – Bariloche" />
+            <div class="card-badge card-badge--premium" data-eid="badge-bariloche" data-elabel="Badge – Bariloche">💎 Premium</div>
+          </div>
+          <div class="card-body">
+            <div class="card-dest" data-eid="dest-bariloche" data-elabel="Destino – Bariloche">Bariloche · Argentina</div>
+            <h3 class="card-title" data-eid="titulo-bariloche" data-elabel="Título – Bariloche">Bariloche – Circuito Chico</h3>
+            <ul class="card-includes" data-eid="incluso-bariloche" data-elabel="Inclusos – Bariloche">
+              <li>✈ Voo GIG → BRC</li>
+              <li>🏨 5 noites com café da manhã</li>
+              <li>🏔 Tour panorâmico Circuito Chico</li>
+              <li>⛷ Excursão ao Cerro Catedral</li>
+              <li>📅 06/07 a 11/07/2026</li>
+            </ul>
+            <div class="card-dates" data-eid="data-bariloche" data-elabel="Datas – Bariloche">📅 2 adultos · Quarto duplo</div>
+            <div class="card-price-block">
+              <div class="card-pix" data-eid="pix-bariloche" data-elabel="Preço Pix – Bariloche">A partir de <strong>R$ 892,00</strong> / pessoa</div>
+              <div class="card-parcel" data-eid="parcel-bariloche" data-elabel="Parcela – Bariloche">12x sem juros em quarto duplo</div>
+            </div>
+            <a href="pacote.html?id=bariloche" class="btn btn-card">Ver detalhes completos →</a>
+          </div>
+        </article>
+
+        <!-- Card 6: Porto Seguro -->
+        <article class="card" id="card-porto" onclick="location.href='pacote.html?id=porto'" style="cursor:pointer">
+          <div class="card-img-wrap">
+            <img src="imagens/porto_seguro.png"
+                 alt="Porto Seguro" class="card-img" loading="lazy"
+                 data-eid="img-porto" data-elabel="Foto – Porto Seguro" />
+            <div class="card-badge card-badge--hot" data-eid="badge-porto" data-elabel="Badge – Porto Seguro">🔥 Oferta</div>
+          </div>
+          <div class="card-body">
+            <div class="card-dest" data-eid="dest-porto" data-elabel="Destino – Porto Seguro">Porto Seguro · BA</div>
+            <h3 class="card-title" data-eid="titulo-porto" data-elabel="Título – Porto Seguro">Porto Seguro com City Tour</h3>
+            <ul class="card-includes" data-eid="incluso-porto" data-elabel="Inclusos – Porto Seguro">
+              <li>✈ Voo GIG → BPS (ida e volta)</li>
+              <li>🏨 5 noites – Porto Dourado (Bem Bahia)</li>
+              <li>🏖 Transfer In/Out + City Tour (cortesia)</li>
+              <li>🔒 Seguro viagem incluído</li>
+              <li>📅 15/07 a 20/07/2026</li>
+            </ul>
+            <div class="card-dates" data-eid="data-porto" data-elabel="Datas – Porto Seguro">📅 1 pessoa · Standard</div>
+            <div class="card-price-block">
+              <div class="card-pix" data-eid="pix-porto" data-elabel="Preço Pix – Porto Seguro">A partir de <strong>R$ 2.399,72</strong> / pessoa</div>
+              <div class="card-parcel" data-eid="parcel-porto" data-elabel="Parcela – Porto Seguro">ou 10x sem juros</div>
+            </div>
+            <a href="pacote.html?id=porto" class="btn btn-card">Ver detalhes completos →</a>
+          </div>
+        </article>
+
+      </div><!-- /cards-grid -->
+    </div>
+  </section>
+
+  <!-- COPA 2026 -->
+  <section class="section copa-section" id="copa2026">
+    <div class="copa-bg"></div>
+    <div class="container">
+      <div class="section-header section-header--light">
+        <span class="section-tag section-tag--gold" data-eid="copa-tag" data-elabel="Tag Seção Copa">🏆 Copa do Mundo 2026</span>
+        <h2 class="section-title section-title--light" data-eid="copa-titulo" data-elabel="Título Seção Copa">EUA · Canadá · México</h2>
+        <p class="section-sub section-sub--light" data-eid="copa-sub" data-elabel="Subtítulo Seção Copa">5 pacotes estratégicos para você viver a Copa de perto. Escolha seu perfil e realize esse sonho com a gente!</p>
+      </div>
+
+      <div class="copa-grid">
+
+        <article class="copa-card" id="copa-eco" onclick="location.href='pacote.html?id=copa_mexico'" style="cursor:pointer">
+          <div class="copa-card-header">
+            <span class="copa-flag" data-eid="copa-mexico-flag" data-elabel="Bandeira – México">🇲🇽</span>
+            <div class="copa-label" data-eid="copa-mexico-label" data-elabel="Label – México">Pacote Econômico</div>
+          </div>
+          <h3 class="copa-card-title" data-eid="copa-mexico-titulo" data-elabel="Título – México">Cidade do México + Jogo</h3>
+          <div class="copa-duration" data-eid="copa-mexico-dur" data-elabel="Duração – México">⏱ 6 dias</div>
+          <ul class="copa-includes" data-eid="copa-mexico-inc" data-elabel="Inclusos – México">
+            <li>✈ Passagem Rio → Cidade do México</li>
+            <li>🏨 Hotel 3★ com café da manhã</li>
+            <li>🎟 1 jogo – fase de grupos</li>
+            <li>🚐 Transfer aeroporto + estádio</li>
+            <li>🏙 City tour cultural</li>
+          </ul>
+          <div class="copa-price" data-eid="copa-mexico-preco" data-elabel="Preço – México">R$ 14.900 <span class="copa-price-sub">/ pessoa</span></div>
+          <div class="copa-margin" data-eid="copa-mexico-obs" data-elabel="Obs – México">📈 Perfil: volume e entrada · ~36% retorno</div>
+          <a href="pacote.html?id=copa_mexico" class="btn btn-copa">Ver pacote completo →</a>
+        </article>
+
+        <article class="copa-card copa-card--destaque" id="copa-miami" onclick="location.href='pacote.html?id=copa_miami'" style="cursor:pointer">
+          <div class="copa-card-header">
+            <span class="copa-flag" data-eid="copa-miami-flag" data-elabel="Bandeira – Miami">🇺🇸</span>
+            <div class="copa-label copa-label--gold" data-eid="copa-miami-label" data-elabel="Label – Miami">⭐ Mais Vendido</div>
+          </div>
+          <h3 class="copa-card-title" data-eid="copa-miami-titulo" data-elabel="Título – Miami">Miami + Orlando + Jogo</h3>
+          <div class="copa-duration" data-eid="copa-miami-dur" data-elabel="Duração – Miami">⏱ 8 dias</div>
+          <ul class="copa-includes" data-eid="copa-miami-inc" data-elabel="Inclusos – Miami">
+            <li>✈ Rio → Miami</li>
+            <li>🏨 Hotel 3★ (Miami + Orlando)</li>
+            <li>🎟 1 jogo</li>
+            <li>🚗 Aluguel de carro</li>
+            <li>🎢 1 dia de parque em Orlando</li>
+          </ul>
+          <div class="copa-price" data-eid="copa-miami-preco" data-elabel="Preço – Miami">R$ 21.900 <span class="copa-price-sub">/ pessoa</span></div>
+          <div class="copa-margin" data-eid="copa-miami-obs" data-elabel="Obs – Miami">📈 Carro-chefe · lucro ~33%</div>
+          <a href="pacote.html?id=copa_miami" class="btn btn-copa btn-copa--gold">Ver pacote completo →</a>
+        </article>
+
+        <article class="copa-card" id="copa-ny" onclick="location.href='pacote.html?id=copa_ny'" style="cursor:pointer">
+          <div class="copa-card-header">
+            <span class="copa-flag" data-eid="copa-ny-flag" data-elabel="Bandeira – NY">🗽</span>
+            <div class="copa-label" data-eid="copa-ny-label" data-elabel="Label – NY">Pacote Premium</div>
+          </div>
+          <h3 class="copa-card-title" data-eid="copa-ny-titulo" data-elabel="Título – NY">Nova York + Jogo Decisivo</h3>
+          <div class="copa-duration" data-eid="copa-ny-dur" data-elabel="Duração – NY">⏱ 7 dias</div>
+          <ul class="copa-includes" data-eid="copa-ny-inc" data-elabel="Inclusos – NY">
+            <li>✈ Rio → Nova York</li>
+            <li>🏨 Hotel 4★ – Manhattan</li>
+            <li>🎟 Jogo decisivo (oitavas/quartas)</li>
+            <li>🚁 Passeio de helicóptero NYC</li>
+            <li>🏙 City tour</li>
+          </ul>
+          <div class="copa-price" data-eid="copa-ny-preco" data-elabel="Preço – NY">R$ 29.900 <span class="copa-price-sub">/ pessoa</span></div>
+          <div class="copa-margin" data-eid="copa-ny-obs" data-elabel="Obs – NY">📈 Perfil: status + experiência · ~31%</div>
+          <a href="pacote.html?id=copa_ny" class="btn btn-copa">Ver pacote completo →</a>
+        </article>
+
+        <article class="copa-card" id="copa-cancun" onclick="location.href='pacote.html?id=copa_cancun'" style="cursor:pointer">
+          <div class="copa-card-header">
+            <span class="copa-flag" data-eid="copa-cancun-flag" data-elabel="Bandeira – Cancún">🌮🌊</span>
+            <div class="copa-label" data-eid="copa-cancun-label" data-elabel="Label – Cancún">Experiência Completa</div>
+          </div>
+          <h3 class="copa-card-title" data-eid="copa-cancun-titulo" data-elabel="Título – Cancún">México + Cancún + Jogo</h3>
+          <div class="copa-duration" data-eid="copa-cancun-dur" data-elabel="Duração – Cancún">⏱ 9 dias</div>
+          <ul class="copa-includes" data-eid="copa-cancun-inc" data-elabel="Inclusos – Cancún">
+            <li>✈ Multidestino</li>
+            <li>🏨 Hotel 3★ + Resort Cancún</li>
+            <li>🎟 1 jogo</li>
+            <li>🏖 3 dias all inclusive</li>
+            <li>🚐 Transfers</li>
+          </ul>
+          <div class="copa-price" data-eid="copa-cancun-preco" data-elabel="Preço – Cancún">R$ 23.900 <span class="copa-price-sub">/ pessoa</span></div>
+          <div class="copa-margin" data-eid="copa-cancun-obs" data-elabel="Obs – Cancún">📈 Futebol + férias · ~36% retorno</div>
+          <a href="pacote.html?id=copa_cancun" class="btn btn-copa">Ver pacote completo →</a>
+        </article>
+
+        <article class="copa-card copa-card--luxury" id="copa-final" onclick="location.href='pacote.html?id=copa_final'" style="cursor:pointer">
+          <div class="copa-card-header">
+            <span class="copa-flag" data-eid="copa-final-flag" data-elabel="Bandeira – Final">🏆</span>
+            <div class="copa-label copa-label--luxury" data-eid="copa-final-label" data-elabel="Label – Final">💎 Luxo · Final da Copa</div>
+          </div>
+          <h3 class="copa-card-title" data-eid="copa-final-titulo" data-elabel="Título – Final">Final da Copa + Nova York</h3>
+          <div class="copa-duration" data-eid="copa-final-dur" data-elabel="Duração – Final">⏱ 7 dias</div>
+          <ul class="copa-includes" data-eid="copa-final-inc" data-elabel="Inclusos – Final">
+            <li>✈ Econômica premium</li>
+            <li>🏨 Hotel 4★/5★</li>
+            <li>🎟 FINAL DA COPA</li>
+            <li>🍽 Experiências VIP</li>
+            <li>🚐 Transfer executivo</li>
+          </ul>
+          <div class="copa-price" data-eid="copa-final-preco" data-elabel="Preço – Final">R$ 49.900 <span class="copa-price-sub">/ pessoa</span></div>
+          <div class="copa-margin" data-eid="copa-final-obs" data-elabel="Obs – Final">📈 Produto de autoridade · ~36% lucro</div>
+          <a href="pacote.html?id=copa_final" class="btn btn-copa btn-copa--luxury">Ver pacote completo →</a>
+        </article>
+
+      </div>
+
+      <div class="copa-disclaimer" data-eid="copa-disclaimer" data-elabel="Aviso Copa">
+        ⚠️ Valores sujeitos a alterações sem aviso prévio. Disponibilidade limitada. Entre em contato para confirmar datas e condições de pagamento.
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section sobre-section" id="sobre">
+    <div class="container sobre-inner">
+      <div class="sobre-img-col">
+        <div class="sobre-img-wrap">
+          <img src="https://media.infotravel.com.br/image/upload/A60662FD7A54D4C331DE3B0082A79B0E.png"
+               alt="Equipe 321 GO – Patrícia e Tatiana" class="sobre-img" loading="lazy"
+               data-eid="sobre-foto" data-elabel="Foto – Equipe Sobre" />
+          <div class="sobre-img-badge" data-eid="sobre-badge" data-elabel="Badge – Localização">🗺 Rio de Janeiro · RJ</div>
+        </div>
+      </div>
+      <div class="sobre-text-col">
+        <span class="section-tag" data-eid="sobre-tag" data-elabel="Tag – Sobre">Conheça a equipe</span>
+        <h2 class="section-title sobre-title" data-eid="sobre-titulo" data-elabel="Título – Sobre">Somos a <span class="orange">321 GO!</span></h2>
+        <p class="sobre-p" data-eid="sobre-p1" data-elabel="Parágrafo 1 – Sobre">Somos Patrícia e Tatiana, agentes de viagem apaixonadas por proporcionar experiências únicas e inesquecíveis. Com anos de experiência no mercado de turismo, estamos baseadas no Rio de Janeiro e atendemos clientes em todo o Brasil.</p>
+        <p class="sobre-p" data-eid="sobre-p2" data-elabel="Parágrafo 2 – Sobre">Nossa missão é tornar cada viagem especial — seja uma escapada de fim de semana para a Serra Gaúcha ou o sonho de presenciar a Copa do Mundo 2026. Atendimento personalizado, preços competitivos e total tranquilidade do início ao fim.</p>
+        <div class="sobre-features">
+          <div class="feature-item">
+            <span class="feature-icon" data-eid="sobre-feat1-icon" data-elabel="Ícone Diferencial 1">🤝</span>
+            <div data-eid="sobre-feat1-txt" data-elabel="Texto Diferencial 1"><strong>Atendimento personalizado</strong><br>Cada cliente é único, com necessidades próprias</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon" data-eid="sobre-feat2-icon" data-elabel="Ícone Diferencial 2">💳</span>
+            <div data-eid="sobre-feat2-txt" data-elabel="Texto Diferencial 2"><strong>Facilidade de pagamento</strong><br>Até 10x no cartão sem juros + 5% de desconto no Pix</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon" data-eid="sobre-feat3-icon" data-elabel="Ícone Diferencial 3">✅</span>
+            <div data-eid="sobre-feat3-txt" data-elabel="Texto Diferencial 3"><strong>Segurança e confiança</strong><br>Trabalhamos com as melhores operadoras do mercado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAS DE PAGAMENTO -->
+  <section class="pagamento-section">
+    <div class="container">
+      <div class="pagamento-inner">
+        <div class="pagamento-col">
+          <h3 class="pagamento-title" data-eid="pag-titulo" data-elabel="Título Pagamento">💳 Formas de Pagamento</h3>
+          <div class="pagamento-items">
+            <div class="pag-item" data-eid="pag-item1" data-elabel="Forma de Pagamento 1">
+              <strong>Cartão de Crédito</strong>
+              <span>Até 10x iguais sem juros (parcela mín. R$ 150). Aceito até 2 cartões de mesma titularidade.</span>
+            </div>
+            <div class="pag-item" data-eid="pag-item2" data-elabel="Forma de Pagamento 2">
+              <strong>PIX / À vista 🎉 5% OFF</strong>
+              <span>5% de desconto sobre o valor total. Liberação imediata do voucher.</span>
+            </div>
+            <div class="pag-item" data-eid="pag-item3" data-elabel="Forma de Pagamento 3">
+              <strong>Boleto Bancário</strong>
+              <span>Entrada 25% + saldo em até 9x. Embarque mínimo 45 dias após contratação.</span>
+            </div>
+          </div>
+        </div>
+        <div class="pagamento-col pagamento-col--bandeiras">
+          <h3 class="pagamento-title" data-eid="bandeiras-titulo" data-elabel="Título Bandeiras">Bandeiras aceitas</h3>
+          <div class="bandeiras" data-eid="bandeiras-lista" data-elabel="Lista de Bandeiras">
+            <span class="bandeira">Visa</span>
+            <span class="bandeira">Mastercard</span>
+            <span class="bandeira">Elo</span>
+            <span class="bandeira">Amex</span>
+            <span class="bandeira">Diners</span>
+            <span class="bandeira">Hipercard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section contato-section" id="contato">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-eid="contato-tag" data-elabel="Tag Seção Contato">📞 Fale com a gente</span>
+        <h2 class="section-title" data-eid="contato-titulo" data-elabel="Título Seção Contato">Entre em Contato</h2>
+        <p class="section-sub" data-eid="contato-sub" data-elabel="Subtítulo Seção Contato">Estamos prontas para montar o pacote perfeito para você. Resposta rápida via WhatsApp!</p>
+      </div>
+      <div class="contato-grid">
+        <div class="contato-card" id="contato-wpp">
+          <div class="contato-icon" data-eid="contato-wpp-icon" data-elabel="Ícone WhatsApp">💬</div>
+          <h3 class="contato-card-title" data-eid="contato-wpp-titulo" data-elabel="Título WhatsApp">WhatsApp</h3>
+          <p class="contato-info" data-eid="contato-wpp-numero" data-elabel="Número WhatsApp">(21) 96650-1302</p>
+          <a href="https://wa.me/5521966501302?text=Olá%2C+gostaria+de+saber+mais+sobre+os+pacotes+da+321+GO!" class="btn btn-primary contato-btn" target="_blank" rel="noopener" data-eid="contato-wpp-btn" data-elabel="Botão WhatsApp">Abrir WhatsApp</a>
+        </div>
+        <div class="contato-card" id="contato-tel">
+          <div class="contato-icon" data-eid="contato-tel-icon" data-elabel="Ícone Telefone">📞</div>
+          <h3 class="contato-card-title" data-eid="contato-tel-titulo" data-elabel="Título Telefone">Telefone</h3>
+          <p class="contato-info" data-eid="contato-tel-numero" data-elabel="Número Telefone">(21) 99095-0961</p>
+          <a href="tel:+5521990950961" class="btn btn-outline contato-btn" data-eid="contato-tel-btn" data-elabel="Botão Telefone">Ligar Agora</a>
+        </div>
+        <div class="contato-card" id="contato-email">
+          <div class="contato-icon" data-eid="contato-email-icon" data-elabel="Ícone E-mail">✉️</div>
+          <h3 class="contato-card-title" data-eid="contato-email-titulo" data-elabel="Título E-mail">E-mail</h3>
+          <p class="contato-info" data-eid="contato-email-ende" data-elabel="Endereço E-mail">patriciaetatiana@321go.com.br</p>
+          <a href="mailto:patriciaetatiana@321go.com.br" class="btn btn-outline contato-btn" data-eid="contato-email-btn" data-elabel="Botão E-mail">Enviar E-mail</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo-col">
+        <img src="https://media.infotravel.com.br/image/upload/A60662FD7A54D4C331DE3B0082A79B0E.png" alt="321 GO! Agência de Viagens" class="footer-logo"
+             data-eid="footer-logo" data-elabel="Logo – Footer" />
+        <p class="footer-tagline" data-eid="footer-tagline" data-elabel="Tagline – Footer">Sua viagem dos sonhos começa com 3, 2, 1… GO! 🚀</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/321go.patriciaetatiana" class="social-link" target="_blank" rel="noopener" data-eid="footer-instagram" data-elabel="Link Instagram – Footer">📸 Instagram</a>
+          <a href="https://wa.me/5521966501302" class="social-link" target="_blank" rel="noopener" data-eid="footer-whatsapp" data-elabel="Link WhatsApp – Footer"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-links-col">
+        <h4 class="footer-heading" data-eid="footer-col2-titulo" data-elabel="Título Coluna 2 – Footer">Destinos</h4>
+        <ul class="footer-list">
+          <li><a href="pacote.html?id=balneario" class="footer-link">Balneário Camboriú</a></li>
+          <li><a href="pacote.html?id=maceio" class="footer-link">Maceió</a></li>
+          <li><a href="pacote.html?id=curitiba" class="footer-link">Curitiba</a></li>
+          <li><a href="pacote.html?id=gramado" class="footer-link">Gramado</a></li>
+          <li><a href="pacote.html?id=bariloche" class="footer-link">Bariloche</a></li>
+          <li><a href="pacote.html?id=porto" class="footer-link">Porto Seguro</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-col">
+        <h4 class="footer-heading" data-eid="footer-col3-titulo" data-elabel="Título Coluna 3 – Footer">Copa 2026 🏆</h4>
+        <ul class="footer-list">
+          <li><a href="pacote.html?id=copa_mexico" class="footer-link">Cidade do México</a></li>
+          <li><a href="pacote.html?id=copa_miami" class="footer-link">Miami + Orlando</a></li>
+          <li><a href="pacote.html?id=copa_ny" class="footer-link">Nova York Premium</a></li>
+          <li><a href="pacote.html?id=copa_cancun" class="footer-link">México + Cancún</a></li>
+          <li><a href="pacote.html?id=copa_final" class="footer-link">Final da Copa</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-col">
+        <h4 class="footer-heading" data-eid="footer-col4-titulo" data-elabel="Título Coluna 4 – Footer">Contato</h4>
+        <ul class="footer-list">
+          <li data-eid="footer-endereco" data-elabel="Endereço – Footer">📍 Rio de Janeiro · RJ</li>
+          <li data-eid="footer-tel1" data-elabel="Telefone 1 – Footer">📞 (21) 99095-0961</li>
+          <li data-eid="footer-tel2" data-elabel="Telefone 2 – Footer"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> (21) 96650-1302</li>
+          <li data-eid="footer-email" data-elabel="E-mail – Footer">✉️ patriciaetatiana@321go.com.br</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-eid="footer-copyright" data-elabel="Copyright – Footer">© 2026 321 GO! Agência de Viagens · Patrícia e Tatiana · Rio de Janeiro · Todos os direitos reservados</p>
+      <p class="footer-disclaimer" data-eid="footer-disclaimer" data-elabel="Aviso Legal – Footer">Valores sujeitos a alterações. Condicionado à disponibilidade.</p>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/5521966501302?text=Olá%2C+gostaria+de+saber+mais+sobre+os+pacotes!" class="wpp-float" target="_blank" rel="noopener" id="wpp-float"
+     data-eid="wpp-float-btn" data-elabel="Botão Flutuante WhatsApp">
+    <span class="wpp-float-icon" data-eid="wpp-float-icon" data-elabel="Ícone Float WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+    <span class="wpp-float-label" data-eid="wpp-float-label" data-elabel="Texto Float WhatsApp">Fale Conosco</span>
+  </a>
+
+  <script src="main.js"></script>
+</body>
+</html>

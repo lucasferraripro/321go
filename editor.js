@@ -270,17 +270,21 @@
         },
 
         bindAll() {
-            document.querySelectorAll('[data-eid]').forEach(el => {
-                if (el._goBound) return;
-                el._goBound = true;
-                el.addEventListener('click', e => {
+            if (this._goDelegated) return;
+            this._goDelegated = true;
+            document.addEventListener('click', e => {
+                const el = e.target.closest('[data-eid]');
+                if (el && document.body.classList.contains('go-on')) {
+                    // Ignora se estiver clicando dentro do painel do editor
+                    if (e.target.closest('.go-panel') || e.target.closest('#go-bar')) return;
+
                     e.preventDefault();
                     e.stopPropagation();
                     document.querySelectorAll('.go-sel').forEach(x => x.classList.remove('go-sel'));
                     el.classList.add('go-sel');
                     this.dispatch(el);
-                });
-            });
+                }
+            }, true); // Usa capture para interceptar antes de qualquer onclick nativo
         },
 
         dispatch(el) {
@@ -706,6 +710,13 @@
                 <div class="go-f"><label>Parcelas</label><input type="text" id="gp-parc" placeholder="Ex: 10x de R$ 935,00 sem juros"></div>
                 <div class="go-f"><label>Flag / País</label><input type="text" id="gp-flag" placeholder="Ex: México 🌮"></div>
                 <div class="go-f"><label>Badge</label><input type="text" id="gp-badge" placeholder="Ex: 🔥 Oferta  ou  ⭐ Popular"></div>
+                <div class="go-f"><label>Categoria</label>
+                    <select id="gp-cat" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:8px;font-family:inherit;font-size:.9rem;" >
+                        <option value="nacional">🇧🇷 Nacional (aparece na aba Nacional)</option>
+                        <option value="internacional">🌍 Internacional (aparece na aba Internacional)</option>
+                        <option value="copa">🏆 Copa 2026 (seção Copa)</option>
+                    </select>
+                </div>
                 <div class="go-f"><label>Imagem 1 — Principal (URL)</label>
                     <input type="url" id="gp-img" placeholder="https://site.com/foto1.jpg">
                 </div>
@@ -759,6 +770,7 @@
                 if (!images.length) images.push('imagens/balneario_camboriu.png');
 
                 const novoPacote = {
+                    category:    p.querySelector('#gp-cat').value || 'nacional',
                     title:       title,
                     subtitle:    p.querySelector('#gp-sub').value.trim(),
                     location:    p.querySelector('#gp-loc').value.trim(),
