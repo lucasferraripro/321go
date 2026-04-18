@@ -67,11 +67,14 @@
         if (cms.__new_packages && typeof cms.__new_packages === 'object') {
             const grid = document.querySelector('.cards-grid');
             if (grid) {
+                const removed = Array.isArray(cms.__removed_cards) ? cms.__removed_cards : [];
                 Object.entries(cms.__new_packages).forEach(([pkgId, pkg]) => {
-                    if (document.getElementById('card-new-' + pkgId)) return; // já existe
+                    const cardId = 'card-new-' + pkgId;
+                    if (removed.includes(cardId)) return; // foi removido, não injeta
+                    if (document.getElementById(cardId)) return; // já existe
                     const article = document.createElement('article');
                     article.className = 'card';
-                    article.id = 'card-new-' + pkgId;
+                    article.id = cardId;
                     article.setAttribute('onclick', "location.href='pacote.html?id=" + pkgId + "'");
                     article.style.cursor = 'pointer';
                     const img = pkg.images && pkg.images[0] ? pkg.images[0] : 'imagens/balneario_camboriu.png';
@@ -664,10 +667,22 @@
                 article.style.opacity = '0';
                 article.style.transform = 'scale(.95)';
                 setTimeout(() => article.remove(), 320);
+
                 // Salvar lista de removidos no CMS
                 const removed = this.cms.__removed_cards || [];
                 if (!removed.includes(article.id)) removed.push(article.id);
                 this.store('__removed_cards', removed);
+
+                // Se for card de pacote novo, remove também de __new_packages
+                if (article.id.startsWith('card-new-')) {
+                    const pkgId = article.id.replace('card-new-', '');
+                    const newPkgs = this.cms.__new_packages || {};
+                    if (newPkgs[pkgId]) {
+                        delete newPkgs[pkgId];
+                        this.store('__new_packages', newPkgs);
+                    }
+                }
+
                 this.closePanel();
                 this.toast('✓ Card removido do rascunho', 'ok');
             };
@@ -691,9 +706,15 @@
                 <div class="go-f"><label>Parcelas</label><input type="text" id="gp-parc" placeholder="Ex: 10x de R$ 935,00 sem juros"></div>
                 <div class="go-f"><label>Flag / País</label><input type="text" id="gp-flag" placeholder="Ex: México 🌮"></div>
                 <div class="go-f"><label>Badge</label><input type="text" id="gp-badge" placeholder="Ex: 🔥 Oferta  ou  ⭐ Popular"></div>
-                <div class="go-f"><label>URL da imagem principal</label>
-                    <input type="url" id="gp-img" placeholder="https://site.com/foto.jpg">
-                    <p class="go-hint-txt">Cole a URL de uma imagem. Pode adicionar mais depois editando o pacote.</p>
+                <div class="go-f"><label>Imagem 1 — Principal (URL)</label>
+                    <input type="url" id="gp-img" placeholder="https://site.com/foto1.jpg">
+                </div>
+                <div class="go-f"><label>Imagem 2 (URL) — opcional</label>
+                    <input type="url" id="gp-img2" placeholder="https://site.com/foto2.jpg">
+                </div>
+                <div class="go-f"><label>Imagem 3 (URL) — opcional</label>
+                    <input type="url" id="gp-img3" placeholder="https://site.com/foto3.jpg">
+                    <p class="go-hint-txt">As 3 imagens aparecem no carrossel da página do pacote.</p>
                 </div>
                 <div class="go-f"><label>Descrição do destino</label>
                     <textarea id="gp-desc" rows="4" placeholder="Descreva o destino e os destaques do pacote…"></textarea>
@@ -720,6 +741,8 @@
                 const id      = p.querySelector('#gp-id').value.trim().replace(/[^a-z0-9_]/gi,'_').toLowerCase();
                 const title   = p.querySelector('#gp-title').value.trim();
                 const imgUrl  = p.querySelector('#gp-img').value.trim();
+                const imgUrl2 = p.querySelector('#gp-img2').value.trim();
+                const imgUrl3 = p.querySelector('#gp-img3').value.trim();
 
                 if (!id)    { p.querySelector('#gp-id').focus();    p.querySelector('#gp-id').style.borderColor='#DC2626';    return; }
                 if (!title) { p.querySelector('#gp-title').focus(); p.querySelector('#gp-title').style.borderColor='#DC2626'; return; }
@@ -732,6 +755,9 @@
                     return { dia: (i+1) + 'º Dia', title: t || ('Dia ' + (i+1)), desc: d || '' };
                 });
 
+                const images = [imgUrl, imgUrl2, imgUrl3].filter(Boolean);
+                if (!images.length) images.push('imagens/balneario_camboriu.png');
+
                 const novoPacote = {
                     title:       title,
                     subtitle:    p.querySelector('#gp-sub').value.trim(),
@@ -742,7 +768,7 @@
                     parcelas:    p.querySelector('#gp-parc').value.trim(),
                     flag:        p.querySelector('#gp-flag').value.trim(),
                     badge:       p.querySelector('#gp-badge').value.trim(),
-                    images:      imgUrl ? [imgUrl] : ['imagens/balneario_camboriu.png'],
+                    images,
                     desc:        p.querySelector('#gp-desc').value.trim(),
                     incluso,
                     nao_incluso: nao,
