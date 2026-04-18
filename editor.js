@@ -43,11 +43,20 @@
             const d = cms[el.dataset.eid];
             if (!d) return;
             if (d.html  != null) el.innerHTML = d.html;
+            if (d.text  != null) el.textContent = d.text;
             if (d.src   != null && el.tagName === 'IMG') el.src = d.src;
             if (d.href  != null) el.setAttribute('href', d.href);
             if (d.target!= null) el.setAttribute('target', d.target);
             if (d.style && typeof d.style === 'object') Object.assign(el.style, d.style);
         });
+
+        // Remover cards marcados para remoção
+        if (Array.isArray(cms.__removed_cards)) {
+            cms.__removed_cards.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.remove();
+            });
+        }
     }
 
     /* ─── FETCH CONTENT ─────────────────────────────────────── */
@@ -149,6 +158,10 @@
 
         .go-local-warn{background:rgba(224,82,32,.15);border:1px solid rgba(224,82,32,.3);border-radius:8px;padding:10px 12px;font-size:11px;color:#f07040 !important;margin-bottom:12px;line-height:1.5;}
 
+        body.go-on .go-incluso{cursor:pointer!important;border-radius:6px;padding:3px 6px!important;transition:background .15s;}
+        body.go-on .go-incluso:hover{background:rgba(224,82,32,.12)!important;outline:2px dashed #E05220!important;outline-offset:2px;}
+        body.go-on .go-incluso.go-sel{outline:2px solid #22A8C9!important;outline-offset:2px;}
+
         @media(max-width:600px){
             #go-bar{padding:0 8px;gap:2px;}
             .go-hint,.go-sep,.go-last-pub{display:none;}
@@ -180,6 +193,7 @@
             sessionStorage.setItem('editor_active', '1');
             this.buildBar();
             this.bindAll();
+            this.injectRemoveButtons();
             if (Object.keys(draft).length > 0) this.markDirty();
         },
 
@@ -195,6 +209,8 @@
             ${lastPub ? `<span class="go-last-pub">Pub: ${lastPub}</span><div class="go-sep"></div>` : ''}
             <button class="go-btn" id="go-pages">📄 <span class="go-btn-lbl">Páginas</span></button>
             <div class="go-sep"></div>
+            <button class="go-btn" id="go-add-pkg">➕ <span class="go-btn-lbl">Pacote</span></button>
+            <div class="go-sep"></div>
             <button class="go-btn orange" id="go-colors">🎨 <span class="go-btn-lbl">Cores</span></button>
             <div class="go-sep"></div>
             <button class="go-btn green" id="go-pub">🚀 <span class="go-btn-lbl">Publicar</span></button>
@@ -202,11 +218,12 @@
             <button class="go-btn" id="go-revert" title="Descartar rascunho">↩ <span class="go-btn-lbl">Reverter</span></button>
             <button class="go-btn red" id="go-exit">✕ <span class="go-btn-lbl">Sair</span></button>`;
             document.body.prepend(bar);
-            document.getElementById('go-pages').onclick  = () => this.pPages();
-            document.getElementById('go-colors').onclick = () => this.pColors();
-            document.getElementById('go-pub').onclick    = () => this.publish();
-            document.getElementById('go-revert').onclick = () => this.revert();
-            document.getElementById('go-exit').onclick   = () => this.exit();
+            document.getElementById('go-pages').onclick   = () => this.pPages();
+            document.getElementById('go-add-pkg').onclick = () => this.pAddPacote();
+            document.getElementById('go-colors').onclick  = () => this.pColors();
+            document.getElementById('go-pub').onclick     = () => this.publish();
+            document.getElementById('go-revert').onclick  = () => this.revert();
+            document.getElementById('go-exit').onclick    = () => this.exit();
         },
 
         bindAll() {
@@ -224,9 +241,10 @@
         },
 
         dispatch(el) {
-            if (el.tagName === 'IMG')    this.pImage(el);
-            else if (el.tagName === 'A') this.pLink(el);
-            else                         this.pText(el);
+            if (el.tagName === 'IMG')                      this.pImage(el);
+            else if (el.tagName === 'A')                   this.pLink(el);
+            else if (el.classList.contains('go-incluso'))  this.pInclusoItem(el);
+            else                                           this.pText(el);
             this.addNavLink(el);
         },
 
@@ -495,6 +513,221 @@
             };
         },
 
+        /* ── ITEM INCLUSO (emoji + texto) ── */
+        pInclusoItem(el) {
+            const origHTML = el.innerHTML;
+            const eid = el.dataset.eid;
+            // Separar emoji do texto: o emoji é o primeiro "token" antes do espaço
+            const full = el.textContent.trim();
+            const spaceIdx = full.indexOf(' ');
+            const origEmoji = spaceIdx > -1 ? full.slice(0, spaceIdx) : '';
+            const origText  = spaceIdx > -1 ? full.slice(spaceIdx + 1) : full;
+
+            const p = this.panel_('✏️ Editar Item — ' + (el.dataset.elabel || ''));
+            p.innerHTML += `<div class="go-pb">
+                <div class="go-f">
+                    <label>Emoji / Ícone</label>
+                    <input type="text" id="go-emoji" value="${origEmoji}" placeholder="✈ 🏨 🎟 🚐 🔒" style="font-size:20px;text-align:center;">
+                    <p class="go-hint-txt">Cole ou digite qualquer emoji. Ex: ✈ 🏨 🎡 🚐 🔒 🎟 🏖 🏔 🌿</p>
+                </div>
+                <div class="go-f">
+                    <label>Texto do item</label>
+                    <input type="text" id="go-itext" value="${origText.replace(/"/g,'&quot;')}">
+                </div>
+                <div class="go-acts">
+                    <button class="go-ok" id="goa">✓ Aplicar</button>
+                    <button class="go-ko" id="goc">Cancelar</button>
+                </div>
+            </div>`;
+            const emojiInp = p.querySelector('#go-emoji');
+            const textInp  = p.querySelector('#go-itext');
+
+            const preview = () => {
+                const e = emojiInp.value.trim();
+                const t = textInp.value.trim();
+                el.textContent = e ? e + ' ' + t : t;
+            };
+            emojiInp.oninput = preview;
+            textInp.oninput  = preview;
+
+            p.querySelector('#goa').onclick = () => {
+                const e = emojiInp.value.trim();
+                const t = textInp.value.trim();
+                const newText = e ? e + ' ' + t : t;
+                el.textContent = newText;
+                this.store(eid, { text: newText });
+                this.closePanel();
+                this.toast('✓ Item salvo no rascunho', 'ok');
+            };
+            p.querySelector('#goc').onclick = () => {
+                el.innerHTML = origHTML;
+                this.closePanel();
+            };
+        },
+
+        /* ── BOTÕES DE REMOÇÃO NOS CARDS DA HOME ── */
+        injectRemoveButtons() {
+            // Cards de pacotes nacionais
+            document.querySelectorAll('article.card[id]').forEach(article => {
+                if (article.querySelector('.go-remove-btn')) return;
+                const btn = document.createElement('button');
+                btn.className = 'go-remove-btn';
+                btn.title = 'Remover este pacote';
+                btn.innerHTML = '✕';
+                btn.style.cssText = 'position:absolute;top:10px;right:10px;z-index:99990;width:28px;height:28px;border-radius:50%;background:#DC2626;color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4);transition:all .15s;';
+                btn.onmouseenter = () => btn.style.transform = 'scale(1.15)';
+                btn.onmouseleave = () => btn.style.transform = '';
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.confirmRemoveCard(article);
+                };
+                article.style.position = 'relative';
+                article.appendChild(btn);
+            });
+            // Cards Copa 2026
+            document.querySelectorAll('article.copa-card[id]').forEach(article => {
+                if (article.querySelector('.go-remove-btn')) return;
+                const btn = document.createElement('button');
+                btn.className = 'go-remove-btn';
+                btn.title = 'Remover este pacote';
+                btn.innerHTML = '✕';
+                btn.style.cssText = 'position:absolute;top:10px;right:10px;z-index:99990;width:28px;height:28px;border-radius:50%;background:#DC2626;color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4);transition:all .15s;';
+                btn.onmouseenter = () => btn.style.transform = 'scale(1.15)';
+                btn.onmouseleave = () => btn.style.transform = '';
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.confirmRemoveCard(article);
+                };
+                article.style.position = 'relative';
+                article.appendChild(btn);
+            });
+        },
+
+        confirmRemoveCard(article) {
+            const title = article.querySelector('[data-elabel]')?.dataset.elabel || article.id || 'este pacote';
+            const p = this.panel_('🗑️ Remover Pacote');
+            p.innerHTML += `<div class="go-pb">
+                <div class="go-pub-err" style="margin-bottom:14px;">
+                    ⚠️ Tem certeza que deseja <strong>remover</strong> o card <em>"${title}"</em> da página inicial?<br><br>
+                    <span style="font-size:11px;opacity:.8;">Esta ação pode ser desfeita clicando em "Reverter" antes de publicar.</span>
+                </div>
+                <div class="go-acts">
+                    <button class="go-ok" id="goa" style="background:#DC2626;">🗑️ Sim, remover</button>
+                    <button class="go-ko" id="goc">Cancelar</button>
+                </div>
+            </div>`;
+            p.querySelector('#goc').onclick = () => this.closePanel();
+            p.querySelector('#goa').onclick = () => {
+                article.style.transition = 'all .3s';
+                article.style.opacity = '0';
+                article.style.transform = 'scale(.95)';
+                setTimeout(() => article.remove(), 320);
+                // Salvar lista de removidos no CMS
+                const removed = this.cms.__removed_cards || [];
+                if (!removed.includes(article.id)) removed.push(article.id);
+                this.store('__removed_cards', removed);
+                this.closePanel();
+                this.toast('✓ Card removido do rascunho', 'ok');
+            };
+        },
+
+        /* ── ADICIONAR NOVO PACOTE ── */
+        pAddPacote() {
+            const p = this.panel_('➕ Adicionar Novo Pacote');
+            p.innerHTML += `<div class="go-pb">
+                <div class="go-info">Preencha os dados básicos. O pacote será adicionado à lista e ficará disponível via <code>pacote.html?id=SEU_ID</code>.</div>
+                <div class="go-f"><label>ID do pacote (sem espaços)</label>
+                    <input type="text" id="gp-id" placeholder="ex: cancun, dubai, paris2026">
+                    <p class="go-hint-txt">Use letras minúsculas, números e _ (underline). Ex: cancun, copa_dubai</p>
+                </div>
+                <div class="go-f"><label>Título</label><input type="text" id="gp-title" placeholder="Ex: Cancún – Caribe Mexicano"></div>
+                <div class="go-f"><label>Subtítulo</label><input type="text" id="gp-sub" placeholder="Ex: Praias paradisíacas e resorts all inclusive"></div>
+                <div class="go-f"><label>Localização</label><input type="text" id="gp-loc" placeholder="Ex: Cancún, México"></div>
+                <div class="go-f"><label>Duração</label><input type="text" id="gp-dur" placeholder="Ex: 7 dias / 6 noites"></div>
+                <div class="go-f"><label>Preço PIX (R$)</label><input type="text" id="gp-price" placeholder="Ex: 8.900,00"></div>
+                <div class="go-f"><label>Preço Cartão (R$)</label><input type="text" id="gp-cartao" placeholder="Ex: 9.350,00"></div>
+                <div class="go-f"><label>Parcelas</label><input type="text" id="gp-parc" placeholder="Ex: 10x de R$ 935,00 sem juros"></div>
+                <div class="go-f"><label>Flag / País</label><input type="text" id="gp-flag" placeholder="Ex: México 🌮"></div>
+                <div class="go-f"><label>Badge</label><input type="text" id="gp-badge" placeholder="Ex: 🔥 Oferta  ou  ⭐ Popular"></div>
+                <div class="go-f"><label>URL da imagem principal</label>
+                    <input type="url" id="gp-img" placeholder="https://site.com/foto.jpg">
+                    <p class="go-hint-txt">Cole a URL de uma imagem. Pode adicionar mais depois editando o pacote.</p>
+                </div>
+                <div class="go-f"><label>Descrição do destino</label>
+                    <textarea id="gp-desc" rows="4" placeholder="Descreva o destino e os destaques do pacote…"></textarea>
+                </div>
+                <div class="go-f"><label>O que está incluso</label>
+                    <textarea id="gp-incluso" rows="5" placeholder="Um item por linha. Ex:&#10;✈ Passagem aérea ida e volta&#10;🏨 Hotel 4★ com café da manhã&#10;🚐 Transfer In/Out"></textarea>
+                    <p class="go-hint-txt">Um item por linha. Comece com o emoji desejado.</p>
+                </div>
+                <div class="go-f"><label>Não incluso</label>
+                    <textarea id="gp-nao" rows="3" placeholder="Um item por linha. Ex:&#10;Almoços e jantares&#10;Gorjetas"></textarea>
+                </div>
+                <div class="go-f"><label>Roteiro (um dia por linha)</label>
+                    <textarea id="gp-rot" rows="6" placeholder="Formato: Título do dia | Descrição&#10;Ex:&#10;Chegada a Cancún | Transfer ao resort. Check-in e tarde livre.&#10;Praia + Piscina | Dia de relaxamento no resort all inclusive."></textarea>
+                    <p class="go-hint-txt">Separe título e descrição com <strong>|</strong>. Um dia por linha.</p>
+                </div>
+                <div class="go-acts" style="margin-top:16px;">
+                    <button class="go-ok" id="goa">✓ Criar Pacote</button>
+                    <button class="go-ko" id="goc">Cancelar</button>
+                </div>
+            </div>`;
+
+            p.querySelector('#goc').onclick = () => this.closePanel();
+            p.querySelector('#goa').onclick = () => {
+                const id      = p.querySelector('#gp-id').value.trim().replace(/[^a-z0-9_]/gi,'_').toLowerCase();
+                const title   = p.querySelector('#gp-title').value.trim();
+                const imgUrl  = p.querySelector('#gp-img').value.trim();
+
+                if (!id)    { p.querySelector('#gp-id').focus();    p.querySelector('#gp-id').style.borderColor='#DC2626';    return; }
+                if (!title) { p.querySelector('#gp-title').focus(); p.querySelector('#gp-title').style.borderColor='#DC2626'; return; }
+
+                const incluso = p.querySelector('#gp-incluso').value.split('\n').map(s=>s.trim()).filter(Boolean);
+                const nao     = p.querySelector('#gp-nao').value.split('\n').map(s=>s.trim()).filter(Boolean);
+                const rotLines = p.querySelector('#gp-rot').value.split('\n').map(s=>s.trim()).filter(Boolean);
+                const roteiro = rotLines.map((line, i) => {
+                    const [t, d] = line.split('|').map(s=>s.trim());
+                    return { dia: (i+1) + 'º Dia', title: t || ('Dia ' + (i+1)), desc: d || '' };
+                });
+
+                const novoPacote = {
+                    title:       title,
+                    subtitle:    p.querySelector('#gp-sub').value.trim(),
+                    location:    p.querySelector('#gp-loc').value.trim(),
+                    duration:    p.querySelector('#gp-dur').value.trim(),
+                    price:       p.querySelector('#gp-price').value.trim(),
+                    priceCartao: p.querySelector('#gp-cartao').value.trim(),
+                    parcelas:    p.querySelector('#gp-parc').value.trim(),
+                    flag:        p.querySelector('#gp-flag').value.trim(),
+                    badge:       p.querySelector('#gp-badge').value.trim(),
+                    images:      imgUrl ? [imgUrl] : ['imagens/balneario_camboriu.png'],
+                    desc:        p.querySelector('#gp-desc').value.trim(),
+                    incluso,
+                    nao_incluso: nao,
+                    roteiro
+                };
+
+                // Salvar no CMS como __new_packages
+                const existing = this.cms.__new_packages || {};
+                existing[id] = novoPacote;
+                this.store('__new_packages', existing);
+
+                this.closePanel();
+                this.toast('✓ Pacote "' + title + '" criado! Acesse: pacote.html?id=' + id, 'ok');
+
+                // Mostrar link de acesso
+                setTimeout(() => {
+                    const info = document.createElement('div');
+                    info.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a2436;color:#e8edf5;padding:14px 22px;border-radius:12px;font-size:13px;z-index:999999;box-shadow:0 8px 24px rgba(0,0,0,.4);text-align:center;border:1px solid rgba(255,255,255,.1);';
+                    info.innerHTML = `📦 Pacote criado!<br><a href="pacote.html?id=${id}" style="color:#E05220;font-weight:700;" target="_blank">→ Abrir pacote.html?id=${id}</a><br><span style="font-size:11px;opacity:.6;margin-top:4px;display:block;">Publique para tornar permanente.</span>`;
+                    document.body.appendChild(info);
+                    setTimeout(() => info.remove(), 7000);
+                }, 400);
+            };
+        },
+
         /* ── CORES GLOBAIS ── */
         pColors() {
             const root = document.documentElement;
@@ -726,7 +959,7 @@
         await loadAndApply(srv);
         if (editMode) {
             await ED.start(srv);
-            setTimeout(() => ED.bindAll(), 500);
+            setTimeout(() => { ED.bindAll(); ED.injectRemoveButtons(); }, 500);
         }
     });
 

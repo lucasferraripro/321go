@@ -809,6 +809,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Obter pacote ──
     const id  = new URLSearchParams(location.search).get('id') || 'balneario';
+
+    // Mesclar pacotes novos criados pelo editor (salvos em __new_packages no CMS)
+    (function mergeNewPackages() {
+        try {
+            const draft = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+            if (draft.__new_packages && typeof draft.__new_packages === 'object') {
+                Object.assign(DB, draft.__new_packages);
+            }
+        } catch (_) {}
+    })();
+
     const pkg = DB[id] || DB.balneario;
 
     // ── Prefixar eids com ID do pacote (evita que edição de um pacote afete outros) ──
@@ -898,9 +909,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Incluso / Não incluso ──
     const inclEl = document.getElementById('incluso-list');
-    pkg.incluso.forEach(item => {
+    pkg.incluso.forEach((item, idx) => {
         const li = document.createElement('li');
-        li.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${item}`;
+        const eid = id + '-incluso-' + idx;
+        li.dataset.eid    = eid;
+        li.dataset.elabel = 'Incluso ' + (idx + 1);
+        li.className = 'go-incluso';
+        li.style.cursor = 'default';
+        li.textContent = item;
         inclEl.appendChild(li);
     });
     if (pkg.nao_incluso) {
