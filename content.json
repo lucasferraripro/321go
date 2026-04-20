@@ -86,5 +86,8 @@
   },
   "maceio-pkg-parcelas": {
     "html": "ou 10x de<strong> R$653,40 </strong>sem juros"
+  },
+  "maceio-pkg-price": {
+    "html": "R$ 6.207,30"
   }
 }
