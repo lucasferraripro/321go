@@ -110,7 +110,11 @@
       const article = document.createElement('article');
       article.className = 'card';
       article.id = 'card-' + id;
-      article.setAttribute('onclick', `location.href='pacote.html?id=${id}'`);
+      article.addEventListener('click', function(e) {
+        // Em modo editor, não navega se clicar em elemento editável
+        if (document.body.classList.contains('go-on')) return;
+        location.href = 'pacote.html?id=' + id;
+      });
       article.style.cursor = 'pointer';
       article.innerHTML = `
         <div class="card-img-wrap">
