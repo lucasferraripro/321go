@@ -21,7 +21,7 @@
     "html": "ou 10x de <strong>R$ 188,25</strong> sem juros"
   },
   "pix-gramado": {
-    "html": "No cartão: <strong>R$ 2.550,00</strong>"
+    "html": "No cartão: <strong>R$ 2.550,50</strong>"
   },
   "parcel-gramado": {
     "html": "ou 10x de <strong>R$ 255,00</strong> sem juros"
@@ -45,8 +45,5 @@
     "card-new-teste",
     "card-new-teste_a",
     "copa-final"
-  ],
-  "gramado-pkg-price": {
-    "html": "R$ 255,50"
-  }
+  ]
 }
