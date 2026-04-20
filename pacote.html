@@ -240,7 +240,6 @@
             <nav class="hdr-nav">
                 <a href="index.html">Início</a>
                 <a href="index.html#pacotes">Pacotes</a>
-                <a href="index.html#copa2026">Copa 2026 🏆</a>
                 <a href="index.html#sobre">Sobre</a>
                 <a href="index.html#contato">Contato</a>
             </nav>
@@ -254,7 +253,6 @@
 <nav id="mpanel">
     <a href="index.html">Início</a>
     <a href="index.html#pacotes">Pacotes</a>
-    <a href="index.html#copa2026">Copa 2026 🏆</a>
     <a href="index.html#sobre">Sobre</a>
     <a href="index.html#contato">Contato</a>
 </nav>
@@ -271,7 +269,7 @@
         </div>
         <div class="pkg-badge-hero" id="pkg-badge" data-eid="pkg-badge" data-elabel="Badge do Pacote">…</div>
         <h1 id="pkg-title" data-eid="pkg-title" data-elabel="Título do Pacote">Carregando…</h1>
-        <p class="hero-mini-sub" id="pkg-subtitle" data-eid="pkg-subtitle" data-elabel="SubTítulo do Pacote"></p>
+        <p class="hero-mini-sub" id="pkg-subtitle" data-eid="pkg-subtitle" data-elabel="Subtítulo do Pacote"></p>
         <div class="hero-meta">
             <div class="meta-tag"><i class="fa-solid fa-location-dot"></i><span id="meta-loc">—</span></div>
             <div class="meta-tag"><i class="fa-solid fa-moon"></i><span id="meta-dur">—</span></div>
@@ -521,7 +519,7 @@ function renderPacote(id, cms) {
         document.getElementById('price-pix-info').innerHTML = 'No cartão: <strong>R$ ' + numOnly + '</strong>';
     }
 
-    // ÔöÇÔöÇ WhatsApp ÔöÇÔöÇ
+    // ── WhatsApp ──
     const waMsg = encodeURIComponent(
         `Olá, Patrícia e Tatiana! 321 GO!\n\n` +
         `Tenho interesse no pacote *${pkg.title}*\n\n` +
@@ -579,7 +577,7 @@ function renderPacote(id, cms) {
         if (Math.abs(diff) > 40) carMove(diff > 0 ? 1 : -1);
     });
 
-    // ÔöÇÔöÇ Incluso / Não incluso ÔöÇÔöÇ
+    // ── Incluso / Não incluso ──
     const inclEl = document.getElementById('incluso-list');
     pkg.incluso.forEach((item, idx) => {
         const li = document.createElement('li');
