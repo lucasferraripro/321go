@@ -51,5 +51,14 @@
   },
   "gramado-pkg-price-cartao": {
     "html": "No cartão: <strong>R$ 2.550,90</strong>"
+  },
+  "balneario-pkg-price": {
+    "html": "R$ 3.543,00"
+  },
+  "balneario-pkg-price-cartao": {
+    "html": "No cartão: <strong>R$ 3.729,51</strong>"
+  },
+  "balneario-pkg-parcelas": {
+    "html": "ou <strong>10x de R$372,95 sem juros</strong>"
   }
 }
