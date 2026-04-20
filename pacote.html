@@ -418,37 +418,53 @@
 </a>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+// ── Boot: carrega CMS e aplica __db_overrides ao DB ANTES de renderizar ──
+document.addEventListener('DOMContentLoaded', async () => {
 
-    // ÔöÇÔöÇ Obter pacote ÔöÇÔöÇ
-    const id  = new URLSearchParams(location.search).get('id') || 'balneario';
+    const id = new URLSearchParams(location.search).get('id') || 'balneario';
 
-    // Se o pacote n├úo existe no DB ainda, tenta todas as fontes dispon├¡veis
-    if (!DB[id]) {
-        // 1. Tenta localStorage (rascunho do editor)
-        try {
-            const draft = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
-            if (draft.__new_packages && draft.__new_packages[id]) {
-                Object.assign(DB, draft.__new_packages);
+    // 1. Busca CMS do servidor (sempre, não só para pacotes novos)
+    let srvCms = {};
+    try {
+        const r = await fetch('/api/content?_=' + Date.now());
+        if (r.ok) srvCms = await r.json();
+    } catch (_) {}
+
+    // 2. Mescla com rascunho local (admin em modo editor)
+    let localCms = {};
+    try {
+        localCms = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+    } catch (_) {}
+
+    // CMS final = servidor + rascunho local (local tem prioridade)
+    const cms = Object.assign({}, srvCms, localCms);
+
+    // Expõe globalmente para o editor.js usar
+    window.__321GO_SRV_CMS = srvCms;
+
+    // 3. Aplica __db_overrides ao DB — FONTE ÚNICA DE VERDADE
+    // Isso garante que pacote.html mostre os mesmos valores que a home
+    if (cms.__db_overrides && typeof cms.__db_overrides === 'object') {
+        Object.entries(cms.__db_overrides).forEach(([pkgId, overrides]) => {
+            if (DB[pkgId] && typeof overrides === 'object') {
+                Object.assign(DB[pkgId], overrides);
             }
-        } catch (_) {}
-
-        // 2. Se ainda n├úo encontrou, busca do servidor (pacote publicado)
-        if (!DB[id]) {
-            fetch('/api/content?_=' + Date.now())
-                .then(r => r.ok ? r.json() : {})
-                .then(srv => {
-                    if (srv && srv.__new_packages && typeof srv.__new_packages === 'object') {
-                        Object.assign(DB, srv.__new_packages);
-                    }
-                    renderPacote(id);
-                })
-                .catch(() => renderPacote(id));
-            return;
-        }
+        });
     }
 
+    // 4. Mescla pacotes novos criados pelo editor
+    if (cms.__new_packages && typeof cms.__new_packages === 'object') {
+        Object.entries(cms.__new_packages).forEach(([pkgId, pkg]) => {
+            if (!pkg.category) pkg.category = 'nacional';
+            DB[pkgId] = pkg;
+        });
+    }
+
+    // 5. Renderiza o pacote com o DB já atualizado
     renderPacote(id);
+
+    // 6. Aplica overrides de texto/imagem do CMS nos elementos renderizados
+    applyPacoteCmsOverrides(id);
 });
 
 function renderPacote(id) {
@@ -605,6 +621,24 @@ function renderPacote(id) {
         cardsEl.appendChild(card);
     });
 } // fim renderPacote
+
+// ── Aplica overrides do CMS nos elementos após renderizar (editor visual) ──
+// Necessário para que o editor mostre os valores corretos ao abrir a página
+function applyPacoteCmsOverrides(id) {
+    try {
+        const localCms = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+        const srvCms   = window.__321GO_SRV_CMS || {};
+        const cms      = Object.assign({}, srvCms, localCms);
+        document.querySelectorAll('[data-eid]').forEach(el => {
+            const d = cms[el.dataset.eid];
+            if (!d) return;
+            if (d.html  != null) el.innerHTML   = d.html;
+            if (d.text  != null) el.textContent = d.text;
+            if (d.src   != null && el.tagName === 'IMG') el.src = d.src;
+            if (d.style && typeof d.style === 'object') Object.assign(el.style, d.style);
+        });
+    } catch (_) {}
+}
 
 // ÔöÇÔöÇ Mobile menu ÔöÇÔöÇ
 const burger = document.getElementById('burger');

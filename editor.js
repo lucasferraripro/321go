@@ -123,8 +123,8 @@
 
     async function loadAndApply(srv) {
         let merged = (srv && typeof srv === 'object') ? { ...srv } : {};
-        // Expor CMS do servidor globalmente para que pacote.html possa mesclar __new_packages publicados
-        if (srv && srv.__new_packages) window.__321GO_SRV_CMS = srv;
+        // Expor CMS do servidor globalmente para que pacote.html possa mesclar
+        if (srv) window.__321GO_SRV_CMS = srv;
         if (editMode) {
             try {
                 const draft = JSON.parse(localStorage.getItem(CMS_KEY) || '{}');
