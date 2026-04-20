@@ -418,20 +418,40 @@ const DB = {
 (function mergeCMS() {
     try {
         const draft = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+
+        // 1. Aplica __db_overrides — sincroniza preços/títulos entre home e pacote.html
+        if (draft.__db_overrides && typeof draft.__db_overrides === 'object') {
+            Object.entries(draft.__db_overrides).forEach(([pkgId, overrides]) => {
+                if (DB[pkgId] && typeof overrides === 'object') {
+                    Object.assign(DB[pkgId], overrides);
+                }
+            });
+        }
+
+        // 2. Mescla pacotes novos criados pelo editor
         if (draft.__new_packages && typeof draft.__new_packages === 'object') {
-            // Garante que pacotes novos tenham uma categoria padrão
             Object.entries(draft.__new_packages).forEach(([id, pkg]) => {
                 if (!pkg.category) pkg.category = 'nacional';
                 DB[id] = pkg;
             });
         }
-        // Pacotes publicados via servidor
+
+        // 3. Pacotes publicados via servidor (window.__321GO_SRV_CMS)
         const srv = window.__321GO_SRV_CMS;
-        if (srv && srv.__new_packages && typeof srv.__new_packages === 'object') {
-            Object.entries(srv.__new_packages).forEach(([id, pkg]) => {
-                if (!pkg.category) pkg.category = 'nacional';
-                DB[id] = pkg;
-            });
+        if (srv) {
+            if (srv.__db_overrides && typeof srv.__db_overrides === 'object') {
+                Object.entries(srv.__db_overrides).forEach(([pkgId, overrides]) => {
+                    if (DB[pkgId] && typeof overrides === 'object') {
+                        Object.assign(DB[pkgId], overrides);
+                    }
+                });
+            }
+            if (srv.__new_packages && typeof srv.__new_packages === 'object') {
+                Object.entries(srv.__new_packages).forEach(([id, pkg]) => {
+                    if (!pkg.category) pkg.category = 'nacional';
+                    DB[id] = pkg;
+                });
+            }
         }
     } catch (_) {}
 })();

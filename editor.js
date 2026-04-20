@@ -1,11 +1,9 @@
 /**
  * 321 GO! — EDITOR VISUAL CMS v2
  *
- * BUGS CORRIGIDOS vs v1:
- *  1. fetchContent() retorna {} em file:// sem lançar erro de rede
- *  2. Chaves sessionStorage unificadas (321go_auth / 321go_secret)
- *  3. Branch detectada via env — sem hardcoding de 'main'
- *  4. applyContent() tolerante a CMS vazio
+ * SINCRONIZAÇÃO TOTAL: campos de preço/título/parcelas editados em qualquer
+ * página são salvos em __db_overrides[pkgId] e aplicados ao DB antes de
+ * renderizar — home e página do pacote sempre mostram os mesmos valores.
  */
 (function () {
     'use strict';
@@ -39,6 +37,17 @@
                 a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + cms.whatsapp);
             });
         }
+
+        // ── SINCRONIZAÇÃO: aplica __db_overrides ao DB antes de qualquer render ──
+        // Isso garante que home e pacote.html sempre mostrem os mesmos valores.
+        if (cms.__db_overrides && typeof cms.__db_overrides === 'object' && typeof DB !== 'undefined') {
+            Object.entries(cms.__db_overrides).forEach(([pkgId, overrides]) => {
+                if (DB[pkgId] && typeof overrides === 'object') {
+                    Object.assign(DB[pkgId], overrides);
+                }
+            });
+        }
+
         document.querySelectorAll('[data-eid]').forEach(el => {
             const d = cms[el.dataset.eid];
             if (!d) return;
@@ -70,8 +79,8 @@
                 const removed = Array.isArray(cms.__removed_cards) ? cms.__removed_cards : [];
                 Object.entries(cms.__new_packages).forEach(([pkgId, pkg]) => {
                     const cardId = 'card-new-' + pkgId;
-                    if (removed.includes(cardId)) return; // foi removido, não injeta
-                    if (document.getElementById(cardId)) return; // já existe
+                    if (removed.includes(cardId)) return;
+                    if (document.getElementById(cardId)) return;
                     const article = document.createElement('article');
                     article.className = 'card';
                     article.id = cardId;
@@ -998,6 +1007,65 @@
         },
 
         store(key, val) {
+            // ── SINCRONIZAÇÃO AUTOMÁTICA ──────────────────────────────────
+            // Se a chave segue o padrão "{pkgId}-pkg-{campo}" (ex: gramado-pkg-price),
+            // salva também em __db_overrides[pkgId][campo] para que a home
+            // e a página do pacote sempre mostrem o mesmo valor.
+            const DB_FIELDS = {
+                'pkg-price':       'price',
+                'pkg-price-cartao':'priceCartao',
+                'pkg-parcelas':    'parcelas',
+                'pkg-title':       'title',
+                'pkg-subtitle':    'subtitle',
+                'pkg-badge':       'badge',
+                'pkg-desc':        'desc',
+            };
+            // Detecta padrão "{pkgId}-{campo}" nos campos da home também
+            // ex: pix-gramado → priceCartao do gramado
+            const HOME_FIELDS = {
+                'pix':    'priceCartao',
+                'parcel': 'parcelas',
+                'titulo': 'title',
+                'dest':   'location',
+                'badge':  'badge',
+            };
+
+            // Padrão pacote.html: "gramado-pkg-price"
+            const pkgMatch = key.match(/^([a-z0-9_]+)-pkg-(.+)$/);
+            if (pkgMatch) {
+                const [, pkgId, field] = pkgMatch;
+                const dbField = DB_FIELDS['pkg-' + field];
+                if (dbField && typeof DB !== 'undefined' && DB[pkgId]) {
+                    const overrides = this.cms.__db_overrides || {};
+                    if (!overrides[pkgId]) overrides[pkgId] = {};
+                    // Extrai texto puro do HTML para campos de texto do DB
+                    const rawText = val.html != null
+                        ? val.html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g,' ').trim()
+                        : (val.text || '');
+                    if (rawText) overrides[pkgId][dbField] = rawText;
+                    this.cms.__db_overrides = overrides;
+                    // Atualiza DB em memória imediatamente
+                    Object.assign(DB[pkgId], overrides[pkgId]);
+                }
+            }
+
+            // Padrão home: "pix-gramado" ou "parcel-gramado"
+            const homeMatch = key.match(/^(pix|parcel|titulo|dest|badge)-([a-z0-9_]+)$/);
+            if (homeMatch) {
+                const [, field, pkgId] = homeMatch;
+                const dbField = HOME_FIELDS[field];
+                if (dbField && typeof DB !== 'undefined' && DB[pkgId]) {
+                    const overrides = this.cms.__db_overrides || {};
+                    if (!overrides[pkgId]) overrides[pkgId] = {};
+                    const rawText = val.html != null
+                        ? val.html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g,' ').trim()
+                        : (val.text || '');
+                    if (rawText) overrides[pkgId][dbField] = rawText;
+                    this.cms.__db_overrides = overrides;
+                    Object.assign(DB[pkgId], overrides[pkgId]);
+                }
+            }
+
             this.cms[key] = val;
             localStorage.setItem(CMS_KEY, JSON.stringify(this.cms));
             this.markDirty();

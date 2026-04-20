@@ -139,6 +139,15 @@
     function renderCat(cat) {
       grid.innerHTML = '';
       const cms = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+
+      // Aplica __db_overrides do servidor (para visitantes sem localStorage)
+      const srvCms = window.__321GO_SRV_CMS || {};
+      if (srvCms.__db_overrides && typeof DB !== 'undefined') {
+        Object.entries(srvCms.__db_overrides).forEach(([pkgId, ov]) => {
+          if (DB[pkgId]) Object.assign(DB[pkgId], ov);
+        });
+      }
+
       // Aplica overrides do CMS sobre os cards renderizados
       Object.entries(DB).forEach(([id, p]) => {
         if ((p.category || 'nacional') !== cat) return;
