@@ -461,17 +461,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // 5. Renderiza o pacote com o DB já atualizado
-    renderPacote(id);
+    renderPacote(id, cms);
 
     // 6. Aplica overrides de texto/imagem do CMS nos elementos renderizados
-    applyPacoteCmsOverrides(id);
+    applyPacoteCmsOverrides(id, cms);
 });
 
-function renderPacote(id) {
+function renderPacote(id, cms) {
+    cms = cms || {};
     const pkg = DB[id] || DB.balneario;
 
-    // ÔöÇÔöÇ Prefixar eids com ID do pacote (evita que edi├º├úo de um pacote afete outros) ÔöÇÔöÇ
-    // Ex: 'pkg-price' vira 'balneario-pkg-price', 'maceio-pkg-price', etc.
+    // Helper: lê valor do CMS se existir, senão usa o DB
+    // Suporta tanto "gramado-pkg-price" (pacote.html) quanto "pix-gramado" (home)
+    function cmsText(eid) {
+        const d = cms[eid];
+        if (!d) return null;
+        if (d.html != null) return d.html.replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').trim();
+        if (d.text != null) return d.text.trim();
+        return null;
+    }
+    function cmsHtml(eid) {
+        const d = cms[eid];
+        return (d && d.html != null) ? d.html : null;
+    }
+
+    // Prefixar eids com ID do pacote
     ['pkg-badge','pkg-title','pkg-subtitle','pkg-desc',
      'pkg-price','pkg-price-cartao','pkg-parcelas','pkg-btn-wa',
      'pkg-parcelamento','pkg-desconto','pkg-atendimento'].forEach(function(eid) {
@@ -479,22 +493,32 @@ function renderPacote(id) {
         if (el) el.dataset.eid = id + '-' + eid;
     });
 
-    // ÔöÇÔöÇ Meta ÔöÇÔöÇ
-    document.title = pkg.title + ' ÔÇö 321 GO! Ag├¬ncia de Viagens';
-    document.getElementById('breadcrumb-title').textContent = pkg.title;
-    document.getElementById('pkg-title').textContent        = pkg.title;
-    document.getElementById('pkg-subtitle').textContent     = pkg.subtitle;
-    document.getElementById('pkg-badge').textContent        = pkg.badge;
-    document.getElementById('sb-badge').textContent         = pkg.badge;
+    // Valores com prioridade: CMS > DB
+    const price      = cmsText(id+'-pkg-price')      || pkg.price;
+    const priceCartao= cmsText(id+'-pkg-price-cartao')|| pkg.priceCartao;
+    const parcelas   = cmsText(id+'-pkg-parcelas')    || pkg.parcelas;
+    const title      = cmsText(id+'-pkg-title')       || pkg.title;
+    const subtitle   = cmsText(id+'-pkg-subtitle')    || pkg.subtitle;
+    const badge      = cmsText(id+'-pkg-badge')       || pkg.badge;
+    const desc       = cmsText(id+'-pkg-desc')        || pkg.desc;
+
+    document.title = title + ' — 321 GO! Agência de Viagens';
+    document.getElementById('breadcrumb-title').textContent = title;
+    document.getElementById('pkg-title').textContent        = title;
+    document.getElementById('pkg-subtitle').textContent     = subtitle;
+    document.getElementById('pkg-badge').textContent        = badge;
+    document.getElementById('sb-badge').textContent         = badge;
     document.getElementById('meta-loc').textContent         = pkg.location;
     document.getElementById('meta-dur').textContent         = pkg.duration;
-    document.getElementById('pkg-desc').textContent         = pkg.desc;
+    document.getElementById('pkg-desc').textContent         = desc;
     document.getElementById('sb-loc').textContent           = pkg.location;
     document.getElementById('sb-dur').textContent           = pkg.duration;
-    document.getElementById('price-num').textContent        = 'R$ ' + pkg.price;
-    document.getElementById('price-parc').innerHTML         = 'ou <strong>' + pkg.parcelas + '</strong>';
-    if (pkg.priceCartao) {
-        document.getElementById('price-pix-info').innerHTML = 'No cart├úo: <strong>R$ ' + pkg.priceCartao + '</strong>';
+    document.getElementById('price-num').textContent        = 'R$ ' + price;
+    document.getElementById('price-parc').innerHTML         = 'ou <strong>' + parcelas + '</strong>';
+    if (priceCartao) {
+        // priceCartao pode ser "2.550,50" (do DB) ou "No cartão: R$ 2.550,50" (do CMS antigo)
+        const numOnly = priceCartao.replace(/^No cart[aã]o:\s*/i,'').replace(/^R\$\s*/,'').replace(/<[^>]+>/g,'').trim();
+        document.getElementById('price-pix-info').innerHTML = 'No cartão: <strong>R$ ' + numOnly + '</strong>';
     }
 
     // ÔöÇÔöÇ WhatsApp ÔöÇÔöÇ
@@ -624,11 +648,13 @@ function renderPacote(id) {
 
 // ── Aplica overrides do CMS nos elementos após renderizar (editor visual) ──
 // Necessário para que o editor mostre os valores corretos ao abrir a página
-function applyPacoteCmsOverrides(id) {
+function applyPacoteCmsOverrides(id, cms) {
     try {
-        const localCms = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
-        const srvCms   = window.__321GO_SRV_CMS || {};
-        const cms      = Object.assign({}, srvCms, localCms);
+        if (!cms) {
+            const localCms = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
+            const srvCms   = window.__321GO_SRV_CMS || {};
+            cms = Object.assign({}, srvCms, localCms);
+        }
         document.querySelectorAll('[data-eid]').forEach(el => {
             const d = cms[el.dataset.eid];
             if (!d) return;

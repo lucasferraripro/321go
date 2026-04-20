@@ -1008,20 +1008,17 @@
 
         store(key, val) {
             // ── SINCRONIZAÇÃO AUTOMÁTICA ──────────────────────────────────
-            // Se a chave segue o padrão "{pkgId}-pkg-{campo}" (ex: gramado-pkg-price),
-            // salva também em __db_overrides[pkgId][campo] para que a home
-            // e a página do pacote sempre mostrem o mesmo valor.
+            // Qualquer edição de preço/título/parcela em qualquer página
+            // é salva em __db_overrides[pkgId][campo] — fonte única de verdade.
             const DB_FIELDS = {
-                'pkg-price':       'price',
-                'pkg-price-cartao':'priceCartao',
-                'pkg-parcelas':    'parcelas',
-                'pkg-title':       'title',
-                'pkg-subtitle':    'subtitle',
-                'pkg-badge':       'badge',
-                'pkg-desc':        'desc',
+                'pkg-price':        'price',
+                'pkg-price-cartao': 'priceCartao',
+                'pkg-parcelas':     'parcelas',
+                'pkg-title':        'title',
+                'pkg-subtitle':     'subtitle',
+                'pkg-badge':        'badge',
+                'pkg-desc':         'desc',
             };
-            // Detecta padrão "{pkgId}-{campo}" nos campos da home também
-            // ex: pix-gramado → priceCartao do gramado
             const HOME_FIELDS = {
                 'pix':    'priceCartao',
                 'parcel': 'parcelas',
@@ -1029,6 +1026,25 @@
                 'dest':   'location',
                 'badge':  'badge',
             };
+
+            // Extrai o valor numérico/texto limpo do HTML
+            // Ex: "No cartão: <strong>R$ 2.550,50</strong>" → "2.550,50"
+            // Ex: "ou 10x de <strong>R$ 255,00</strong> sem juros" → "10x de R$ 255,00 sem juros"
+            function extractValue(html, dbField) {
+                if (!html) return '';
+                const plain = html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g,' ').trim();
+                // Para preço cartão: extrai só o número após "R$"
+                if (dbField === 'priceCartao') {
+                    const m = plain.match(/R\$\s*([\d.,]+)/);
+                    return m ? m[1] : plain;
+                }
+                // Para preço PIX: extrai só o número após "R$"
+                if (dbField === 'price') {
+                    const m = plain.match(/R\$\s*([\d.,]+)/);
+                    return m ? m[1] : plain;
+                }
+                return plain;
+            }
 
             // Padrão pacote.html: "gramado-pkg-price"
             const pkgMatch = key.match(/^([a-z0-9_]+)-pkg-(.+)$/);
@@ -1038,13 +1054,11 @@
                 if (dbField && typeof DB !== 'undefined' && DB[pkgId]) {
                     const overrides = this.cms.__db_overrides || {};
                     if (!overrides[pkgId]) overrides[pkgId] = {};
-                    // Extrai texto puro do HTML para campos de texto do DB
-                    const rawText = val.html != null
-                        ? val.html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g,' ').trim()
+                    const rawVal = val.html != null
+                        ? extractValue(val.html, dbField)
                         : (val.text || '');
-                    if (rawText) overrides[pkgId][dbField] = rawText;
+                    if (rawVal) overrides[pkgId][dbField] = rawVal;
                     this.cms.__db_overrides = overrides;
-                    // Atualiza DB em memória imediatamente
                     Object.assign(DB[pkgId], overrides[pkgId]);
                 }
             }
@@ -1057,10 +1071,10 @@
                 if (dbField && typeof DB !== 'undefined' && DB[pkgId]) {
                     const overrides = this.cms.__db_overrides || {};
                     if (!overrides[pkgId]) overrides[pkgId] = {};
-                    const rawText = val.html != null
-                        ? val.html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g,' ').trim()
+                    const rawVal = val.html != null
+                        ? extractValue(val.html, dbField)
                         : (val.text || '');
-                    if (rawText) overrides[pkgId][dbField] = rawText;
+                    if (rawVal) overrides[pkgId][dbField] = rawVal;
                     this.cms.__db_overrides = overrides;
                     Object.assign(DB[pkgId], overrides[pkgId]);
                 }
