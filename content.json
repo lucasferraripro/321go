@@ -2,107 +2,44 @@
   "hero-title": {
     "html": "\n        Sua próxima aventura<br>começa <span class=\"hero-accent\">aqui</span>"
   },
-  "pkg-price": {
-    "html": "<span style=\"font-family: Poppins, &quot;Poppins Fallback&quot;; font-size: medium;\">R$ 6.877,84</span>"
-  },
-  "pkg-price-cartao": {
-    "html": "No cartão: <strong>R$ 6.534,00</strong>"
-  },
-  "pkg-parcelas": {
-    "html": "ou <strong>10x de R$ 653,40&nbsp;</strong>sem juros&nbsp;"
-  },
   "pix-balneario": {
     "html": "No cartão: <strong>R$ 2.605,80</strong>"
   },
   "parcel-balneario": {
     "html": "ou 10x de <strong>R$ 260,58</strong> sem juros"
   },
+  "pix-maceio": {
+    "html": "No cartão: <strong>R$ 4.502,69</strong>"
+  },
   "parcel-maceio": {
     "html": "ou 10x de <strong>R$ 450,27</strong> sem juros"
+  },
+  "pix-curitiba": {
+    "html": "No cartão: <strong>R$ 1.882,50</strong> / 2 pessoas"
   },
   "parcel-curitiba": {
     "html": "ou 10x de <strong>R$ 188,25</strong> sem juros"
   },
+  "pix-gramado": {
+    "html": "No cartão: <strong>R$ 2.550,00</strong>"
+  },
   "parcel-gramado": {
     "html": "ou 10x de <strong>R$ 255,00</strong> sem juros"
+  },
+  "pix-bariloche": {
+    "html": "No cartão: <strong>R$ 10.704,00</strong> / 2 adultos"
   },
   "parcel-bariloche": {
     "html": "ou 12x de <strong>R$ 892,00</strong> sem juros"
   },
-  "parcel-porto": {
-    "html": "ou 10x de <strong>R$ 239,97</strong> sem juros"
-  },
-  "copa-mexico-obs": {
-    "html": "<br>"
-  },
-  "copa-miami-obs": {
-    "html": "<br>"
-  },
-  "copa-ny-obs": {
-    "html": "<br>"
-  },
-  "curitiba-pkg-img-1": {
-    "src": "imagens/curitiba_trem.png"
-  },
-  "pix-maceio": {
-    "html": "No cartão: <strong>R$ 4.502,69</strong>"
-  },
-  "pix-curitiba": {
-    "html": "No cartão: <strong>R$ 1.882,50</strong> / pessoa"
-  },
-  "pix-gramado": {
-    "html": "No cartão: <strong>R$ 2.550,00</strong>"
-  },
-  "pix-bariloche": {
-    "html": "No cartão: <strong>R$ 10.704,00</strong> / pessoa"
-  },
   "pix-porto": {
     "html": "No cartão: <strong>R$ 2.399,72</strong>"
   },
-  "incluso-balneario": {
-    "html": "\n              <li>✈ Voo direto GIG → NVT (Gol)</li>\n              <li>🏨 4 noites – Sagres Praia Hotel (café da manhã)</li>\n              <li>🎡 Bilhete Roda Gigante FG Big Wheel</li>\n              <li>🚐 Transfer In/Out + Beto Carrero</li>\n              <li>🔒 Seguro viagem incluído</li>\n            ",
-    "style": {
-      "color": "#050505",
-      "fontSize": "17px"
-    }
+  "parcel-porto": {
+    "html": "ou 10x de <strong>R$ 239,97</strong> sem juros"
   },
-  "__new_packages": {
-    "teste": {
-      "title": "teste",
-      "subtitle": "",
-      "location": "",
-      "duration": "",
-      "price": "",
-      "priceCartao": "",
-      "parcelas": "",
-      "flag": "",
-      "badge": "",
-      "images": [
-        "imagens/balneario_camboriu.png"
-      ],
-      "desc": "",
-      "incluso": [],
-      "nao_incluso": [],
-      "roteiro": []
-    },
-    "teste_a": {
-      "title": "teste A",
-      "subtitle": "teste A",
-      "location": "teste A",
-      "duration": "teste A",
-      "price": "",
-      "priceCartao": "",
-      "parcelas": "",
-      "flag": "",
-      "badge": "",
-      "images": [
-        "imagens/balneario_camboriu.png"
-      ],
-      "desc": "",
-      "incluso": [],
-      "nao_incluso": [],
-      "roteiro": []
-    }
+  "incluso-balneario": {
+    "html": "\n              <li>✈ Voo direto GIG → NVT (Gol)</li>\n              <li>🏨 4 noites – Sagres Praia Hotel (café da manhã)</li>\n              <li>🎡 Bilhete Roda Gigante FG Big Wheel</li>\n              <li>🚐 Transfer In/Out + Beto Carrero</li>\n              <li>🔒 Seguro viagem incluído</li>\n            "
   },
   "__removed_cards": [
     "card-new-teste",
