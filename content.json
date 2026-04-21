@@ -68,8 +68,8 @@
       "location": "Cancun, México",
       "duration": "7 dias / 6 noites",
       "price": "9.500,00",
-      "priceCartao": "10.000,00",
-      "parcelas": "10x de R$ 1.000,00 sem juros",
+      "priceCartao": "18.306,77",
+      "parcelas": "ou 10x de R$ 1.830,68 sem juros",
       "flag": "México",
       "badge": "⭐ Popular",
       "images": [
@@ -103,6 +103,11 @@
       "priceCartao": "4.787,89",
       "parcelas": "ou  10x de R$ 478,79 sem juros",
       "price": "4.548,50"
+    },
+    "cancun": {
+      "priceCartao": "18.306,77",
+      "parcelas": "ou 10x de R$ 1.830,68 sem juros",
+      "price": "17.391,43"
     }
   },
   "curitiba-pkg-price": {
@@ -110,5 +115,17 @@
   },
   "gramado-pkg-parcelas": {
     "html": "ou <strong>&nbsp;</strong>10x de<strong> R$ 478,79 </strong>sem juros"
+  },
+  "pix-cancun": {
+    "html": "No cartão: <strong>R$ 18.306,77</strong>"
+  },
+  "parcel-cancun": {
+    "html": "ou 10x de <b>R$ 1.830,68</b> sem juros"
+  },
+  "cancun-pkg-price": {
+    "html": "R$ 17.391,43"
+  },
+  "cancun-pkg-parcelas": {
+    "html": "ou 10x de<strong> R$ 1.830,68 </strong>sem juros"
   }
 }
