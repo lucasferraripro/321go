@@ -21,10 +21,10 @@
     "html": "ou 10x de <strong>R$ 377,68</strong>&nbsp;sem juros"
   },
   "pix-gramado": {
-    "html": "No cartão: <strong>R$ 2.550,90</strong>"
+    "html": "No cartão: <strong>R$ 4.787,89</strong>"
   },
   "parcel-gramado": {
-    "html": "ou 10x de <strong>R$ 255,90</strong> sem juros"
+    "html": "ou 10x de <strong>R$ 478,79&nbsp;</strong>sem juros"
   },
   "pix-bariloche": {
     "html": "No cartão: <strong>R$ 10.704,00</strong> / 2 adultos"
@@ -47,10 +47,10 @@
     "copa-final"
   ],
   "gramado-pkg-price": {
-    "html": "R$ 255,90"
+    "html": "R$ 4.548,50"
   },
   "gramado-pkg-price-cartao": {
-    "html": "No cartão: <strong>R$ 2.550,90</strong>"
+    "html": "No cartão: <strong>R$ 4.787,89</strong>"
   },
   "balneario-pkg-price": {
     "html": "R$ 3.543,99"
@@ -98,9 +98,17 @@
       "priceCartao": "3.776,84",
       "parcelas": "ou 10x de R$ 377,68 sem juros",
       "price": "3.588,00"
+    },
+    "gramado": {
+      "priceCartao": "4.787,89",
+      "parcelas": "ou  10x de R$ 478,79 sem juros",
+      "price": "4.548,50"
     }
   },
   "curitiba-pkg-price": {
     "html": "R$ 3.588,00"
+  },
+  "gramado-pkg-parcelas": {
+    "html": "ou <strong>&nbsp;</strong>10x de<strong> R$ 478,79 </strong>sem juros"
   }
 }
