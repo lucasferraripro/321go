@@ -15,10 +15,10 @@
     "html": "ou 10x de <strong>R$ 653,40</strong>&nbsp;sem juros"
   },
   "pix-curitiba": {
-    "html": "No cartão: <strong>R$ 1.882,50</strong> / 2 pessoas"
+    "html": "No cartão: <strong>R$ 3.776,84</strong>&nbsp;/ 2 pessoas"
   },
   "parcel-curitiba": {
-    "html": "ou 10x de <strong>R$ 188,25</strong> sem juros"
+    "html": "ou 10x de <strong>R$ 377,68</strong>&nbsp;sem juros"
   },
   "pix-gramado": {
     "html": "No cartão: <strong>R$ 2.550,90</strong>"
@@ -89,5 +89,18 @@
   },
   "maceio-pkg-price": {
     "html": "R$ 6.207,30"
+  },
+  "sobre-feat2-txt": {
+    "html": "<strong>Facilidade de pagamento</strong><br>Até 10x no cartão sem juros ou 5% de desconto no Pix"
+  },
+  "__db_overrides": {
+    "curitiba": {
+      "priceCartao": "3.776,84",
+      "parcelas": "ou 10x de R$ 377,68 sem juros",
+      "price": "3.588,00"
+    }
+  },
+  "curitiba-pkg-price": {
+    "html": "R$ 3.588,00"
   }
 }
