@@ -44,7 +44,10 @@
   "__removed_cards": [
     "card-new-teste",
     "card-new-teste_a",
-    "copa-final"
+    "copa-final",
+    "card-new-cancun2026",
+    "card-cancun",
+    "card-new-cancun"
   ],
   "gramado-pkg-price": {
     "html": "R$ 4.548,50"
@@ -62,23 +65,60 @@
     "html": "ou <strong>10x de R$372,55 sem juros</strong>"
   },
   "__new_packages": {
-    "cancun": {
-      "title": "Caribe - Mexicano",
-      "subtitle": "Praias paradisíacas e Resorts ALL inclusive",
-      "location": "Cancun, México",
-      "duration": "7 dias / 6 noites",
-      "price": "9.500,00",
-      "priceCartao": "18.306,77",
-      "parcelas": "ou 10x de R$ 1.830,68 sem juros",
-      "flag": "México",
-      "badge": "⭐ Popular",
+    "fortaleza": {
+      "category": "nacional",
+      "title": "Fortaleza - Ceará",
+      "subtitle": "Águas mornas e clima ensolorado",
+      "location": "Fortaleza, Ceará",
+      "duration": "5 noites",
+      "price": "5.517,92",
+      "priceCartao": "5.808,34",
+      "parcelas": "580,83",
+      "flag": "Fortaleza",
+      "badge": "",
       "images": [
         "imagens/balneario_camboriu.png"
       ],
-      "desc": "Descrição descrição descrição",
-      "incluso": [],
-      "nao_incluso": [],
-      "roteiro": []
+      "desc": "Fortaleza é um dos destinos mais vibrantes do Brasil, perfeito para quem busca sol, praia e muita animação o ano inteiro. Localizada no nordeste brasileiro, a cidade encanta com suas águas mornas, ventos constantes e um clima praticamente sempre ensolarado — ideal para férias inesquecíveis.\n\nEntre os principais cartões-postais está a famosa Praia do Futuro, conhecida por suas barracas estruturadas que oferecem conforto, gastronomia típica e música ao vivo. Já a Beira-Mar de Fortaleza é perfeita para caminhadas ao entardecer, compras de artesanato e passeios com vista para o mar.\n\nPara quem gosta de cultura, o Centro Dragão do Mar de Arte e Cultura reúne museus, cinema, teatro e uma programação diversificada. E quando o assunto é diversão, Fortaleza também é ponto de partida para experiências incríveis, como passeios de buggy pelas dunas e visitas a destinos paradisíacos próximos, como Jericoacoara e Canoa Quebrada.\n\nA gastronomia local é outro destaque, com sabores marcantes da culinária nordestina — frutos do mar frescos, carne de sol, tapioca e muito mais. À noite, a cidade ganha ainda mais vida com bares, shows de humor (marca registrada da região) e festas animadas.\n\nFortaleza é o destino ideal para quem quer relaxar, se divertir e viver o melhor do Nordeste brasileiro em uma única viagem.",
+      "incluso": [
+        "Passagem aérea ida e volta CGH→ FOR (GOL voo direto)",
+        "Hospedagem 5 noites (4★, café da manhã)",
+        "Passeio - Beach Park (sem ingresso)",
+        "Transfer In/Out Aeroporto Fortaleza ↔ Hotel",
+        "Seguro viagem 20K BRL",
+        "📅 09/07 – 16/07/2026 · 1 pessoa"
+      ],
+      "nao_incluso": [
+        "Alimoços e Jantares",
+        "Gorjetas"
+      ],
+      "roteiro": [
+        {
+          "dia": "1º Dia",
+          "title": "Chegada a Fortaleza",
+          "desc": "Desembarque e transfer ao hotel. Tarde livre para conhecer a Praia de Iracema e o calçadão da Beira Mar."
+        },
+        {
+          "dia": "2º Dia",
+          "title": "City Tour Fortaleza",
+          "desc": "Visita ao Centro Dragão do Mar de Arte e Cultura, Mercado Central, Catedral da Sé e Theatro José de Alencar."
+        },
+        {
+          "dia": "3º Dia",
+          "title": "Beach Park (opcional)",
+          "desc": "Dia inteiro no maior parque aquático da América Latina — Insano, Radical e atrações para todas as idades."
+        },
+        {
+          "dia": "4º Dia",
+          "title": "Canoa Quebrada (opcional)",
+          "desc": "Falésias vermelhas, dunas, lagoas e o famoso arco esculpido na rocha — um dos cartões-postais do Ceará."
+        },
+        {
+          "dia": "5º Dia",
+          "title": "Retorno ao Brasil",
+          "desc": "Café da manhã, check-out e transfer ao aeroporto FOR. Voo de retorno."
+        }
+      ]
     }
   },
   "maceio-pkg-price-cartao": {
@@ -107,7 +147,8 @@
     "cancun": {
       "priceCartao": "18.306,77",
       "parcelas": "ou 10x de R$ 1.830,68 sem juros",
-      "price": "17.391,43"
+      "price": "17.391,43",
+      "title": "Caribe - Mexicano 2"
     }
   },
   "curitiba-pkg-price": {
@@ -127,5 +168,11 @@
   },
   "cancun-pkg-parcelas": {
     "html": "ou 10x de<strong> R$ 1.830,68 </strong>sem juros"
+  },
+  "cancun-pkg-title": {
+    "html": "Caribe - Mexicano 2"
+  },
+  "fortaleza-pkg-img-0": {
+    "src": "https://raw.githubusercontent.com/lucasferraripro/321go/master/imagens/upload_1776859495098.png"
   }
 }
