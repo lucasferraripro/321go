@@ -129,5 +129,11 @@
   },
   "parcel-fortaleza": {
     "html": "ou 10x de <b>580,83</b> sem juros"
+  },
+  "incluso-maceio": {
+    "html": "<li>Passagem aérea ida e volta GIG → MCZ (Azul, voo direto)</li><li>Hospedagem 7 noites – Palms Ponta Verde by Tropicalis (4★, café da manhã)</li><li>Passeio - Maragogi (Saindo de Maceió)<br></li><li>Transfer In/Out Aeroporto Maceió ↔ Hotel</li><li>Seguro viagem 20K BRL</li>"
+  },
+  "data-maceio": {
+    "html": "📅 09/07 – 16/07/2026 · 2 pessoas"
   }
 }
