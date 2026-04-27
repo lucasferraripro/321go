@@ -15,16 +15,16 @@
     "html": "ou 10x de <strong>R$ 653,40</strong>&nbsp;sem juros"
   },
   "pix-curitiba": {
-    "html": "No cartão: <strong>R$ 1.882,50</strong> / 2 pessoas"
+    "html": "No cartão: <strong>R$ 3.776,84</strong>"
   },
   "parcel-curitiba": {
-    "html": "ou 10x de <strong>R$ 188,25</strong> sem juros"
+    "html": "ou 10x de <strong>R$ 377,68</strong>&nbsp;sem juros"
   },
   "pix-gramado": {
-    "html": "No cartão: <strong>R$ 2.550,90</strong>"
+    "html": "No cartão: <strong>R$ 4.787,89</strong>"
   },
   "parcel-gramado": {
-    "html": "ou 10x de <strong>R$ 255,90</strong> sem juros"
+    "html": "ou 10x de <strong>R$ 478,79&nbsp;</strong>sem juros"
   },
   "pix-bariloche": {
     "html": "No cartão: <strong>R$ 10.704,00</strong> / 2 adultos"
@@ -43,13 +43,18 @@
   },
   "__removed_cards": [
     "card-new-teste",
-    "card-new-teste_a"
+    "card-new-teste_a",
+    "copa-final",
+    "card-new-cancun2026",
+    "card-cancun",
+    "card-new-cancun",
+    "card-new-fortaleza"
   ],
   "gramado-pkg-price": {
-    "html": "R$ 255,90"
+    "html": "R$ 4.548,50"
   },
   "gramado-pkg-price-cartao": {
-    "html": "No cartão: <strong>R$ 2.550,90</strong>"
+    "html": "No cartão: <strong>R$ 4.787,89</strong>"
   },
   "balneario-pkg-price": {
     "html": "R$ 3.543,99"
@@ -60,26 +65,7 @@
   "balneario-pkg-parcelas": {
     "html": "ou <strong>10x de R$372,55 sem juros</strong>"
   },
-  "__new_packages": {
-    "cancun": {
-      "title": "Caribe - Mexicano",
-      "subtitle": "Praias paradisíacas e Resorts ALL inclusive",
-      "location": "Cancun, México",
-      "duration": "7 dias / 6 noites",
-      "price": "9.500,00",
-      "priceCartao": "10.000,00",
-      "parcelas": "10x de R$ 1.000,00 sem juros",
-      "flag": "México",
-      "badge": "⭐ Popular",
-      "images": [
-        "imagens/balneario_camboriu.png"
-      ],
-      "desc": "Descrição descrição descrição",
-      "incluso": [],
-      "nao_incluso": [],
-      "roteiro": []
-    }
-  },
+  "__new_packages": {},
   "maceio-pkg-price-cartao": {
     "html": "No cartão: <strong>R$ 6.534,00</strong>"
   },
@@ -88,5 +74,72 @@
   },
   "maceio-pkg-price": {
     "html": "R$ 6.207,30"
+  },
+  "sobre-feat2-txt": {
+    "html": "<strong>Facilidade de pagamento</strong><br>Até 10x no cartão sem juros ou 5% de desconto no Pix"
+  },
+  "__db_overrides": {
+    "curitiba": {
+      "priceCartao": "3.776,84",
+      "parcelas": "ou 10x de R$ 377,68 sem juros",
+      "price": "3.588,00"
+    },
+    "gramado": {
+      "priceCartao": "4.787,89",
+      "parcelas": "ou  10x de R$ 478,79 sem juros",
+      "price": "4.548,50"
+    },
+    "cancun": {
+      "priceCartao": "18.306,77",
+      "parcelas": "ou 10x de R$ 1.830,68 sem juros",
+      "price": "17.391,43",
+      "title": "Caribe - Mexicano 2"
+    },
+    "fortaleza": {
+      "desc": "Fortaleza é um dos destinos mais vibrantes do Brasil, perfeito para quem busca sol, praia e muita animação o ano inteiro. Localizada no nordeste brasileiro, a cidade encanta com suas águas mornas, ventos constantes e um clima praticamente sempre ensolarado — ideal para férias inesquecíveis.\n\nEntre os principais cartões-postais está a famosa Praia do Futuro, conhecida por suas barracas estruturadas que oferecem conforto, gastronomia típica e música ao vivo. Já a Beira-Mar de Fortaleza é perfeita para caminhadas ao entardecer, compras de artesanato e passeios com vista para o mar.\n\nPara quem gosta de cultura, o Centro Dragão do Mar de Arte e Cultura reúne museus, cinema, teatro e uma programação diversificada. E quando o assunto é diversão, Fortaleza também é ponto de partida para experiências incríveis, como passeios de buggy pelas dunas e visitas a destinos paradisíacos próximos, como Jericoacoara e Canoa Quebrada.\n\nA gastronomia local é outro destaque, com sabores marcantes da culinária nordestina — frutos do mar frescos, carne de sol, tapioca e muito mais. À noite, a cidade ganha ainda mais vida com bares, shows de humor (marca registrada da região) e festas animadas.\n\nFortaleza é o destino ideal para quem quer relaxar, se divertir e viver o melhor do Nordeste brasileiro em uma única viagem",
+      "parcelas": "ou 10x de 580,83 sem juros"
+    }
+  },
+  "curitiba-pkg-price": {
+    "html": "R$ 3.588,00"
+  },
+  "gramado-pkg-parcelas": {
+    "html": "ou <strong>&nbsp;</strong>10x de<strong> R$ 478,79 </strong>sem juros"
+  },
+  "pix-cancun": {
+    "html": "No cartão: <strong>R$ 18.306,77</strong>"
+  },
+  "parcel-cancun": {
+    "html": "ou 10x de <b>R$ 1.830,68</b> sem juros"
+  },
+  "cancun-pkg-price": {
+    "html": "R$ 17.391,43"
+  },
+  "cancun-pkg-parcelas": {
+    "html": "ou 10x de<strong> R$ 1.830,68 </strong>sem juros"
+  },
+  "cancun-pkg-title": {
+    "html": "Caribe - Mexicano 2"
+  },
+  "fortaleza-pkg-img-0": {
+    "src": "https://raw.githubusercontent.com/lucasferraripro/321go/master/imagens/upload_1776859495098.png"
+  },
+  "fortaleza-pkg-desc": {
+    "html": "Fortaleza é um dos destinos mais vibrantes do Brasil, perfeito para quem busca sol, praia e muita animação o ano inteiro. Localizada no nordeste brasileiro, a cidade encanta com suas águas mornas, ventos constantes e um clima praticamente sempre ensolarado — ideal para férias inesquecíveis.\n\nEntre os principais cartões-postais está a famosa Praia do Futuro, conhecida por suas barracas estruturadas que oferecem conforto, gastronomia típica e música ao vivo. Já a Beira-Mar de Fortaleza é perfeita para caminhadas ao entardecer, compras de artesanato e passeios com vista para o mar.\n\nPara quem gosta de cultura, o Centro Dragão do Mar de Arte e Cultura reúne museus, cinema, teatro e uma programação diversificada. E quando o assunto é diversão, Fortaleza também é ponto de partida para experiências incríveis, como passeios de buggy pelas dunas e visitas a destinos paradisíacos próximos, como Jericoacoara e Canoa Quebrada.\n\nA gastronomia local é outro destaque, com sabores marcantes da culinária nordestina — frutos do mar frescos, carne de sol, tapioca e muito mais. À noite, a cidade ganha ainda mais vida com bares, shows de humor (marca registrada da região) e festas animadas.\n\nFortaleza é o destino ideal para quem quer relaxar, se divertir e viver o melhor do Nordeste brasileiro em uma única viagem"
+  },
+  "parcel-fortaleza": {
+    "html": "ou 10x de <b>580,83</b> sem juros"
+  },
+  "incluso-maceio": {
+    "html": "<li>Passagem aérea ida e volta GIG → MCZ (Azul, voo direto)</li><li>Hospedagem 7 noites – Palms Ponta Verde by Tropicalis (4★, café da manhã)</li><li>Passeio - Maragogi (Saindo de Maceió)<br></li><li>Transfer In/Out Aeroporto Maceió ↔ Hotel</li><li>Seguro viagem 20K BRL</li>"
+  },
+  "data-maceio": {
+    "html": "📅 09/07 – 16/07/2026 · 2 pessoas"
+  },
+  "data-balneario": {
+    "html": "📅 11/07 – 15/07/2026 · 2 pessoas"
+  },
+  "data-gramado": {
+    "html": "📅 20/08 – 26/08/2026 · 2 pessoas"
   }
 }
