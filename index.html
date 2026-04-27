@@ -14,6 +14,22 @@
 </head>
 <body>
 
+  <!-- TOP HEADER PREMIUM -->
+  <div class="top-header">
+    <div class="container top-header-inner">
+      <div class="team-brand">
+        <div class="round-photo-wrap">
+          <img src="https://media.infotravel.com.br/image/upload/A60662FD7A54D4C331DE3B0082A79B0E.png" 
+               alt="Patrícia e Tatiana" class="round-photo" data-eid="team-photo" data-elabel="Foto Redonda Equipe" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-welcome" data-eid="top-text-1" data-elabel="Texto Superior 1">Viage com Patrícia e Tatiana</span>
+          <span class="brand-tagline" data-eid="top-text-2" data-elabel="Texto Superior 2">3,2,1 GO!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- HEADER / NAV -->
   <header class="header" id="header">
     <div class="container header-inner">
@@ -25,6 +41,7 @@
       <nav class="nav" id="nav">
         <a href="#inicio" class="nav-link">Início</a>
         <a href="#pacotes" class="nav-link">Pacotes</a>
+        <a href="#orcamento" class="nav-link">Orçamento</a>
         <a href="#sobre" class="nav-link">Sobre</a>
         <a href="#contato" class="nav-link nav-cta" id="nav-cta-btn">Fale Conosco</a>
       </nav>
@@ -81,6 +98,7 @@
       <div class="pkg-tabs" id="pkg-tabs">
         <button class="pkg-tab active" data-cat="nacional" id="tab-nacional">🇧🇷 Nacional</button>
         <button class="pkg-tab" data-cat="internacional" id="tab-internacional">🌍 Internacional</button>
+        <button class="pkg-tab" data-cat="copa" id="tab-copa">🏆 Copa 2026</button>
       </div>
 
       <div class="cards-grid" id="cards-grid">
@@ -90,17 +108,14 @@
   </section>
 
   <script>
-  (function renderPackages() {
-
+  (function initPackages() {
     const grid = document.getElementById('cards-grid');
     const tabs = document.querySelectorAll('.pkg-tab');
-    const removedCards = [];
+    let removedCards = [];
 
-    // Pega lista de cards removidos pelo editor
-    try {
-      const cms = JSON.parse(localStorage.getItem('321go_cms_v1') || '{}');
-      if (Array.isArray(cms.__removed_cards)) removedCards.push(...cms.__removed_cards);
-    } catch(_) {}
+    // CMS data handling
+    const srvCms = window.__321GO_SRV_CMS || {};
+    if (srvCms.__removed_cards) removedCards = srvCms.__removed_cards;
 
     function buildCard(id, p) {
       const thumb = (typeof THUMB !== 'undefined' && THUMB[id]) ? THUMB[id] : (p.images && p.images[0]) || 'imagens/balneario_camboriu.png';
@@ -249,6 +264,46 @@
     </div>
   </section>
 
+  <!-- ORÇAMENTO -->
+  <section class="section budget-section" id="orcamento">
+    <div class="container">
+      <div class="budget-card">
+        <div class="budget-info">
+          <span class="section-tag" data-eid="budget-tag" data-elabel="Tag Orçamento">📝 Solicite agora</span>
+          <h2 class="section-title" data-eid="budget-titulo" data-elabel="Título Orçamento">Peça seu Orçamento Personalizado</h2>
+          <p class="section-sub" data-eid="budget-sub" data-elabel="Subtítulo Orçamento">Preencha os dados abaixo e entraremos em contato com as melhores opções para sua viagem.</p>
+        </div>
+        <form id="budget-form" class="budget-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="b-nome">Seu Nome</label>
+              <input type="text" id="b-nome" placeholder="Ex: João Silva" required />
+            </div>
+            <div class="form-group">
+              <label for="b-whatsapp">WhatsApp</label>
+              <input type="tel" id="b-whatsapp" placeholder="(00) 00000-0000" required />
+            </div>
+            <div class="form-group">
+              <label for="b-destino">Destino Desejado</label>
+              <input type="text" id="b-destino" placeholder="Ex: Gramado, RS" required />
+            </div>
+            <div class="form-group">
+              <label for="b-data">Data Aproximada</label>
+              <input type="text" id="b-data" placeholder="Ex: Julho/2026" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="b-obs">Alguma observação? (Opcional)</label>
+            <textarea id="b-obs" rows="3" placeholder="Ex: Viagem de casal, hotel com piscina..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            🚀 Solicitar Orçamento via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTATO -->
   <section class="section contato-section" id="contato">
     <div class="container">
@@ -304,13 +359,13 @@
         </ul>
       </div>
       <div class="footer-links-col">
-        <h4 class="footer-heading" data-eid="footer-col3-titulo" data-elabel="Título Coluna 3 – Footer">Internacionais</h4>
+        <h4 class="footer-heading" data-eid="footer-col3-titulo" data-elabel="Título Coluna 3 – Footer">Copa 2026 🏆</h4>
         <ul class="footer-list">
-          <li><a href="pacote.html?id=bariloche" class="footer-link">Bariloche</a></li>
           <li><a href="pacote.html?id=copa_mexico" class="footer-link">Cidade do México</a></li>
           <li><a href="pacote.html?id=copa_miami" class="footer-link">Miami + Orlando</a></li>
           <li><a href="pacote.html?id=copa_ny" class="footer-link">Nova York</a></li>
           <li><a href="pacote.html?id=copa_cancun" class="footer-link">México + Cancún</a></li>
+          <li><a href="pacote.html?id=copa_final" class="footer-link">Final da Copa</a></li>
         </ul>
       </div>
       <div class="footer-links-col">
@@ -328,6 +383,26 @@
       <p class="footer-disclaimer" data-eid="footer-disclaimer" data-elabel="Aviso Legal – Footer">Valores sujeitos a alterações. Condicionado à disponibilidade.</p>
     </div>
   </footer>
+
+  <!-- MOBILE MENU PANEL -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <img src="https://media.infotravel.com.br/image/upload/A60662FD7A54D4C331DE3B0082A79B0E.png" alt="Logo" class="mobile-logo" />
+      <button class="close-menu" id="close-menu">&times;</button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="#inicio" class="mobile-link">✨ Início</a>
+      <a href="#pacotes" class="mobile-link mobile-cat-link" data-cat="nacional">🇧🇷 Nacionais</a>
+      <a href="#pacotes" class="mobile-link mobile-cat-link" data-cat="internacional">🌍 Internacionais</a>
+      <a href="#pacotes" class="mobile-link mobile-cat-link" data-cat="copa">🏆 Copa (Jogos do Brasil)</a>
+      <a href="#orcamento" class="mobile-link">📝 Pedir Orçamento</a>
+      <a href="#sobre" class="mobile-link">👥 Sobre Nós</a>
+      <a href="#contato" class="mobile-link">📞 Contato</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="https://wa.me/5521966501302" class="btn btn-primary btn-block">💬 WhatsApp Agora</a>
+    </div>
+  </div>
 
   <!-- WHATSAPP FLOAT -->
   <a href="https://wa.me/5521966501302?text=Olá%2C+gostaria+de+saber+mais+sobre+os+pacotes!" class="wpp-float" target="_blank" rel="noopener" id="wpp-float"

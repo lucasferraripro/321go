@@ -99,8 +99,8 @@
 ### Repositórios GitHub
 | Site | Repo |
 |------|------|
-| 321 GO! | https://github.com/lucasferraripro/321go |
-| Me Guia Viagens | https://github.com/lucasferraripro/meguiaviagens-site |
+| 321 GO! | https://github.com/lucashenrquebread/321go |
+| Me Guia Viagens | https://github.com/lucashenrquebread/meguiaviagens-site |
 
 ### Variáveis de ambiente necessárias no Vercel
 - `GITHUB_TOKEN` — token pessoal do GitHub para o CMS gravar conteúdo

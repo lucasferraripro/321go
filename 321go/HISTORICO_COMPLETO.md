@@ -2,7 +2,7 @@
 **Projeto:** Site 321 GO! Agência de Viagens  
 **Cliente:** Patrícia e Tatiana  
 **Site:** https://321go-psi.vercel.app  
-**Repositório:** https://github.com/lucasferraripro/321go  
+**Repositório:** https://github.com/lucashenrquebread/321go  
 **Período:** 18–20/04/2026  
 
 ---
@@ -313,7 +313,7 @@ Identificados no `pacote.html` (DB):
 | Site publicado | https://321go-psi.vercel.app |
 | Modo editor | https://321go-psi.vercel.app/index.html?editor=1 |
 | Login admin | https://321go-psi.vercel.app/admin/login.html |
-| Repositório GitHub | https://github.com/lucasferraripro/321go |
+| Repositório GitHub | https://github.com/lucashenrquebread/321go |
 | Vercel Dashboard | https://vercel.com/lucasferraris-projects-65d9de34/321go |
 
 ---

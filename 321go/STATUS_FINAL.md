@@ -1,7 +1,7 @@
 # 321 GO! — Status Final da Sessão
 **Data:** 20/04/2026  
 **Site:** https://321go-psi.vercel.app  
-**Repositório:** https://github.com/lucasferraripro/321go  
+**Repositório:** https://github.com/lucashenrquebread/321go  
 
 ---
 

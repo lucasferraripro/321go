@@ -406,6 +406,44 @@ const DB = {
             { dia: '8º Dia', title: 'Isla Mujeres + Mergulho', desc: 'Passeio de barco para Isla Mujeres. Snorkel no recife de coral.' },
             { dia: '9º Dia', title: 'Retorno ao Brasil', desc: 'Último café da manhã no resort. Transfer ao aeroporto CUN.' }
         ]
+    },
+
+    copa_final: {
+        category: 'copa',
+        title:    '🏆 Final da Copa + Nova York',
+        subtitle: 'O auge da Copa do Mundo com o luxo de Manhattan',
+        location: 'Nova York, NY, EUA',
+        duration: '7 dias / 6 noites',
+        price:       '49.900,00',
+        priceCartao: '49.900,00',
+        parcelas:    'Consulte condições de parcelamento',
+        flag:  'Copa 2026 🏆🗽',
+        badge: '💎 Luxo',
+        images: [
+            'imagens/copa_estadio.png',
+            'imagens/nova_york.png',
+            'imagens/miami.png'
+        ],
+        dates: '📅 Consulte datas disponíveis',
+        desc: 'Viva o momento mais esperado do esporte mundial! Este pacote exclusivo leva você para a grande Final da Copa do Mundo 2026, com hospedagem de luxo em Manhattan, Nova York. Uma experiência inesquecível combinando futebol de elite e o melhor da Big Apple.',
+        incluso: [
+            'Passagem aérea (Econômica Premium)',
+            'Hospedagem Hotel 4★/5★ em Manhattan',
+            '🎟 INGRESSO PARA A FINAL DA COPA',
+            '🍽 Experiências VIP e jantares exclusivos',
+            '🚐 Transfer executivo aeroporto/estádio',
+            '🚁 Passeio de helicóptero sobre NYC'
+        ],
+        nao_incluso: ['Demais refeições', 'Seguro viagem', 'Passeios extras', 'Gorjetas'],
+        roteiro: [
+            { dia: '1º Dia', title: 'Chegada a Nova York', desc: 'Transfer executivo do aeroporto para o hotel em Manhattan. Check-in e jantar de boas-vindas.' },
+            { dia: '2º Dia', title: 'Experiência NYC', desc: 'City tour privado pelos principais pontos da cidade e passeio de helicóptero.' },
+            { dia: '3º Dia', title: 'DIA DA GRANDE FINAL 🏆', desc: '🏆 O ápice! Transfer executivo para o estádio para assistir à Final da Copa do Mundo.' },
+            { dia: '4º Dia', title: 'Dia de Celebração', desc: 'Dia livre para compras na 5ª Avenida ou relaxar no Central Park.' },
+            { dia: '5º Dia', title: 'Cultura e Gastronomia', desc: 'Visita a museus ou shows da Broadway (opcional) com assessoria da agência.' },
+            { dia: '6º Dia', title: 'Despedida de NYC', desc: 'Último dia para desfrutar da cidade. Jantar de encerramento.' },
+            { dia: '7º Dia', title: 'Retorno ao Brasil', desc: 'Transfer executivo para o aeroporto e voo de retorno.' }
+        ]
     }
 
 }; // fim DB

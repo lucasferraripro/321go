@@ -1,60 +1,90 @@
 // 321 GO! — main.js
-const hamburger = document.getElementById('hamburger');
-const nav = document.getElementById('nav');
-if (hamburger && nav) {
-  hamburger.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    const spans = hamburger.querySelectorAll('span');
-    if (nav.classList.contains('open')) {
-      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-    } else {
-      spans[0].style.transform = ''; spans[1].style.opacity = ''; spans[2].style.transform = '';
+
+(function initApp() {
+  // ─── MOBILE MENU LOGIC ───
+  const hamburger = document.getElementById('hamburger');
+  const closeMenu = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  function closeMobileMenu() {
+    if (mobileMenu) {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
     }
-  });
-  nav.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+
+  if (closeMenu) closeMenu.addEventListener('click', closeMobileMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const cat = link.dataset.cat;
+      if (cat && window.renderCat) {
+        window.renderCat(cat);
+      }
+      closeMobileMenu();
     });
   });
-}
 
+  // ─── BUDGET FORM LOGIC ───
+  const budgetForm = document.getElementById('budget-form');
+  if (budgetForm) {
+    budgetForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('b-nome').value;
+      const zap = document.getElementById('b-whatsapp').value;
+      const destino = document.getElementById('b-destino').value;
+      const data = document.getElementById('b-data').value;
+      const obs = document.getElementById('b-obs').value;
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const delay = entry.target.dataset.delay || 0;
-      setTimeout(() => { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }, delay);
-      observer.unobserve(entry.target);
+      const msg = encodeURIComponent(
+        `Olá Patrícia e Tatiana! Gostaria de um orçamento:\n\n` +
+        `👤 *Nome:* ${nome}\n` +
+        `📱 *WhatsApp:* ${zap}\n` +
+        `📍 *Destino:* ${destino}\n` +
+        `📅 *Data:* ${data}\n` +
+        `📝 *Obs:* ${obs || 'Nenhuma'}`
+      );
+      window.open(`https://wa.me/5521966501302?text=${msg}`, '_blank');
+    });
+  }
+
+  // ─── HEADER SCROLL EFFECT ───
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (header) {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.card, .copa-card, .contato-card, .feature-item').forEach((el, i) => {
-  el.style.opacity = '0'; el.style.transform = 'translateY(32px)';
-  el.style.transition = 'opacity .6s ease, transform .6s ease';
-  el.dataset.delay = (i % 3) * 100;
-  observer.observe(el);
-});
+  // ─── ANIMATIONS ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
 
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => { if (window.scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
-  navLinks.forEach(link => {
-    link.style.color = '';
-    if (link.getAttribute('href') === '#' + current && !link.classList.contains('nav-cta')) link.style.color = '#f07040';
+  document.querySelectorAll('.card, .contato-card, .feature-item, .budget-card').forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
   });
-});
 
-const wppFloat = document.getElementById('wpp-float');
-if (wppFloat) {
-  wppFloat.style.opacity = '0'; wppFloat.style.transform = 'translateY(20px)'; wppFloat.style.transition = 'opacity .4s ease, transform .4s ease';
-  window.addEventListener('scroll', () => {
-    wppFloat.style.opacity = window.scrollY > 300 ? '1' : '0';
-    wppFloat.style.transform = window.scrollY > 300 ? 'translateY(0)' : 'translateY(20px)';
-  });
-}
+})();
+

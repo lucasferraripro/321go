@@ -1,7 +1,7 @@
 # 321 GO! — Registro de Sessão de Desenvolvimento
 **Data:** 18/04/2026  
 **Projeto:** Site 321 GO! Agência de Viagens  
-**Repositório:** https://github.com/lucasferraripro/321go  
+**Repositório:** https://github.com/lucashenrquebread/321go  
 **Site publicado:** https://321go-psi.vercel.app  
 
 ---
@@ -263,5 +263,5 @@ Isso garante que o servidor é sempre consultado antes de renderizar, independen
 - **Site:** https://321go-psi.vercel.app
 - **Editor:** https://321go-psi.vercel.app/index.html?editor=1
 - **Login admin:** https://321go-psi.vercel.app/admin/login.html
-- **Repositório:** https://github.com/lucasferraripro/321go
+- **Repositório:** https://github.com/lucashenrquebread/321go
 - **Vercel dashboard:** https://vercel.com/lucasferraris-projects-65d9de34/321go
