@@ -42,6 +42,7 @@
       const zap = document.getElementById('b-whatsapp').value;
       const destino = document.getElementById('b-destino').value;
       const data = document.getElementById('b-data').value;
+      const pessoas = document.getElementById('b-pessoas').value;
       const obs = document.getElementById('b-obs').value;
 
       const msg = encodeURIComponent(
@@ -50,6 +51,7 @@
         `📱 *WhatsApp:* ${zap}\n` +
         `📍 *Destino:* ${destino}\n` +
         `📅 *Data:* ${data}\n` +
+        `👥 *Nº de Pessoas:* ${pessoas}\n` +
         `📝 *Obs:* ${obs || 'Nenhuma'}`
       );
       window.open(`https://wa.me/5521966501302?text=${msg}`, '_blank');

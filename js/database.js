@@ -256,6 +256,43 @@ const DB = {
         ]
     },
 
+    paris: {
+        category: 'internacional',
+        title:    'Paris Clássica – A Cidade Luz',
+        subtitle: 'Torre Eiffel, Louvre e cruzeiro pelo Rio Sena',
+        location: 'Paris, França',
+        duration: '7 dias / 6 noites',
+        price:       '8.950,00',
+        priceCartao: '8.950,00',
+        parcelas:    '10x de R$ 895,00 sem juros',
+        flag:  'França 🇫🇷',
+        badge: '⭐ Popular',
+        images: [
+            'https://images.unsplash.com/photo-1502602898657-3e90760b2172?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&w=800&q=80'
+        ],
+        dates: '📅 Consulte datas para 2026',
+        desc: 'Descubra a magia de Paris! Um roteiro imperdível pela capital francesa, com passeios pelos principais cartões-postais do mundo: Torre Eiffel, Museu do Louvre, Arco do Triunfo e um cruzeiro pelas águas do Rio Sena.',
+        incluso: [
+            'Passagem aérea ida e volta',
+            'Hospedagem 6 noites com café da manhã em hotel central',
+            'Ingresso para o 2º andar da Torre Eiffel',
+            'Passeio de barco Bateaux Parisiens no Rio Sena',
+            'Transfer In/Out Aeroporto CDG ↔ Hotel'
+        ],
+        nao_incluso: ['Almoços e jantares', 'Taxas locais', 'Gorjetas'],
+        roteiro: [
+            { dia: '1º Dia', title: 'Chegada a Paris', desc: 'Transfer do aeroporto ao hotel. Tarde livre para caminhar pelas margens do Sena.' },
+            { dia: '2º Dia', title: 'City Tour', desc: 'Arco do Triunfo, Champs-Élysées e Torre Eiffel.' },
+            { dia: '3º Dia', title: 'Museu do Louvre', desc: 'Dia dedicado para explorar o Louvre e o Jardim das Tulherias.' },
+            { dia: '4º Dia', title: 'Montmartre', desc: 'Passeio pelo bairro boêmio de Montmartre e Basílica de Sacré-Cœur.' },
+            { dia: '5º Dia', title: 'Cruzeiro no Sena', desc: 'Noite com passeio de barco com vistas deslumbrantes de Paris iluminada.' },
+            { dia: '6º Dia', title: 'Dia Livre', desc: 'Tempo livre para compras ou passeios opcionais.' },
+            { dia: '7º Dia', title: 'Retorno', desc: 'Café da manhã, check-out e transfer ao aeroporto.' }
+        ]
+    },
+
     /* ════ COPA 2026 ════ */
     copa_mexico: {
         category: 'copa',

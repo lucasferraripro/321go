@@ -4,64 +4,32 @@
 
 ---
 
-## ✅ FEITO — Correções aplicadas hoje
+## ✅ FEITO — Correções aplicadas hoje (28/04/2026)
 
-### 1. Preços errados nos cards da home (lado de fora)
-**Problema:** Os cards exibiam valores incorretos:
-- Curitiba mostrava **R$ 304** (errado) → correto é **R$ 1.794,00** (PIX) / R$ 1.882,50 (cartão)
-- Maceió mostrava **R$ 4.281** (estava certo no DB mas sobrescrito)
-- Bariloche mostrava **R$ 892** (era a parcela, não o preço total)
-- Gramado mostrava **R$ 255** (era a parcela, não o preço total)
+### 1. Cabeçalho Premium e Textos
+**Solicitação:** Colocar um cabeçalho com texto e fundo paradisíaco, mantendo a foto redonda do lado esquerdo. Textos: "Viage com Patrícia e Tatiana" e "3,2,1 GO!".
+**Status:** ✅ Feito e publicado! O novo cabeçalho substituiu o antigo layout básico.
 
-**Causa:** O `database.js` com os preços corretos nunca tinha sido publicado no GitHub. O site usava uma versão antiga.
+### 2. Formulário de Orçamento
+**Solicitação:** Formulário de solicitação de orçamento direto para WhatsApp.
+**Status:** ✅ Feito e publicado! A seção "#orcamento" foi implementada com campos interativos redirecionando para o número correto.
 
-**Correção aplicada:**
-- `js/database.js` publicado com todos os preços corretos
-- `content.json` limpo com valores corretos para todos os pacotes
+### 3. Recuperação da Copa 2026 e Novos Pacotes
+**Solicitação:** Recuperar os pacotes da Copa e adicionar mais destinos.
+**Status:** ✅ Feito! A aba "🏆 Copa 2026" foi restaurada contendo 5 pacotes (México, Miami, Nova York, Cancún e a Grande Final). 
 
-**Valores corretos publicados:**
-| Pacote | PIX | Cartão | Parcelas |
-|--------|-----|--------|----------|
-| Balneário Camboriú | R$ 2.486,13 | R$ 2.605,80 | 10x R$ 260,58 |
-| Maceió | R$ 4.281,83 | R$ 4.502,69 | 10x R$ 450,27 |
-| Curitiba | R$ 1.794,00 | R$ 1.882,50 | 10x R$ 188,25 |
-| Gramado | R$ 2.550,00 | R$ 2.550,00 | 10x R$ 255,00 |
-| Bariloche | R$ 10.704,00 | R$ 10.704,00 | 12x R$ 892,00 |
-| Porto Seguro | R$ 2.399,72 | R$ 2.399,72 | 10x R$ 239,97 |
-
----
-
-### 2. Clique no card redireciona em vez de abrir o editor
-**Problema:** No modo editor, ao clicar em qualquer elemento do card (preço, título, etc.) para editar, o site navegava para a página do pacote em vez de abrir o painel de edição.
-
-**Causa:** O `article` tinha `onclick="location.href=..."` que disparava antes do editor capturar o evento.
-
-**Correção aplicada:** Substituído por `addEventListener('click')` que verifica se o modo editor está ativo (`body.classList.contains('go-on')`) antes de navegar.
-
----
-
-### 3. Pacotes de teste aparecendo no site
-**Problema:** Pacotes `teste` e `teste_a` (criados durante testes do editor) estavam salvos no `content.json` e apareciam na home.
-
-**Correção aplicada:** Removidos do `content.json`. Apenas `copa-final` permanece na lista de removidos (foi removido intencionalmente).
+### 4. Reorganização do Menu Mobile
+**Solicitação:** Organizar o Menu (3 tracinhos) com Nacionais, Internacionais e Copa.
+**Status:** ✅ Feito! O menu lateral (hambúrguer) agora abre focado na navegação destas categorias, além dos links institucionais e de orçamento.
 
 ---
 
 ## ⚠️ PENDENTE — Ainda precisa ser verificado/testado
 
-### 4. Seção "Explorar Mais" / "Outros Destinos" — destinos internacionais
+### 5. Seção "Explorar Mais" / "Outros Destinos" — destinos internacionais
 **Solicitação:** Aproveitar a seção "Explorar Mais" (outros destinos) para mostrar destinos internacionais.
-
 **Status:** Solicitado mas ainda não implementado. Precisa definir quais destinos internacionais mostrar nessa seção.
 
----
-
-### 5. Verificar se os preços aparecem corretos após deploy
-**O que testar:**
-- Abrir https://321go-psi.vercel.app
-- Verificar aba **Nacional**: Curitiba deve mostrar R$ 1.794,00, Gramado R$ 2.550,00, Bariloche R$ 10.704,00
-- Verificar aba **Internacional**: Bariloche deve aparecer com preço correto
-- No modo editor: clicar no preço de um card deve abrir o painel de edição (não navegar)
 
 ---
 
