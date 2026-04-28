@@ -277,24 +277,50 @@
         <form id="budget-form" class="budget-form">
           <div class="form-grid">
             <div class="form-group">
-              <label for="b-nome">Seu Nome</label>
-              <input type="text" id="b-nome" placeholder="Ex: João Silva" required />
+              <label for="b-nome">Nome Completo</label>
+              <input type="text" id="b-nome" placeholder="Ex: Maria Silva" required />
             </div>
             <div class="form-group">
               <label for="b-whatsapp">WhatsApp</label>
-              <input type="tel" id="b-whatsapp" placeholder="(00) 00000-0000" required />
-            </div>
-            <div class="form-group">
-              <label for="b-destino">Destino Desejado</label>
-              <input type="text" id="b-destino" placeholder="Ex: Gramado, RS" required />
-            </div>
-            <div class="form-group">
-              <label for="b-data">Data Aproximada</label>
-              <input type="text" id="b-data" placeholder="Ex: Julho/2026" />
+              <input type="tel" id="b-whatsapp" placeholder="(85) 99999-9999" required />
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
-              <label for="b-pessoas">Nº de Pessoas</label>
-              <input type="text" id="b-pessoas" placeholder="Ex: 2 adultos, 1 criança" required />
+              <label for="b-email">E-mail</label>
+              <input type="email" id="b-email" placeholder="seu@email.com" required />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="b-destino">Destino</label>
+              <select id="b-destino" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit; font-size: 1rem; color: #1f2937; background-color: #f9fafb;">
+                <option value="">Selecione...</option>
+                <option value="Balneário Camboriú">Balneário Camboriú</option>
+                <option value="Maceió">Maceió</option>
+                <option value="Curitiba">Curitiba</option>
+                <option value="Gramado">Gramado</option>
+                <option value="Porto Seguro">Porto Seguro</option>
+                <option value="Bariloche">Bariloche</option>
+                <option value="Paris">Paris</option>
+                <option value="Copa do Mundo">Copa do Mundo</option>
+                <option value="Outro Destino">Outro Destino</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="b-adultos">Nº de Viajantes (Adultos)</label>
+              <input type="number" id="b-adultos" min="1" value="2" required />
+            </div>
+            <div class="form-group">
+              <label>Vai com crianças?</label>
+              <div style="display:flex;gap:12px;margin-top:8px;">
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="b-criancas" value="sim" onchange="document.getElementById('b-criancas-idade').style.display='block'" style="width:auto;height:auto;margin:0;"> Sim</label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="b-criancas" value="nao" checked onchange="document.getElementById('b-criancas-idade').style.display='none'" style="width:auto;height:auto;margin:0;"> Não</label>
+              </div>
+            </div>
+            <div class="form-group" id="b-criancas-idade" style="display:none; grid-column: 1 / -1;">
+              <label for="b-idades">Idade das crianças</label>
+              <input type="text" id="b-idades" placeholder="Ex: 5 e 8 anos" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="b-data">Data Aproximada</label>
+              <input type="text" id="b-data" placeholder="Ex: Julho/2026" required />
             </div>
           </div>
           <div class="form-group">

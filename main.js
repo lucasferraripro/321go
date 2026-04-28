@@ -40,18 +40,28 @@
       e.preventDefault();
       const nome = document.getElementById('b-nome').value;
       const zap = document.getElementById('b-whatsapp').value;
+      const email = document.getElementById('b-email').value;
       const destino = document.getElementById('b-destino').value;
       const data = document.getElementById('b-data').value;
-      const pessoas = document.getElementById('b-pessoas').value;
+      const adultos = document.getElementById('b-adultos').value;
+      const temCriancas = document.querySelector('input[name="b-criancas"]:checked').value === 'sim';
+      const idades = document.getElementById('b-idades').value;
       const obs = document.getElementById('b-obs').value;
+
+      let viajantes = `${adultos} adulto(s)`;
+      if (temCriancas) {
+        viajantes += ` + crianças`;
+        if (idades) viajantes += ` (idades: ${idades})`;
+      }
 
       const msg = encodeURIComponent(
         `Olá Patrícia e Tatiana! Gostaria de um orçamento:\n\n` +
         `👤 *Nome:* ${nome}\n` +
         `📱 *WhatsApp:* ${zap}\n` +
+        `📧 *E-mail:* ${email}\n` +
         `📍 *Destino:* ${destino}\n` +
-        `📅 *Data:* ${data}\n` +
-        `👥 *Nº de Pessoas:* ${pessoas}\n` +
+        `📅 *Data Aproximada:* ${data}\n` +
+        `👥 *Viajantes:* ${viajantes}\n` +
         `📝 *Obs:* ${obs || 'Nenhuma'}`
       );
       window.open(`https://wa.me/5521966501302?text=${msg}`, '_blank');
